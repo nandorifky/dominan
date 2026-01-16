@@ -1,0 +1,214 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+// DATA PORTFOLIO
+const projects = [
+  {
+    title: "Toko Sepatu 'KicksID'",
+    category: "website",
+    image: "https://placehold.co/800x600/111/FFF?text=E-Commerce+Project",
+    client: "Retail Fashion",
+    desc: "Migrasi dari WooCommerce berat ke Astro.js. Loading speed meningkat dari 5.2s menjadi 0.8s.",
+    stats: { label: "Speed Increase", value: "6x Faster" },
+    tags: ["Astro", "Redesign", "Speed Opt"]
+  },
+  {
+    title: "Distributor Baja Ringan",
+    category: "seo",
+    image: "https://placehold.co/800x600/FFC900/000?text=SEO+Graph+Rising",
+    client: "B2B Construction",
+    desc: "Dominasi kata kunci 'distributor baja ringan' di 5 kota besar di Jawa Timur.",
+    stats: { label: "Organic Leads", value: "+450%" },
+    tags: ["Local SEO", "GMB", "Content Strategy"]
+  },
+  {
+    title: "Klinik Kecantikan 'GlowUp'",
+    category: "ads",
+    image: "https://placehold.co/800x600/22c55e/FFF?text=Ads+Dashboard",
+    client: "Health & Beauty",
+    desc: "Optimasi landing page dan setup Google Ads Search + Display Remarketing.",
+    stats: { label: "ROAS", value: "1:8" },
+    tags: ["Google Ads", "Landing Page", "Conversion"]
+  },
+  {
+    title: "Portal Berita 'WartaKota'",
+    category: "website",
+    image: "https://placehold.co/800x600/333/FFF?text=News+Portal",
+    client: "Media",
+    desc: "Website berita high-traffic yang tahan banting (C10K problem solved).",
+    stats: { label: "Traffic", value: "50k/Day" },
+    tags: ["Server Opt", "News SEO", "AdSense"]
+  },
+  {
+    title: "Jasa Sedot WC Jakarta",
+    category: "seo",
+    image: "https://placehold.co/800x600/555/FFF?text=Local+Service",
+    client: "Service Business",
+    desc: "Persaingan paling brutal di SEO. Masuk page 1 dalam 4 bulan teknik White Hat.",
+    stats: { label: "Ranking", value: "#1 - #3" },
+    tags: ["Backlink PBN", "On-Page", "Tech SEO"]
+  },
+  {
+    title: "Property Launching",
+    category: "ads",
+    image: "https://placehold.co/800x600/blue/FFF?text=Lead+Gen",
+    client: "Real Estate",
+    desc: "Lead generation untuk jualan apartemen. Fokus pada kualitas lead, bukan kuantitas.",
+    stats: { label: "Sold Out", value: "3 Months" },
+    tags: ["FB Ads", "Lead Form", "CRM"]
+  }
+];
+
+const pageTitle = "Portfolio & Hasil Kerja | Dominan Web";
+const pageDesc = "Bukan sekadar galeri gambar. Ini adalah kumpulan bukti bagaimana kami melipatgandakan omzet klien lewat teknologi dan strategi.";
+---
+
+<Layout title={pageTitle} description={pageDesc}>
+
+  {/* =========================================
+      1. HERO: SHOWCASE
+     ========================================= */}
+  <header class="relative bg-zinc-50 border-b-3 border-dom-black pt-24 pb-16 md:pt-32 md:pb-20">
+    <div class="container mx-auto px-6 text-center">
+        {/* FIX: Font size mobile lebih aman (text-4xl) */}
+        <h1 class="text-4xl md:text-8xl font-bold uppercase leading-none text-dom-black mb-8 tracking-tighter">
+            Bukti.<br>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-dom-black to-gray-500">Bukan Janji.</span>
+        </h1>
+        <p class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed border-b-2 border-black pb-8 inline-block">
+            Kami membiarkan data yang berbicara. Berikut adalah beberapa project terpilih yang berhasil kami eskalasi.
+        </p>
+
+        {/* FILTER BUTTONS (MOBILE SCROLL FIX) */}
+<div class="w-full flex flex-nowrap md:flex-wrap overflow-x-auto pb-4 md:pb-0 justify-start md:justify-center gap-4 mt-12 snap-x px-1 no-scrollbar mx-auto" id="portfolio-filters">
+            <button data-filter="all" class="filter-btn flex-shrink-0 snap-center active bg-dom-black text-white px-6 py-2 font-bold uppercase border-2 border-black hover:bg-dom-yellow hover:text-black transition-all shadow-neo">
+                Semua
+            </button>
+            <button data-filter="website" class="filter-btn flex-shrink-0 snap-center bg-white text-black px-6 py-2 font-bold uppercase border-2 border-black hover:bg-dom-yellow transition-all hover:shadow-neo">
+                Website
+            </button>
+            <button data-filter="seo" class="filter-btn flex-shrink-0 snap-center bg-white text-black px-6 py-2 font-bold uppercase border-2 border-black hover:bg-dom-yellow transition-all hover:shadow-neo">
+                SEO & Backlink
+            </button>
+            <button data-filter="ads" class="filter-btn flex-shrink-0 snap-center bg-white text-black px-6 py-2 font-bold uppercase border-2 border-black hover:bg-dom-yellow transition-all hover:shadow-neo">
+                Google Ads
+            </button>
+        </div>
+    </div>
+  </header>
+
+  {/* =========================================
+      2. GALLERY GRID
+     ========================================= */}
+  <section class="py-16 md:py-20 bg-white min-h-screen">
+      <div class="container mx-auto px-6">
+          
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="portfolio-grid">
+              {projects.map((project) => (
+                  <div class="portfolio-item group relative bg-white border-3 border-dom-black flex flex-col h-full transition-all hover:-translate-y-2 hover:shadow-neo" data-category={project.category}>
+                      
+                      {/* Image Container */}
+                      <div class="relative h-64 overflow-hidden border-b-3 border-dom-black">
+                          {/* Overlay hanya muncul di desktop (hidden di mobile) */}
+                          <div class="hidden md:block absolute inset-0 bg-dom-yellow opacity-0 group-hover:opacity-20 transition-opacity z-10"></div>
+                          
+                          <img 
+                            src={project.image} 
+                            alt={project.title} 
+                            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 md:grayscale md:group-hover:grayscale-0"
+                          />
+                          
+                          {/* Floating Badge */}
+                          <div class="absolute top-4 right-4 bg-dom-black text-white text-xs font-bold px-3 py-1 uppercase tracking-widest z-20">
+                              {project.category}
+                          </div>
+                      </div>
+
+                      {/* Content */}
+                      <div class="p-6 flex flex-col flex-grow">
+                          <div class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">{project.client}</div>
+                          <h3 class="text-2xl font-bold uppercase mb-4 leading-tight group-hover:text-dom-blue transition-colors">{project.title}</h3>
+                          <p class="text-gray-600 mb-6 text-sm leading-relaxed flex-grow">
+                              {project.desc}
+                          </p>
+                          
+                          {/* Stat Box */}
+                          <div class="bg-zinc-100 border-2 border-black p-4 mb-6 flex justify-between items-center">
+                              <span class="text-xs font-bold uppercase text-gray-500">{project.stats.label}</span>
+                              <span class="text-xl font-bold text-green-600">{project.stats.value}</span>
+                          </div>
+
+                          {/* Tags */}
+                          <div class="flex flex-wrap gap-2 mt-auto">
+                              {project.tags.map(tag => (
+                                  <span class="text-[10px] font-bold uppercase bg-dom-black text-white px-2 py-1">
+                                      {tag}
+                                  </span>
+                              ))}
+                          </div>
+                      </div>
+
+                  </div>
+              ))}
+          </div>
+
+      </div>
+  </section>
+
+  {/* =========================================
+      3. CTA: BE THE NEXT
+     ========================================= */}
+  <section class="py-24 bg-dom-black text-center border-t-3 border-dom-yellow">
+      <div class="container mx-auto px-6">
+          <h2 class="text-3xl md:text-5xl font-bold uppercase mb-8 text-white">
+              Ingin Hasil Seperti Mereka?
+          </h2>
+          <p class="text-gray-400 mb-12 max-w-2xl mx-auto">
+              Setiap hari Anda menunda, kompetitor Anda sedang mencuri pelanggan potensial Anda di Google. Hentikan mereka sekarang.
+          </p>
+          <button onclick="document.getElementById('contactModal').classList.remove('hidden')" class="bg-dom-yellow text-black px-12 py-5 font-bold text-xl border-4 border-white shadow-[8px_8px_0px_0px_#FFF] hover:shadow-none hover:translate-y-1 transition-all uppercase tracking-widest">
+              Konsultasi Project
+          </button>
+      </div>
+  </section>
+
+</Layout>
+
+<style>
+    /* Utility class untuk menyembunyikan scrollbar tapi tetap bisa discroll */
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+</style>
+
+<script>
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const items = document.querySelectorAll('.portfolio-item');
+
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Remove active class
+            filterBtns.forEach(b => {
+                b.classList.remove('bg-dom-black', 'text-white', 'shadow-neo');
+                b.classList.add('bg-white', 'text-black');
+            });
+            // Add active class to clicked
+            btn.classList.remove('bg-white', 'text-black');
+            btn.classList.add('bg-dom-black', 'text-white', 'shadow-neo');
+
+            const filterValue = btn.getAttribute('data-filter');
+
+            items.forEach(item => {
+                if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                    item.classList.remove('hidden');
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
+        });
+    });
+</script>

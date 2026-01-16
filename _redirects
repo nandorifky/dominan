@@ -1,0 +1,16 @@
+# === KASUS 1: Migrasi Halaman Lama (SEO Rescue) ===
+# Dulu urlnya /blog/cara-seo sekarang jadi /blog/tips-seo-2026
+/blog/cara-seo  /blog/tips-seo-2026  301
+
+# Dulu urlnya /contact sekarang pakai modal box di home
+/contact        /                    301
+
+# === KASUS 2: Marketing Shortlink (Vanity URL) ===
+# Biar gampang diketik di Instagram/Flyer
+/wa             https://wa.me/62895395094329?text=Halo  302
+/ig             https://instagram.com/dominan.web      302
+/portofolio     /portfolio                             301
+
+# === KASUS 3: Mencegah 404 Bodoh ===
+# Kadang orang salah ketik /services/seo/ (pakai slash belakang)
+/services/seo/  /services/seo        301

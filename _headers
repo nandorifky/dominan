@@ -1,0 +1,20 @@
+# Security Headers Dasar
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+
+# Cache Control untuk Aset Statis (Gambar, Font) - Cache 1 Tahun
+/images/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Cache untuk CSS/JS Build Astro - Cache 1 Bulan
+/_astro/*
+  Cache-Control: public, max-age=2592000, immutable
+
+# Halaman HTML jangan dicache terlalu lama (agar update konten cepat terlihat)
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate

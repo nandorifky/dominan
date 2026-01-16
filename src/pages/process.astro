@@ -1,0 +1,173 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const pageData = {
+  title: "Alur Kerja & Metodologi | Dominan Web",
+  seoDesc: "Kami tidak bekerja pakai insting. Kami bekerja pakai data. Inilah sistem 5 tahap yang kami gunakan untuk memastikan website Anda mendominasi pasar.",
+  
+  // STEP BY STEP (The Blueprint)
+  steps: [
+    {
+      phase: "01",
+      title: "Audit & Bongkar Masalah",
+      desc: "Sebelum satu baris kode ditulis, kami membongkar bisnis Anda. Siapa kompetitornya? Kenapa website lama lemot? Keyword apa yang 'uangnya banyak'? Kami tidak menebak, kami melihat data.",
+      icon: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z", // Search/Audit
+      color: "bg-dom-yellow"
+    },
+    {
+      phase: "02",
+      title: "Arsitektur & Strategi",
+      desc: "Kami menyusun struktur website (Silo Structure) yang disukai Google. Kami merancang UI/UX yang memaksa pengunjung untuk menekan tombol beli. Ini adalah cetak biru kesuksesan.",
+      icon: "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 002 2h2a2 2 0 002-2z", // Chart/Architecture
+      color: "bg-white"
+    },
+    {
+      phase: "03",
+      title: "Development (Code Brutal)",
+      desc: "Tim engineer kami mulai bekerja. Tanpa builder berat (Elementor/Divi). Kami coding manual menggunakan Astro.js dan Tailwind untuk mencapai kecepatan loading di bawah 1 detik.",
+      icon: "M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4", // Code
+      color: "bg-dom-black",
+      textColor: "text-white"
+    },
+    {
+      phase: "04",
+      title: "Paranoid Quality Control",
+      desc: "Sebelum launch, kami melakukan stress-test. Cek Mobile Responsiveness di 10+ ukuran layar. Cek skor SEO Lighthouse (Target: 100/100). Cek keamanan server. Tidak ada celah error.",
+      icon: "M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z", // Check
+      color: "bg-zinc-100"
+    },
+    {
+      phase: "05",
+      title: "Launch & Dominasi",
+      desc: "Website diterbitkan. Sitemap dikirim ke Google Search Console. Tracking Pixel (FB/Google Ads) dipasang. Kami memantau trafik masuk dan memastikan grafik mulai naik.",
+      icon: "M13 10V3L4 14h7v7l9-11h-7z", // Lightning/Launch
+      color: "bg-green-500",
+      textColor: "text-white",
+      isFinal: true
+    }
+  ],
+
+  // TOOLS WE USE (Tech Stack)
+  stack: [
+    { name: "Astro", type: "Framework" },
+    { name: "Tailwind CSS", type: "Styling" },
+    { name: "React", type: "Interactivity" },
+    { name: "Cloudflare", type: "Global CDN" },
+    { name: "Ahrefs", type: "SEO Intelligence" },
+    { name: "Google GSC", type: "Data Source" }
+  ]
+};
+
+// Schema Markup (HowTo)
+const schemaData = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "Alur Kerja Pembuatan Website High Performance",
+  "step": pageData.steps.map(step => ({
+    "@type": "HowToStep",
+    "name": step.title,
+    "text": step.desc,
+    "position": step.phase
+  }))
+};
+---
+
+<Layout 
+  title={pageData.title}
+  description={pageData.seoDesc}
+>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(schemaData)} />
+
+  {/* =========================================
+      1. HERO: SYSTEM OVER LUCK
+     ========================================= */}
+  <header class="relative bg-zinc-50 border-b-3 border-dom-black pt-32 pb-20 overflow-hidden">
+    {/* Decorative Elements */}
+    <div class="absolute top-0 right-0 w-1/2 h-full bg-gray-200 opacity-20 -skew-x-12 transform origin-top-right"></div>
+    
+    <div class="py-6 container mx-auto px-6 relative z-10 text-center">
+        <div class="inline-block border-2 border-black px-4 py-1 font-bold uppercase tracking-widest bg-white shadow-[4px_4px_0px_0px_#000] mb-6">
+            Our Methodology
+        </div>
+        <h1 class="text-4xl md:text-7xl font-bold uppercase leading-none text-dom-black mb-6 tracking-tighter">
+            Sukses Itu <br>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-dom-black to-gray-500">Terencana.</span>
+        </h1>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+            Kami tidak percaya keberuntungan. Kami percaya pada sistem yang teruji, data yang akurat, dan eksekusi yang disiplin.
+        </p>
+    </div>
+  </header>
+
+  {/* =========================================
+      2. THE BLUEPRINT (Steps)
+     ========================================= */}
+  <section class="py-24 bg-white relative">
+      {/* Connector Line (Desktop) */}
+      <div class="hidden md:block absolute left-1/2 top-0 bottom-0 w-1 bg-black transform -translate-x-1/2 z-0"></div>
+
+      <div class="container mx-auto px-6 relative z-10">
+          <div class="flex flex-col gap-12 md:gap-24">
+              
+              {pageData.steps.map((step, idx) => (
+                  <div class={`flex flex-col md:flex-row items-center gap-8 ${idx % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
+                      
+                      {/* Text Side */}
+                      <div class={`w-full md:w-1/2 ${idx % 2 === 0 ? 'md:text-left' : 'md:text-right'} text-center`}>
+                          <h3 class="text-3xl font-bold uppercase mb-4">{step.title}</h3>
+                          <p class="text-gray-600 text-lg leading-relaxed">{step.desc}</p>
+                      </div>
+
+                      {/* Icon/Number Side (Center) */}
+                      <div class="relative flex-shrink-0">
+                          <div class={`w-24 h-24 md:w-32 md:h-32 flex items-center justify-center border-3 border-black shadow-neo rounded-full relative z-10 ${step.color} ${step.textColor || 'text-black'}`}>
+                              <span class="absolute -top-4 -right-4 bg-black text-white px-2 py-1 text-xs font-bold border-2 border-white">
+                                  PHASE {step.phase}
+                              </span>
+                              <svg class="w-10 h-10 md:w-12 md:h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={step.icon}></path></svg>
+                          </div>
+                      </div>
+
+                      {/* Empty Side for Balance */}
+                      <div class="hidden md:block w-1/2"></div>
+                  </div>
+              ))}
+
+          </div>
+      </div>
+  </section>
+
+  {/* =========================================
+      3. TECH STACK (Tools)
+     ========================================= */}
+  <section class="py-20 bg-dom-black text-white border-y-3 border-dom-black">
+      <div class="container mx-auto px-6 text-center">
+          <h2 class="text-3xl font-bold uppercase mb-12">Senjata Kami</h2>
+          
+          <div class="grid grid-cols-2 md:grid-cols-6 gap-4">
+              {pageData.stack.map((tool) => (
+                  <div class="border-2 border-gray-700 p-4 hover:border-dom-yellow hover:text-dom-yellow transition-all cursor-default group">
+                      <div class="font-bold text-lg mb-1">{tool.name}</div>
+                      <div class="text-xs text-gray-500 uppercase tracking-widest group-hover:text-white transition-colors">{tool.type}</div>
+                  </div>
+              ))}
+          </div>
+      </div>
+  </section>
+
+  {/* =========================================
+      4. CTA: START NOW
+     ========================================= */}
+  <section class="py-24 bg-zinc-50 text-center">
+      <div class="container mx-auto px-6 max-w-3xl">
+          <h2 class="text-4xl font-bold uppercase mb-6">Jangan Mulai dengan Salah</h2>
+          <p class="text-gray-600 mb-10 text-lg">
+              Banyak bisnis gagal karena melewatkan Fase 01 (Audit) dan Fase 02 (Strategi). Jangan jadi salah satunya. Mulai dengan benar bersama kami.
+          </p>
+          <button onclick="document.getElementById('contactModal').classList.remove('hidden')" class="bg-dom-yellow text-black px-12 py-5 font-bold text-xl border-3 border-black shadow-neo hover:shadow-none hover:translate-y-1 transition-all uppercase">
+              Mulai Fase 01 Sekarang
+          </button>
+      </div>
+  </section>
+
+</Layout>

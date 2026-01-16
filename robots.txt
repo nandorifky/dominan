@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Block akses ke folder admin keystatic agar tidak diindex Google
+Disallow: /keystatic/
+
+# Arahkan ke sitemap otomatis Astro
+Sitemap: https://dominan.web.id/sitemap-index.xml

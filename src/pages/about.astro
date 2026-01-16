@@ -1,0 +1,239 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const pageData = {
+  title: "Tentang Kami | Bukan Agensi Basa-Basi",
+  seoDesc: "Dominan Web lahir dari frustasi terhadap website lambat. Kami adalah tim teknis yang terobsesi dengan Core Web Vitals dan Konversi.",
+  heroImage: "https://placehold.co/1200x600/111/FFF?text=Our+Headquarters", // Ganti dengan foto tim/kantor
+  
+  stats: [
+    { label: "Project Selesai", value: "150+" },
+    { label: "Kepuasan Klien", value: "99%" },
+    { label: "Tahun Pengalaman", value: "5+" },
+    { label: "Kopi Dihabiskan", value: "∞" }
+  ],
+
+  values: [
+    {
+      title: "Speed Freak",
+      desc: "Kami benci loading lama. Setiap milidetik berharga. Kami optimasi kode sampai ke tulang-tulangnya.",
+      color: "bg-dom-yellow",
+      icon: "M13 10V3L4 14h7v7l9-11h-7z" // Lightning
+    },
+    {
+      title: "Pixel Perfect",
+      desc: "Desain bukan cuma soal estetik, tapi fungsi. Setiap pixel diatur untuk mengarahkan mata user ke tombol 'Beli'.",
+      color: "bg-dom-pink",
+      icon: "M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" // Image/Pixel
+    },
+    {
+      title: "No Bullsh*t",
+      desc: "Kami transparan soal harga, proses, dan hasil. Kalau jelek kami bilang jelek, lalu kami perbaiki.",
+      color: "bg-dom-blue",
+      icon: "M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" // Check
+    }
+  ],
+
+  team: [
+    {
+      name: "Nando Rifky",
+      role: "Founder & Lead Engineer",
+      bio: "Fullstack Developer yang beralih menjadi SEO Strategist. Terobsesi dengan skor Lighthouse 100.",
+      image: "/images/authors/nando-rifky/avatar.png" // Pastikan path ini benar
+    },
+    {
+      name: "Siti Kreatif",
+      role: "UI/UX Designer",
+      bio: "Spesialis desain Brutalism & Minimalist. Percaya bahwa desain bagus itu yang menghasilkan duit.",
+      image: "https://placehold.co/400x400/FF90E8/000?text=Siti"
+    },
+    {
+      name: "Budi Copy",
+      role: "Copywriter",
+      bio: "Penulis naskah iklan yang bisa menyihir pengunjung menjadi pembeli dalam 3 paragraf.",
+      image: "https://placehold.co/400x400/23A6D5/000?text=Budi"
+    }
+  ]
+};
+
+// Schema Markup Organization
+const schemaData = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Dominan Web",
+  "url": Astro.site,
+  "logo": "https://dominan.web.id/logo.png",
+  "founder": {
+      "@type": "Person",
+      "name": "Nando Rifky"
+  },
+  "sameAs": [
+    "https://facebook.com/dominanweb",
+    "https://instagram.com/dominanweb",
+    "https://linkedin.com/company/dominanweb"
+  ]
+};
+---
+
+<Layout 
+  title={pageData.title}
+  description={pageData.seoDesc}
+>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(schemaData)} />
+
+  {/* =========================================
+      1. HERO: MANIFESTO
+     ========================================= */}
+  <header class="relative bg-zinc-50 min-h-[60vh] flex items-center border-b-3 border-dom-black overflow-hidden pt-20">
+    {/* Grid Background Pattern */}
+    <div class="absolute inset-0 opacity-10 pointer-events-none" 
+         style="background-image: linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px); background-size: 40px 40px;">
+    </div>
+
+    <div class="container mx-auto px-6 relative z-10 py-16">
+        <div class="max-w-4xl">
+            <div class="inline-block bg-dom-black text-dom-yellow px-4 py-1 font-bold uppercase tracking-widest text-sm mb-6 transform -rotate-2">
+                Est. 2024
+            </div>
+            <h1 class="text-5xl md:text-7xl font-bold uppercase leading-none text-dom-black mb-8 tracking-tighter">
+                Kami Tidak Membuat <br>
+                Website <span class="text-transparent bg-clip-text bg-gradient-to-r from-dom-blue to-dom-pink">Lemot.</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-700 leading-relaxed max-w-2xl border-l-4 border-dom-yellow pl-6">
+                Dominan Web lahir dari satu misi sederhana: Membasmi website lambat yang membunuh bisnis UMKM Indonesia.
+            </p>
+        </div>
+    </div>
+  </header>
+
+  {/* =========================================
+      2. STORY: THE WHY
+     ========================================= */}
+  <section class="py-20 bg-white border-b-3 border-dom-black">
+    <div class="container mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
+        
+        {/* Image / Visual */}
+        <div class="relative">
+            <div class="absolute inset-0 bg-dom-black translate-x-4 translate-y-4 border-3 border-black"></div>
+            <div class="relative border-3 border-dom-black bg-gray-200 aspect-square overflow-hidden grayscale hover:grayscale-0 transition-all duration-500">
+                <img src={pageData.heroImage} alt="Tim Dominan Web" class="w-full h-full object-cover" />
+            </div>
+        </div>
+
+        {/* Text Content */}
+        <div>
+            <h2 class="text-3xl font-bold uppercase mb-6">Cerita Kami</h2>
+            <div class="prose prose-lg text-gray-600">
+                <p class="mb-4">
+                    Semua berawal ketika kami melihat banyak teman pengusaha menghabiskan jutaan rupiah untuk website, tapi hasilnya <strong>NOL BESAR</strong>.
+                </p>
+                <p class="mb-4">
+                    Website mereka lambat, desainnya template pasaran, dan tidak muncul di Google. Mereka ditipu oleh agensi yang cuma peduli "proyek selesai", bukan "bisnis tumbuh".
+                </p>
+                <p class="font-bold text-dom-black text-xl">
+                    Kami muak dengan itu.
+                </p>
+                <p>
+                    Dominan Web didirikan untuk menjadi antitesis dari agensi malas. Kami menggabungkan <strong>Engineering Grade A</strong> dengan <strong>Marketing Psychology</strong>. Kami tidak cuma coding, kami peduli omzet Anda.
+                </p>
+            </div>
+            
+            {/* Stats Grid */}
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12 border-t-2 border-dashed border-gray-300 pt-8">
+                {pageData.stats.map(stat => (
+                    <div>
+                        <div class="text-3xl font-bold text-dom-black">{stat.value}</div>
+                        <div class="text-xs uppercase font-bold text-gray-500 tracking-wider">{stat.label}</div>
+                    </div>
+                ))}
+            </div>
+        </div>
+
+    </div>
+  </section>
+
+  {/* =========================================
+      3. DNA / VALUES
+     ========================================= */}
+  <section class="py-20 bg-dom-black text-white border-b-3 border-dom-black">
+      <div class="container mx-auto px-6">
+          <div class="text-center mb-16">
+              <h2 class="text-4xl font-bold uppercase mb-4 text-white">DNA Kami</h2>
+              <p class="text-gray-400">Apa yang membedakan kami dari ribuan agensi lain?</p>
+          </div>
+
+          <div class="grid md:grid-cols-3 gap-8">
+              {pageData.values.map((val) => (
+                  <div class="bg-zinc-900 border-2 border-zinc-700 p-8 hover:border-white transition-colors group relative overflow-hidden">
+                      <div class={`absolute top-0 right-0 w-24 h-24 ${val.color} opacity-20 rounded-bl-full transform translate-x-8 -translate-y-8 group-hover:scale-150 transition-transform duration-500`}></div>
+                      
+                      <div class="mb-6 text-white group-hover:text-dom-yellow transition-colors">
+                          <svg class="w-12 h-12" fill="currentColor" viewBox="0 0 24 24"><path d={val.icon}/></svg>
+                      </div>
+                      
+                      <h3 class="text-2xl font-bold uppercase mb-4">{val.title}</h3>
+                      <p class="text-gray-400 leading-relaxed">
+                          {val.desc}
+                      </p>
+                  </div>
+              ))}
+          </div>
+      </div>
+  </section>
+
+  {/* =========================================
+      4. TEAM: THE BRAINS
+     ========================================= */}
+  <section class="py-24 bg-zinc-50 border-b-3 border-dom-black">
+    <div class="container mx-auto px-6">
+        <h2 class="text-4xl font-bold uppercase mb-16 text-center">Otak Di Balik Layar</h2>
+
+        <div class="grid md:grid-cols-3 gap-8">
+            {pageData.team.map((member) => (
+                <div class="bg-white border-3 border-dom-black p-6 shadow-neo hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
+                    <div class="flex items-center gap-4 mb-6">
+                        <img 
+                            src={member.image} 
+                            alt={member.name} 
+                            class="w-20 h-20 rounded-full border-3 border-dom-black object-cover bg-gray-100" 
+                        />
+                        <div>
+                            <h3 class="text-xl font-bold uppercase leading-none mb-1">{member.name}</h3>
+                            <span class="text-xs font-bold bg-dom-yellow px-2 py-0.5 border border-black inline-block">
+                                {member.role}
+                            </span>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 text-sm leading-relaxed border-t-2 border-dashed border-gray-200 pt-4">
+                        "{member.bio}"
+                    </p>
+                    
+                    {/* Social Links Dummy */}
+                    <div class="flex gap-3 mt-6">
+                        <a href="#" class="text-gray-400 hover:text-black transition-colors"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+                        <a href="#" class="text-gray-400 hover:text-black transition-colors"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg></a>
+                    </div>
+                </div>
+            ))}
+        </div>
+    </div>
+  </section>
+
+  {/* =========================================
+      5. CTA: FINAL
+     ========================================= */}
+  <section class="py-24 bg-dom-yellow text-center">
+      <div class="container mx-auto px-6">
+          <h2 class="text-4xl md:text-6xl font-bold uppercase mb-8 text-dom-black leading-none">
+              Siap Bekerja Sama?
+          </h2>
+          <p class="text-xl font-medium mb-12 max-w-2xl mx-auto">
+              Jangan buang waktu dengan vendor yang lambat. Mari bangun aset digital yang menghasilkan uang.
+          </p>
+          <button onclick="document.getElementById('contactModal').classList.remove('hidden')" class="bg-dom-black text-white px-10 py-5 font-bold text-xl border-4 border-white shadow-[8px_8px_0px_0px_rgba(255,255,255,0.5)] hover:shadow-none hover:scale-95 transition-all uppercase tracking-widest">
+              HUBUNGI KAMI SEKARANG
+          </button>
+      </div>
+  </section>
+
+</Layout>
