@@ -1,0 +1,39 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="404 - Halaman Hilang | Dominan" description="Halaman yang Anda cari tidak ditemukan.">
+  <div class="min-h-[80vh] flex items-center justify-center bg-zinc-50 relative overflow-hidden">
+    
+    {/* Background Pattern */}
+    <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(#000 1px, transparent 1px); background-size: 20px 20px;"></div>
+
+    <div class="container mx-auto px-6 text-center relative z-10">
+      
+      {/* Glitch Effect Text */}
+      <h1 class="text-9xl font-bold mb-4 text-dom-black relative inline-block">
+        404
+        <span class="absolute top-0 left-1 text-red-500 opacity-50 -z-10 animate-pulse">404</span>
+        <span class="absolute top-0 -left-1 text-blue-500 opacity-50 -z-10 animate-pulse" style="animation-delay: 0.1s">404</span>
+      </h1>
+
+      <div class="bg-dom-yellow border-3 border-dom-black p-4 inline-block transform -rotate-2 mb-8 shadow-neo">
+        <p class="text-2xl font-bold uppercase tracking-widest">Halaman Tidak Ditemukan</p>
+      </div>
+
+      <p class="text-xl text-gray-600 mb-12 max-w-lg mx-auto leading-relaxed">
+        Sepertinya Anda tersesat. Halaman yang Anda cari mungkin sudah dihapus, dipindah, atau sedang sembunyi dari Google.
+      </p>
+
+      <div class="flex flex-col md:flex-row gap-4 justify-center">
+        <a href="/" class="bg-dom-black text-white px-8 py-4 font-bold text-lg border-2 border-transparent shadow-neo hover:bg-white hover:text-black hover:border-black hover:shadow-none hover:translate-y-1 transition-all uppercase">
+          Kembali ke Home
+        </a>
+        <a href="https://wa.me/62895395094329" class="bg-white text-black px-8 py-4 font-bold text-lg border-2 border-black shadow-neo hover:bg-zinc-100 hover:shadow-none hover:translate-y-1 transition-all uppercase">
+          Lapor Link Rusak
+        </a>
+      </div>
+
+    </div>
+  </div>
+</Layout>
