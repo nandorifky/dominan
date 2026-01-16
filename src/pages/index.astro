@@ -5,9 +5,36 @@ import Layout from '../layouts/Layout.astro';
 const clients = ["Percetakanku", "Osee", "RKBeton", "KAJ Indonesia", "Runway", "Inahaff", "Qoobah", "Narasinema"];
 // Dynamic Date
 const currentMonth = new Date().toLocaleString('id-ID', { month: 'long' });
+
+// DATA FAQ (Content Gap Filler)
+const faqs = [
+  {
+    q: "Kenapa harganya lebih mahal dari jasa 500 ribuan?",
+    a: "Karena kami membangun 'Aset Bisnis', bukan sekadar halaman online. Web 500rb biasanya menggunakan template bajakan, lambat, tidak aman, dan strukturnya berantakan di mata Google. Kami coding manual (atau low-code high perf) untuk performa, SEO, dan keamanan jangka panjang."
+  },
+  {
+    q: "Berapa lama proses pengerjaannya?",
+    a: "Untuk Landing Page (Starter), estimasi 3-7 hari kerja setelah data lengkap. Untuk Paket Authority (Full Website), sekitar 14-20 hari kerja tergantung kompleksitas fitur."
+  },
+  {
+    q: "Apakah ada biaya bulanan wajib?",
+    a: "TIDAK ADA. Biaya pembuatan website sifatnya sekali bayar (One-off). Biaya tahunan hanya untuk perpanjangan Domain & Hosting (milik Anda sendiri). Kecuali Anda mengambil paket Maintenance, itu bulanan."
+  },
+  {
+    q: "Apakah dijamin Page 1 Google?",
+    a: "Hati-hati dengan agensi yang menjamin Page 1 Instan (biasanya mereka pakai trik hitam yang berbahaya). Kami menjamin struktur SEO yang 100% benar sesuai pedoman Google, yang secara drastis meningkatkan peluang ranking Anda secara organik dan aman."
+  },
+  {
+    q: "Saya gaptek, apakah bisa edit website sendiri?",
+    a: "Tentu. Kami akan buatkan video tutorial khusus cara edit teks, ganti gambar, dan upload artikel. Sangat mudah, semudah update status Facebook."
+  }
+];
 ---
 
-<Layout title="Dominan Web | Jasa Website & SEO Premium">
+<Layout 
+  title="Dominan Web | All-in-One Digital Solution untuk Bisnis Anda" 
+  description="Layanan pembuatan website cepat & SEO friendly, optimasi Google, dan iklan konversi tinggi. Ubah website Anda menjadi mesin uang dengan Dominan Web."
+>
 
 	<header class="relative border-b-3 border-dom-black bg-white overflow-hidden min-h-[90vh] flex items-center">
 		
@@ -19,10 +46,10 @@ const currentMonth = new Date().toLocaleString('id-ID', { month: 'long' });
 					🔥 SLOT {currentMonth.toUpperCase()}: TERSISA 2 PROYEK
 				</div>
 				
-				<h1 class="text-5xl md:text-8xl font-bold leading-[0.9] tracking-tighter uppercase text-dom-black">
-					Web Lemot = <br>
-					<span class="text-transparent bg-clip-text bg-gradient-to-r from-gray-500 to-black">Omzet Seret.</span>
-				</h1>
+<h1 class="text-4xl md:text-8xl font-bold leading-[0.9] tracking-tighter uppercase text-dom-black">
+    Web Lemot = <br>
+    <span class="text-transparent bg-clip-text bg-gradient-to-r from-gray-500 to-black">Omzet Seret.</span>
+</h1>
 				
 				<p class="text-lg md:text-xl font-medium leading-relaxed border-l-4 border-dom-black pl-6 text-gray-700">
 					Kami mengubah website "kartu nama" Anda menjadi <span class="bg-dom-yellow px-1 border border-black font-bold text-black">Mesin Uang</span>. Fokus pada performa tinggi, ranking Google, dan siap untuk scale-up iklan.
@@ -77,13 +104,13 @@ const currentMonth = new Date().toLocaleString('id-ID', { month: 'long' });
 	<section class="border-b-3 border-dom-black bg-dom-yellow py-6 overflow-hidden whitespace-nowrap">
 		<div class="inline-flex animate-marquee">
 			{clients.map((client) => (
-				<span class="mx-12 text-2xl font-bold uppercase tracking-widest text-dom-black flex items-center gap-3">
+				<span class="mx-12 text-base font-bold uppercase tracking-widest text-dom-black flex items-center gap-3">
 					<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
 					{client}
 				</span>
 			))}
 			{clients.map((client) => (
-				<span class="mx-12 text-2xl font-bold uppercase tracking-widest text-dom-black flex items-center gap-3">
+				<span class="mx-12 text-base font-bold uppercase tracking-widest text-dom-black flex items-center gap-3">
 					<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
 					{client}
 				</span>
@@ -93,7 +120,7 @@ const currentMonth = new Date().toLocaleString('id-ID', { month: 'long' });
 
 	<section class="py-24 bg-white border-b-3 border-dom-black">
 		<div class="container mx-auto px-6 max-w-5xl text-center">
-			<h2 class="text-4xl md:text-5xl font-bold mb-12 leading-tight uppercase">
+			<h2 class="text-3xl md:text-5xl font-bold mb-12 leading-tight uppercase">
 				Kenapa 90% Website Bisnis<br>
 				<span class="bg-dom-black text-white px-2">Gagal Menghasilkan?</span>
 			</h2>
@@ -127,7 +154,7 @@ const currentMonth = new Date().toLocaleString('id-ID', { month: 'long' });
 	<section id="services" class="py-24 bg-zinc-50 border-b-3 border-dom-black">
 		<div class="container mx-auto px-6">
 			<div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
-				<h2 class="text-5xl font-bold uppercase max-w-xl">Solusi Digital.</h2>
+				<h2 class="text-3xl font-bold uppercase max-w-xl">Solusi Digital.</h2>
 				<p class="text-xl font-bold border-b-4 border-dom-yellow">Pilih Senjata Anda</p>
 			</div>
 			
@@ -179,16 +206,24 @@ const currentMonth = new Date().toLocaleString('id-ID', { month: 'long' });
 	<section id="pricing" class="py-24 bg-white border-b-3 border-dom-black">
 		<div class="container mx-auto px-6">
 			<div class="text-center mb-10">
-				<h2 class="text-5xl font-bold mb-4">INVESTASI</h2>
+				<h2 class="text-3xl font-bold mb-4">INVESTASI</h2>
 				<p class="text-xl mb-8">Pilih model kerjasama yang cocok.</p>
 				
-				<div class="inline-flex items-center justify-center gap-4 bg-gray-100 p-2 rounded-full border-2 border-dom-black">
-					<span class="font-bold text-sm md:text-base px-4 transition-colors text-dom-black" id="label-build">JASA PEMBUATAN (One-Off)</span>
-					<button id="pricingToggle" class="w-16 h-8 bg-dom-black rounded-full p-1 relative transition-colors duration-300 focus:outline-none">
-						<div id="toggleCircle" class="w-6 h-6 bg-white rounded-full shadow-md transform transition-transform duration-300 translate-x-0"></div>
-					</button>
-					<span class="font-bold text-sm md:text-base px-4 transition-colors text-gray-400" id="label-maintain">MAINTENANCE (Bulanan)</span>
-				</div>
+<div class="inline-flex items-center justify-center gap-2 md:gap-4 bg-gray-100 p-1 md:p-2 rounded-full border-2 border-dom-black max-w-full">
+    
+    <span class="font-bold text-xs md:text-base px-2 md:px-4 transition-colors text-dom-black text-center leading-tight" id="label-build">
+        JASA PEMBUATAN <br class="md:hidden"> (One-Off)
+    </span>
+
+    <button id="pricingToggle" class="w-16 h-8 flex-shrink-0 bg-dom-black rounded-full p-1 relative transition-colors duration-300 focus:outline-none">
+        <div id="toggleCircle" class="w-6 h-6 bg-white rounded-full shadow-md transform transition-transform duration-300 translate-x-0"></div>
+    </button>
+
+    <span class="font-bold text-xs md:text-base px-2 md:px-4 transition-colors text-gray-400 text-center leading-tight" id="label-maintain">
+        MAINTENANCE <br class="md:hidden"> (Bulanan)
+    </span>
+
+</div>
 			</div>
 
 			<div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start relative mt-12">
@@ -252,9 +287,62 @@ const currentMonth = new Date().toLocaleString('id-ID', { month: 'long' });
 		</div>
 	</section>
 
+	<section class="py-24 md:py-32 bg-dom-yellow border-b-3 border-dom-black">
+        <div class="container mx-auto px-6 max-w-4xl">
+            
+            <div class="text-center mb-20">
+                <h2 class="text-4xl md:text-6xl font-bold uppercase mb-6 text-dom-black leading-none">
+                    Pertanyaan Umum
+                </h2>
+                <p class="text-lg md:text-xl font-medium max-w-2xl mx-auto">
+                    Jawaban transparan dari tim kami untuk keraguan Anda.
+                </p>
+            </div>
+
+            <div class="flex flex-col gap-6">
+                {faqs.map((faq) => (
+                    <details class="group bg-white border-3 border-dom-black shadow-neo open:shadow-none open:translate-y-1 transition-all duration-300">
+                        <summary class="flex justify-between items-center p-6 md:p-8 cursor-pointer list-none select-none hover:bg-zinc-50 transition-colors">
+                            <h3 class="text-lg md:text-2xl font-bold uppercase pr-8 leading-tight group-hover:text-gray-700">
+                                {faq.q}
+                            </h3>
+                            <div class="relative flex-shrink-0 w-10 h-10 flex items-center justify-center border-2 border-black bg-dom-yellow transition-transform duration-300 group-open:rotate-45 shadow-sm">
+                                <svg class="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 4v16m8-8H4"></path></svg>
+                            </div>
+                        </summary>
+                        <div class="px-6 md:px-8 pb-8 pt-2 border-t-2 border-black border-dashed mx-6 md:mx-8 mt-2 hidden group-open:block animate-fadeIn">
+                            <p class="text-gray-800 leading-relaxed text-base md:text-lg font-medium">
+                                {faq.a}
+                            </p>
+                        </div>
+                    </details>
+                ))}
+            </div>
+            
+            <div class="mt-20 text-center">
+                 <p class="font-bold text-sm uppercase tracking-widest mb-6 text-gray-600">Masih ada pertanyaan yang belum terjawab?</p>
+                 <a href="https://wa.me/6281234567890" target="_blank" class="inline-flex items-center gap-3 font-bold bg-dom-black text-white border-2 border-dom-black px-8 py-4 shadow-neo hover:shadow-neo-hover hover:translate-x-[2px] hover:translate-y-[2px] hover:bg-white hover:text-black transition-all group">
+                    <span>HUBUNGI WHATSAPP KAMI</span>
+                    <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                 </a>
+            </div>
+
+        </div>
+    </section>
+
+    <style>
+        .animate-fadeIn {
+            animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+
 	<section class="py-24 bg-white border-t-3 border-dom-black text-center">
 		<div class="container mx-auto px-6 max-w-2xl">
-			<h2 class="text-4xl md:text-5xl font-bold mb-8">SIAP MENDOMINASI?</h2>
+			<h2 class="text-3xl md:text-5xl font-bold mb-8">SIAP MENDOMINASI?</h2>
 			<p class="text-lg md:text-xl font-medium mb-10">Website kompetitor Anda mungkin sudah mencuri pelanggan Anda hari ini. Hentikan mereka.</p>
 			<button onclick="document.getElementById('contactModal').classList.remove('hidden')" class="bg-dom-black text-white border-2 border-dom-black px-10 py-5 text-xl font-bold shadow-neo hover:shadow-neo-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all hover:bg-dom-yellow hover:text-black">
 				KONSULTASI GRATIS SEKARANG

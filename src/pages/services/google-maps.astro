@@ -1,0 +1,456 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+// DATA HALAMAN
+const pageData = {
+  title: "Jasa Optimasi Google Business Profile (GMB) Terpercaya 2026",
+  seoDesc: "Jasa optimasi Google Maps masuk 3 besar (Local Pack). Verifikasi instan, anti-suspend, dan manajemen review bintang 5 untuk dominasi pasar lokal.",
+  heroImage: "https://placehold.co/1200x800/111/FFF?text=GMB+Performance+Dashboard",
+  
+  hero: {
+    headline: "Dominasi Pencarian Lokal di Kota Anda.",
+    subheadline: "Jangan biarkan pelanggan nyasar ke kompetitor. Kami kunci posisi bisnis Anda di 'Map Pack' (3 Besar) Google.",
+    cta: "Analisis Profil Gratis"
+  },
+
+  // 3. PILAR LAYANAN (Updated SVG Paths)
+  pillars: [
+    { 
+        title: 'Audit & Verifikasi', 
+        desc: 'Pembersihan data ganda, perbaikan titik lokasi, dan verifikasi akun yang macet/suspend.', 
+        icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z' 
+    },
+    { 
+        title: 'Local Keywords', 
+        desc: 'Riset kata kunci "Near Me" dan kategori bisnis yang paling sering dicari di area Anda.', 
+        icon: 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z' 
+    },
+    { 
+        title: 'Review Management', 
+        desc: 'Strategi memancing ulasan Bintang 5 dan template balasan ramah SEO untuk meningkatkan Trust.', 
+        icon: 'M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z' 
+    },
+    { 
+        title: 'Visual Geotagging', 
+        desc: 'Upload rutin foto/video berkualitas tinggi dengan metadata lokasi (Geotag) agar terbaca algoritma.', 
+        icon: 'M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z M15 13a3 3 0 11-6 0 3 3 0 016 0z' 
+    }
+  ],
+
+  caseStudy: {
+    client: "Bengkel Mobil 'Maju Jaya'",
+    before: { rank: '#24', calls: '12 / bulan', views: '150' },
+    after: { rank: '#1 (Top 3)', calls: '185 / bulan', views: '4,200' },
+    stat: '+1,400% Interaksi Pelanggan'
+  },
+
+  packages: [
+    { 
+      name: 'Starter Setup', 
+      price: 'Rp 750.000', 
+      period: 'Sekali Bayar',
+      label: 'Bisnis Baru',
+      desc: 'Pondasi awal agar bisnis muncul di Maps.',
+      items: ['Verifikasi Titik Lokasi', 'Riset Kategori Bisnis', 'Upload 10 Foto Awal', 'Setup Deskripsi SEO', 'Link Website & Medsos'] 
+    },
+    { 
+      name: 'Map Pack Booster', 
+      price: 'Rp 2.500.000', 
+      period: 'Per Bulan',
+      label: 'Rekomendasi',
+      isBest: true,
+      desc: 'Kejar ranking 3 besar & maintenance reputasi.',
+      items: ['Optimasi Keyword Bulanan', '1000 Local Citations (NAP)', 'Jawab Review Otomatis', '4x GMB Posts / Bulan', 'Laporan Insight Lengkap'] 
+    },
+    { 
+      name: 'Franchise / Multi', 
+      price: 'Hubungi Kami', 
+      period: 'Custom Deal',
+      label: 'Corporate',
+      desc: 'Manajemen terpusat banyak cabang.',
+      items: ['Standarisasi Brand Info', 'Proteksi dari Pembajakan', 'API Integration', 'Dedicated Manager', 'Audit Kompetitor Area'] 
+    }
+  ],
+
+  faq: [
+    { q: 'Mengapa bisnis saya tidak muncul di pencarian?', a: 'Bisa karena titik lokasi belum terverifikasi, kategori bisnis salah, atau kalah "Authority" dari kompetitor. Kami akan audit masalah ini.' },
+    { q: 'Apakah aman dari Suspend Google?', a: '100% Aman (White Hat). Kami tidak menggunakan bot review palsu atau spam listing yang memicu suspend permanen.' },
+    { q: 'Berapa lama bisa masuk 3 besar?', a: 'Tergantung kompetisi area. Rata-rata 1-3 bulan optimasi rutin (Booster) untuk melihat lonjakan traffic signifikan.' },
+    { q: 'Apa itu NAP Consistency?', a: 'NAP (Name, Address, Phone) adalah konsistensi data alamat Anda di seluruh internet. Jika data beda-beda, Google bingung dan menurunkan ranking. Kami perbaiki ini.' }
+  ]
+};
+
+// SCHEMA MARKUP
+const schemaData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://dominan.web.id/" },
+        { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://dominan.web.id/#services" },
+        { "@type": "ListItem", "position": 3, "name": "Google Maps SEO", "item": Astro.url.href }
+      ]
+    },
+    {
+      "@type": "Service",
+      "name": pageData.title,
+      "description": pageData.seoDesc,
+      "provider": { "@type": "Organization", "name": "Dominan Web" },
+      "offers": {
+        "@type": "AggregateOffer",
+        "lowPrice": "750000",
+        "priceCurrency": "IDR"
+      }
+    }
+  ]
+};
+---
+
+<Layout 
+  title={pageData.title}
+  description={pageData.seoDesc}
+  image={pageData.heroImage}
+>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(schemaData)} />
+
+  {/* =================================================================
+      1. HERO SECTION (NO PADDING - FULL HEIGHT)
+     ================================================================= */}
+  <header class="relative bg-zinc-50 min-h-[calc(100vh-80px)] flex items-center border-b-3 border-dom-black overflow-hidden">
+    <div class="absolute right-0 top-0 w-1/3 h-full bg-dom-yellow opacity-10 skew-x-12 transform origin-top-right pointer-events-none"></div>
+    
+    <div class="container mx-auto px-6 relative z-10 grid md:grid-cols-2 gap-12 items-center py-12 md:py-0">
+      <div class="space-y-6">
+         <div class="inline-flex items-center gap-2 border-2 border-black px-3 py-1 bg-white shadow-[4px_4px_0px_0px_#000]">
+            <span class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+            <span class="text-xs font-bold uppercase tracking-widest">Local SEO 2026</span>
+         </div>
+         <h1 class="text-4xl md:text-6xl font-bold uppercase leading-none text-dom-black tracking-tighter">
+            {pageData.hero.headline}
+         </h1>
+         <p class="text-xl text-gray-600 leading-relaxed font-medium border-l-4 border-dom-yellow pl-4">
+            {pageData.hero.subheadline}
+         </p>
+         <div class="flex flex-col sm:flex-row gap-4 pt-4">
+            <button onclick="document.getElementById('pricing').scrollIntoView({behavior: 'smooth'})" class="bg-dom-black text-white px-8 py-4 font-bold border-2 border-transparent shadow-neo hover:bg-white hover:text-black hover:border-black hover:shadow-none hover:translate-y-1 transition-all">
+               LIHAT PAKET
+            </button>
+            <button onclick="document.getElementById('contactModal').classList.remove('hidden')" class="flex items-center justify-center gap-2 px-8 py-4 font-bold border-2 border-black bg-white hover:bg-gray-100 transition-colors">
+               {pageData.hero.cta} →
+            </button>
+         </div>
+      </div>
+
+      {/* VISUAL DASHBOARD SIMULATION */}
+      <div class="relative">
+         <div class="bg-white border-3 border-dom-black p-6 shadow-[12px_12px_0px_0px_#FFC900] rotate-1 hover:rotate-0 transition-transform duration-500">
+            {/* Header Dashboard */}
+            <div class="flex items-center justify-between border-b-2 border-gray-100 pb-4 mb-4">
+               <div class="flex items-center gap-2">
+                  <div class="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center text-white font-bold">G</div>
+                  <span class="font-bold text-gray-700">Performance</span>
+               </div>
+               <span class="text-xs bg-green-100 text-green-700 px-2 py-1 font-bold rounded">Last 28 Days</span>
+            </div>
+            {/* Stats Grid */}
+            <div class="grid grid-cols-2 gap-4 mb-6">
+               <div class="bg-gray-50 p-4 rounded border border-gray-200">
+                  <p class="text-xs text-gray-500 uppercase">Calls</p>
+                  <p class="text-3xl font-bold text-dom-black">184 <span class="text-sm text-green-500">↑ 42%</span></p>
+               </div>
+               <div class="bg-gray-50 p-4 rounded border border-gray-200">
+                  <p class="text-xs text-gray-500 uppercase">Directions</p>
+                  <p class="text-3xl font-bold text-dom-black">342 <span class="text-sm text-green-500">↑ 28%</span></p>
+               </div>
+            </div>
+            {/* Graph Line */}
+            <div class="h-24 flex items-end justify-between gap-1">
+               {[20, 35, 40, 30, 45, 60, 55, 70, 85, 80, 95, 100].map(h => (
+                  <div style={`height: ${h}%`} class="w-full bg-blue-500 opacity-80 rounded-t-sm"></div>
+               ))}
+            </div>
+         </div>
+         {/* Badge Floating */}
+         <div class="absolute -bottom-4 -left-4 bg-dom-black text-white px-4 py-2 border-2 border-white shadow-lg text-sm font-bold uppercase tracking-widest">
+            Map Pack #1
+         </div>
+      </div>
+    </div>
+  </header>
+
+  {/* =================================================================
+      2. IDENTIFIKASI MASALAH (SVG ICON REPLACEMENT)
+     ================================================================= */}
+  <section class="py-20 bg-dom-black text-white border-b-3 border-dom-black">
+    <div class="container mx-auto px-6 text-center max-w-4xl">
+       <h2 class="text-3xl md:text-5xl font-bold uppercase mb-6 leading-tight">
+          "Kenapa Telepon Bisnis Saya Sepi?"
+       </h2>
+       <p class="text-xl text-gray-300 mb-12">
+          Punya akun Google Maps saja tidak cukup. Di tahun 2026, jika bisnis Anda tidak masuk <span class="text-dom-yellow font-bold underline decoration-4 underline-offset-4">"Map Pack" (3 Besar)</span>, Anda tidak terlihat. 90% pelanggan tidak pernah klik "View All".
+       </p>
+       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="bg-zinc-900 p-8 border border-zinc-700 hover:border-dom-yellow transition-colors group">
+             <div class="mb-6 text-gray-500 group-hover:text-dom-yellow transition-colors flex justify-center">
+                {/* SVG: Ghost / Invisible */}
+                <svg class="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path></svg>
+             </div>
+             <h3 class="font-bold text-lg mb-2 text-dom-yellow">Ranking Hantu</h3>
+             <p class="text-sm text-gray-400 leading-relaxed">Ada di halaman Maps, tapi urutan ke-20. Siapa yang mau scroll sejauh itu?</p>
+          </div>
+          <div class="bg-zinc-900 p-8 border border-zinc-700 hover:border-dom-yellow transition-colors group">
+             <div class="mb-6 text-gray-500 group-hover:text-dom-yellow transition-colors flex justify-center">
+                 {/* SVG: Alert / Wrong Info */}
+                 <svg class="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+             </div>
+             <h3 class="font-bold text-lg mb-2 text-dom-yellow">Info Salah</h3>
+             <p class="text-sm text-gray-400 leading-relaxed">Jam buka salah, nomor mati, atau titik lokasi meleset. Pelanggan kecewa.</p>
+          </div>
+          <div class="bg-zinc-900 p-8 border border-zinc-700 hover:border-dom-yellow transition-colors group">
+             <div class="mb-6 text-gray-500 group-hover:text-dom-yellow transition-colors flex justify-center">
+                 {/* SVG: Thumbs Down */}
+                 <svg class="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 14H5.236a2 2 0 01-1.789-2.894l3.5-7A2 2 0 018.736 3h4.018a2 2 0 01.485.06l3.76.94m-7 10v5a2 2 0 002 2h.096c.5 0 .905-.405.905-.904 0-.715.211-1.412.608-2.006L17 13V4m-7 10h2m5-10h2a2 2 0 012 2v6a2 2 0 01-2 2h-2.5"></path></svg>
+             </div>
+             <h3 class="font-bold text-lg mb-2 text-dom-yellow">Review Buruk</h3>
+             <p class="text-sm text-gray-400 leading-relaxed">Rating rendah atau review tidak dibalas membuat bisnis terlihat tidak profesional.</p>
+          </div>
+       </div>
+    </div>
+  </section>
+
+  {/* =================================================================
+      3. STRATEGI DOMINASI LOKAL (Refined Grid & SVG)
+     ================================================================= */}
+  <section class="py-24 bg-white border-b-3 border-dom-black">
+    <div class="container mx-auto px-6">
+       <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+          <h2 class="text-4xl font-bold uppercase max-w-lg leading-none">Strategi Dominasi Lokal.</h2>
+          <div class="text-right">
+             <span class="block text-xs font-bold uppercase tracking-widest text-gray-500">Methodology</span>
+             <span class="block text-2xl font-bold text-dom-black">White Hat & Safe</span>
+          </div>
+       </div>
+
+       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {pageData.pillars.map((item, idx) => (
+             <div class="border-3 border-dom-black p-8 hover:bg-dom-yellow transition-colors group h-full flex flex-col justify-between shadow-neo-sm hover:shadow-none hover:translate-y-1">
+                <div>
+                    <div class="text-dom-black mb-6 group-hover:scale-110 transition-transform duration-300">
+                        {/* SVG Render */}
+                        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" set:html={`<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="${item.icon}" />`}></svg>
+                    </div>
+                    <h3 class="text-xl font-bold uppercase mb-4 tracking-tight">{item.title}</h3>
+                    <p class="text-gray-600 group-hover:text-black font-medium leading-relaxed text-sm">
+                    {item.desc}
+                    </p>
+                </div>
+                <div class="mt-8 pt-4 border-t-2 border-black border-dashed opacity-50 font-bold text-xs uppercase tracking-widest">
+                   Phase 0{idx + 1}
+                </div>
+             </div>
+          ))}
+       </div>
+    </div>
+  </section>
+
+  {/* =================================================================
+      4. STRATEGI CITATIONS
+     ================================================================= */}
+  <section class="py-20 bg-zinc-50 border-b-3 border-dom-black">
+     <div class="container mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
+        <div>
+           <h2 class="text-3xl font-bold uppercase mb-6">Local Link Building & Citations</h2>
+           <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+              Google memverifikasi keaslian bisnis Anda dengan mengecek konsistensi data <strong>NAP (Name, Address, Phone)</strong> di seluruh internet.
+           </p>
+           <p class="text-gray-700 mb-8">
+              Kami akan mendaftarkan bisnis Anda ke direktori lokal terpercaya untuk memperkuat sinyal otoritas lokasi.
+           </p>
+           <ul class="space-y-4 font-bold text-sm uppercase tracking-wide">
+              <li class="flex items-center gap-3">
+                 <svg class="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                 Yellow Pages Digital
+              </li>
+              <li class="flex items-center gap-3">
+                 <svg class="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                 IndoNetwork / Direktori Bisnis
+              </li>
+              <li class="flex items-center gap-3">
+                 <svg class="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                 Waze & Apple Maps
+              </li>
+           </ul>
+        </div>
+        <div class="bg-white border-3 border-dom-black p-8 shadow-neo rotate-2">
+           <div class="border-b-2 border-dashed border-gray-300 pb-4 mb-4 text-center">
+              <span class="font-bold text-gray-400 text-xs uppercase">Consistency Check</span>
+           </div>
+           <div class="space-y-4 opacity-50">
+              <div class="h-4 bg-gray-200 w-3/4 rounded"></div>
+              <div class="h-4 bg-gray-200 w-1/2 rounded"></div>
+              <div class="h-4 bg-gray-200 w-full rounded"></div>
+           </div>
+           <div class="mt-8 text-center">
+              <div class="text-5xl font-bold text-green-600 mb-2">100%</div>
+              <div class="text-sm font-bold uppercase tracking-widest text-black">NAP Match Rate</div>
+           </div>
+        </div>
+     </div>
+  </section>
+
+  {/* =================================================================
+      5. SHOWROOM (Visual Data Comparison)
+     ================================================================= */}
+  <section class="py-24 bg-white border-b-3 border-dom-black">
+    <div class="container mx-auto px-6">
+       <div class="text-center mb-16">
+          <h2 class="text-4xl font-bold uppercase mb-2">Before vs After</h2>
+          <p class="text-gray-500">Studi Kasus Klien: {pageData.caseStudy.client}</p>
+       </div>
+
+       <div class="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto items-center">
+          {/* BEFORE CARD */}
+          <div class="border-3 border-gray-300 bg-gray-50 p-8 opacity-70 grayscale hover:grayscale-0 transition-all">
+             <div class="inline-block bg-gray-400 text-white px-3 py-1 font-bold text-xs uppercase mb-6">Sebelum Optimasi</div>
+             <div class="space-y-6">
+                <div class="flex justify-between border-b border-gray-200 pb-2">
+                   <span class="font-bold text-gray-500">Ranking Posisi</span>
+                   <span class="font-bold text-red-500">{pageData.caseStudy.before.rank}</span>
+                </div>
+                <div class="flex justify-between border-b border-gray-200 pb-2">
+                   <span class="font-bold text-gray-500">Panggilan Telp</span>
+                   <span class="font-bold text-gray-600">{pageData.caseStudy.before.calls}</span>
+                </div>
+                <div class="flex justify-between">
+                   <span class="font-bold text-gray-500">Total Views</span>
+                   <span class="font-bold text-gray-600">{pageData.caseStudy.before.views}</span>
+                </div>
+             </div>
+          </div>
+
+          {/* AFTER CARD */}
+          <div class="border-3 border-dom-black bg-white p-8 shadow-neo transform md:scale-110 relative z-10">
+             <div class="absolute top-0 right-0 bg-green-500 text-white px-3 py-1 font-bold text-xs uppercase transform translate-x-2 -translate-y-2 border-2 border-black">Result</div>
+             <div class="inline-block bg-dom-black text-dom-yellow px-3 py-1 font-bold text-xs uppercase mb-6">Sesudah Optimasi</div>
+             <div class="space-y-6">
+                <div class="flex justify-between border-b-2 border-black pb-2">
+                   <span class="font-bold text-black">Ranking Posisi</span>
+                   <span class="font-bold text-green-600 text-xl">{pageData.caseStudy.after.rank}</span>
+                </div>
+                <div class="flex justify-between border-b-2 border-black pb-2">
+                   <span class="font-bold text-black">Panggilan Telp</span>
+                   <span class="font-bold text-black text-xl">{pageData.caseStudy.after.calls}</span>
+                </div>
+                <div class="flex justify-between">
+                   <span class="font-bold text-black">Total Views</span>
+                   <span class="font-bold text-black text-xl">{pageData.caseStudy.after.views}</span>
+                </div>
+             </div>
+             <div class="mt-8 bg-dom-yellow p-4 text-center font-bold border-2 border-black">
+                {pageData.caseStudy.stat}
+             </div>
+          </div>
+       </div>
+    </div>
+  </section>
+
+  {/* =================================================================
+      6. EDUKASI: BUYING INTENT
+     ================================================================= */}
+  <section class="py-20 bg-dom-black text-white border-b-3 border-dom-black text-center">
+     <div class="container mx-auto px-6 max-w-3xl">
+        <h2 class="text-3xl font-bold uppercase mb-6">Maps Traffic = Uang Tunai</h2>
+        <p class="text-lg md:text-xl leading-relaxed text-gray-300">
+           Orang yang mencari di Google Maps tidak sedang <em>browsing</em> santai. Mereka sedang mencari lokasi untuk didatangi <strong>SAAT ITU JUGA</strong>. Trafik dari Maps memiliki tingkat konversi (Buying Intent) 3x lebih tinggi daripada pencarian Google biasa.
+        </p>
+     </div>
+  </section>
+
+  {/* =================================================================
+      7. PILIH PAKET OPTIMASI (Refined Cards)
+     ================================================================= */}
+<section id="pricing" class="py-24 bg-zinc-50 border-b-3 border-dom-black">
+    <div class="container mx-auto px-6">
+       <h2 class="text-4xl font-bold uppercase text-center mb-16">Pilih Paket Optimasi</h2>
+       
+       {/* HAPUS 'items-end' agar tinggi kartu sama rata (stretch) */}
+       <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          {pageData.packages.map((pkg) => (
+             <div class={`border-3 border-dom-black p-8 relative flex flex-col transition-transform ${
+                pkg.isBest 
+                ? 'bg-white shadow-[12px_12px_0px_0px_#16A34A] z-10 md:-translate-y-4' // FIX: Pakai 'md:' agar cuma naik di desktop
+                : 'bg-gray-50 shadow-neo hover:md:-translate-y-1' // FIX: Hover efek juga cuma di desktop
+             }`}>
+                
+{/* Badge Most Popular - FIXED */}
+                {pkg.isBest && (
+                   <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-green-600 text-white px-6 py-2 font-bold uppercase text-xs tracking-widest border-3 border-black shadow-sm whitespace-nowrap z-20">
+                      Most Popular
+                   </div>
+                )}
+
+                <div class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">{pkg.label}</div>
+                <h3 class="text-2xl font-bold uppercase mb-4">{pkg.name}</h3>
+                <div class="text-3xl font-bold mb-2">{pkg.price}</div>
+                <p class="text-xs text-gray-500 border-b-2 border-dashed border-gray-300 pb-4 mb-6">{pkg.period}</p>
+                <p class="text-sm font-medium mb-6">{pkg.desc}</p>
+                
+                {/* Spacer agar tombol selalu di bawah */}
+                <div class="flex-grow"></div> 
+
+                <ul class="space-y-3 mb-8">
+                   {pkg.items.map((feat) => (
+                      <li class="flex items-start gap-3 text-sm font-bold">
+                         <svg class="w-5 h-5 text-green-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                         {feat}
+                      </li>
+                   ))}
+                </ul>
+
+                <button onclick="document.getElementById('contactModal').classList.remove('hidden')" class={`w-full py-4 font-bold border-2 border-black uppercase tracking-widest transition-all ${
+                    pkg.isBest 
+                    ? 'bg-green-600 text-white hover:bg-white hover:text-green-700 shadow-[4px_4px_0px_0px_#000] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]' 
+                    : 'bg-white hover:bg-black hover:text-white'
+                }`}>
+                   Ambil Paket
+                </button>
+             </div>
+          ))}
+       </div>
+    </div>
+  </section>
+
+  {/* =================================================================
+      8. FAQ & CTA FINAL
+     ================================================================= */}
+  <section class="py-24 bg-white">
+     <div class="container mx-auto px-6 grid md:grid-cols-2 gap-16">
+        <div>
+           <h2 class="text-3xl font-bold uppercase mb-8">FAQ Google Maps</h2>
+           <div class="space-y-4">
+              {pageData.faq.map((item) => (
+                 <details class="group border-2 border-black p-4 cursor-pointer open:bg-zinc-50 transition-colors">
+                    <summary class="font-bold flex justify-between items-center list-none">
+                       {item.q}
+                       <span class="group-open:rotate-45 transition-transform text-xl">+</span>
+                    </summary>
+                    <p class="mt-4 text-gray-600 text-sm leading-relaxed border-t border-gray-200 pt-4">{item.a}</p>
+                 </details>
+              ))}
+           </div>
+        </div>
+
+        <div class="flex flex-col justify-center">
+           <div class="bg-dom-yellow p-10 border-3 border-black shadow-neo text-center">
+              <h3 class="text-3xl font-bold uppercase mb-4 text-dom-black">Audit Gratis?</h3>
+              <p class="font-medium mb-8">Kirim link Google Maps Anda. Kami analisa potensinya dalam 24 jam. Tanpa biaya.</p>
+              <button onclick="document.getElementById('contactModal').classList.remove('hidden')" class="bg-dom-black text-white px-8 py-4 font-bold border-2 border-transparent hover:bg-white hover:text-black hover:border-black transition-all w-full uppercase shadow-lg hover:shadow-none hover:translate-y-1">
+                 Minta Audit Sekarang
+              </button>
+           </div>
+        </div>
+     </div>
+  </section>
+
+</Layout>

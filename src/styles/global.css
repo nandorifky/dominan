@@ -1,1 +1,6 @@
-@import "tailwindcss";
+/* HAPUS: @import "tailwindcss"; */
+
+/* GANTI DENGAN INI: */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

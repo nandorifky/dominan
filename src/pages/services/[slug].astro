@@ -216,13 +216,82 @@ export async function getStaticPaths() {
 }
 
 const { service } = Astro.props;
+
+// --- 1. MEMBUAT SCHEMA MARKUP DINAMIS ---
+const schemaData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    // Breadcrumb
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://dominan.web.id/" },
+        { "@type": "ListItem", "position": 2, "name": "Layanan", "item": "https://dominan.web.id/#services" },
+        { "@type": "ListItem", "position": 3, "name": service.h1, "item": Astro.url.href }
+      ]
+    },
+    // Service Schema
+    {
+      "@type": "Service",
+      "name": service.seoTitle,
+      "provider": {
+        "@type": "ProfessionalService", // Bisa diganti 'LocalBusiness' atau 'Organization'
+        "name": "Dominan Web",
+        "image": "https://dominan.web.id/logo.png", // Pastikan punya logo
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Jl. Raya Dominan No. 1",
+          "addressLocality": "Jakarta Selatan",
+          "addressCountry": "ID"
+        },
+        "priceRange": service.pricing[0].price // Mengambil harga terendah dari array pricing
+      },
+      "description": service.seoDesc,
+      "areaServed": {
+        "@type": "Country",
+        "name": "Indonesia"
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Paket Layanan",
+        "itemListElement": service.pricing.map(item => ({
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": item.name
+          },
+          "price": item.price.replace(/[^0-9]/g, ''), // Membersihkan "Rp" dan titik
+          "priceCurrency": "IDR",
+          "description": item.desc
+        }))
+      }
+    },
+    // FAQ Schema (Penting untuk Rich Snippet di Google)
+    {
+      "@type": "FAQPage",
+      "mainEntity": service.faq.map(item => ({
+        "@type": "Question",
+        "name": item.q,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.a
+        }
+      }))
+    }
+  ]
+};
 ---
 
-<Layout title={service.seoTitle}>
-  <meta slot="head" name="description" content={service.seoDesc} />
+<Layout 
+  title={service.seoTitle}
+  description={service.seoDesc}
+  image={service.heroImage}
+>
+{/* Inject JSON-LD ke Head */}
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(schemaData)} />
 
   {/* === BUNGKUSAN PENYELAMAT (FIX LAYOUT COLLAPSE) === */}
-  <div class="w-full flex flex-col bg-white">
+ {/*<div class="w-full flex flex-col bg-white">*/}
 
     {/* ======================= HERO SECTION ======================= */}
     <header class="w-full relative bg-zinc-50 border-b-3 border-dom-black overflow-hidden">
@@ -236,19 +305,19 @@ const { service } = Astro.props;
               ← Kembali ke Layanan
             </a>
 
-            <h1 class="text-6xl md:text-7xl lg:text-8xl font-bold uppercase leading-[0.9] tracking-tighter text-dom-black mb-6">
+            <h1 class="text-4xl md:text-7xl lg:text-8xl font-bold uppercase leading-[0.9] tracking-tighter text-dom-black mb-6">
               {service.h1}
             </h1>
             
             <div class="w-24 h-2 bg-dom-yellow mb-8"></div>
 
-            <p class="text-2xl md:text-3xl font-bold text-gray-800 leading-tight mb-6">
-              {service.subtitle}
-            </p>
+<p class="text-xl md:text-3xl font-bold text-gray-800 leading-tight mb-6">
+  {service.subtitle}
+</p>
 
-            <p class="text-gray-600 text-lg leading-relaxed mb-10 max-w-xl">
-              {service.introText}
-            </p>
+<p class="text-base md:text-lg text-gray-600 leading-relaxed mb-10 max-w-xl">
+  {service.introText}
+</p>
 
             <div class="flex flex-col sm:flex-row gap-4">
               <button onclick="document.getElementById('contactModal').classList.remove('hidden')" class="bg-dom-black text-white px-8 py-4 text-lg font-bold border-2 border-dom-black shadow-neo hover:translate-y-1 hover:shadow-none hover:bg-dom-yellow hover:text-black transition-all">

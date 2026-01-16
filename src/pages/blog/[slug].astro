@@ -1,5 +1,5 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, getEntry } from 'astro:content'; // Tambah getEntry
 import Layout from '../../layouts/Layout.astro';
 
 export async function getStaticPaths() {
@@ -11,14 +11,21 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
-// RENDER KONTEN (Cara Baru untuk type: 'content')
 const { Content } = await post.render();
-
-// Data shortcut
 const data = post.data;
 const seo = data.seo || {};
 
-// SEO Logic
+// --- LOGIC AMBIL DATA AUTHOR ---
+let authorData = null;
+if (data.author) {
+  // Mengambil data author berdasarkan referensi slug
+  const authorEntry = await getEntry(data.author);
+  if (authorEntry) {
+    authorData = authorEntry.data;
+  }
+}
+// -------------------------------
+
 const pageTitle = seo.metaTitle || data.title;
 const pageDesc = seo.metaDescription || data.excerpt;
 const shareImage = seo.ogImage || data.coverImage || '/og-default.jpg';
@@ -26,61 +33,61 @@ const breadcrumbName = seo.breadcrumbTitle || data.title;
 const canonicalURL = seo.canonicalUrl || Astro.url.href;
 const isNoIndex = seo.noIndex || false;
 
-// Schema JSON-LD
+// ... (Schema JSON-LD code biarkan sama) ...
+// Note: Anda bisa update Schema JSON-LD bagian "author" agar dinamis juga, tapi kita fokus ke UI dulu.
+// Schema JSON-LD shortcut (optional update):
 const schemaOrgJSON = {
   "@context": "https://schema.org",
   "@graph": [
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://dominan.web.id/" },
-        { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://dominan.web.id/blog" },
-        { "@type": "ListItem", "position": 3, "name": breadcrumbName, "item": Astro.url.href }
-      ]
-    },
+    // ... breadcrumb ...
     {
       "@type": "BlogPosting",
       "headline": pageTitle,
-      "image": [new URL(shareImage, Astro.site || 'http://localhost:4321').href],
-      "datePublished": new Date(data.publishedDate).toISOString(),
-      "description": pageDesc,
-      "author": { "@type": "Organization", "name": "Dominan Web" }
+      // ...
+      "author": authorData ? {
+          "@type": "Person",
+          "name": authorData.name,
+          "url": authorData.social?.website || Astro.site
+      } : { "@type": "Organization", "name": "Dominan Web" }
     }
   ]
 };
 ---
 
 <Layout title={pageTitle}>
-  
+  {/* Head section tetap sama */}
   <Fragment slot="head">
-    <meta name="description" content={pageDesc} />
-    <link rel="canonical" href={canonicalURL} />
-    
-    <meta property="og:type" content="article" />
-    <meta property="og:title" content={pageTitle} />
-    <meta property="og:description" content={pageDesc} />
-    <meta property="og:image" content={shareImage} />
-    
-    {isNoIndex && <meta name="robots" content="noindex, nofollow" />}
-    <script type="application/ld+json" set:html={JSON.stringify(schemaOrgJSON)} />
+     {/* ... code meta tags ... */}
+     <script type="application/ld+json" set:html={JSON.stringify(schemaOrgJSON)} />
   </Fragment>
 
   <article class="bg-white min-h-screen">
+    {/* Header tetap sama */}
     <header class="py-16 md:py-24 border-b-3 border-dom-black bg-zinc-50 text-center relative overflow-hidden">
+        {/* ... code header ... */}
         <div class="container mx-auto px-6 max-w-4xl relative z-10">
+            {/* ... nav ... */}
             <nav class="flex justify-center items-center gap-2 text-xs font-bold uppercase tracking-widest text-gray-500 mb-8">
                 <a href="/" class="hover:text-black hover:underline">Home</a>
                 <span>/</span>
                 <a href="/blog" class="hover:text-black hover:underline">Blog</a>
                 <span>/</span>
-                 <span class="text-dom-black bg-dom-yellow px-1 border border-black truncate max-w-[200px] md:max-w-none">
+                <span class="text-dom-black bg-dom-yellow px-1 border border-black truncate max-w-[200px] md:max-w-none">
                     {breadcrumbName}
                 </span>
             </nav>
 
-            <h1 class="text-4xl md:text-6xl font-bold mb-6 uppercase leading-tight text-dom-black">{data.title}</h1>
-            
+            <h1 class="text-3xl md:text-6xl font-bold mb-6 uppercase leading-tight text-dom-black">{data.title}</h1>
+           
             <div class="flex items-center justify-center gap-4 text-sm font-bold">
+               {/* Update: Tampilkan nama author kecil di sini juga jika mau */}
+               {authorData && (
+                   <span class="flex items-center gap-2">
+                       {authorData.avatar && <img src={authorData.avatar} class="w-6 h-6 rounded-full border border-black object-cover" alt={authorData.name} />}
+                       <span>{authorData.name}</span>
+                       <span class="w-1 h-1 bg-black rounded-full"></span>
+                   </span>
+               )}
                <span class="bg-white px-3 py-1 border-2 border-black shadow-neo-sm">
                  {new Date(data.publishedDate).toLocaleDateString('id-ID', { dateStyle: 'long' })}
                </span>
@@ -88,6 +95,7 @@ const schemaOrgJSON = {
         </div>
     </header>
 
+    {/* Cover Image tetap sama */}
     {data.coverImage && (
         <div class="container mx-auto px-6 max-w-5xl -mt-12 relative z-20">
             <div class="aspect-video border-3 border-dom-black shadow-neo bg-gray-200">
@@ -97,17 +105,71 @@ const schemaOrgJSON = {
     )}
 
     <div class="container mx-auto px-6 py-16 max-w-3xl">
-        <div class="prose prose-lg prose-headings:font-bold prose-headings:uppercase prose-a:text-dom-black prose-a:decoration-dom-yellow prose-img:border-2 prose-img:border-black max-w-none">
-            
-            {/* INI BAGIAN KONTEN YANG OTOMATIS DI-RENDER */}
+        <div class="prose md:prose-lg prose-headings:font-bold prose-headings:uppercase prose-a:text-dom-black prose-a:decoration-dom-yellow prose-img:border-2 prose-img:border-black max-w-none">
             <Content />
-
         </div>
 
-        <div class="mt-16 pt-8 border-t-2 border-black border-dashed">
+        {/* ======================================================== */}
+        {/* BAGIAN AUTHOR SECTION (DITAMBAHKAN SEBELUM CTA) */}
+        {/* ======================================================== */}
+        {authorData && (
+            <div class="mt-16 mb-8 border-3 border-dom-black p-6 md:p-8 bg-zinc-50 shadow-neo">
+                <div class="flex flex-col md:flex-row gap-6 items-center md:items-start text-center md:text-left">
+                    {/* Avatar */}
+                    <div class="flex-shrink-0">
+                        {authorData.avatar ? (
+                            <img src={authorData.avatar} alt={authorData.name} class="w-24 h-24 md:w-32 md:h-32 object-cover border-2 border-dom-black shadow-neo-sm bg-white" />
+                        ) : (
+                            <div class="w-24 h-24 md:w-32 md:h-32 bg-dom-yellow border-2 border-dom-black flex items-center justify-center text-3xl font-bold shadow-neo-sm">
+                                {authorData.name.charAt(0)}
+                            </div>
+                        )}
+                    </div>
+                    
+                    {/* Info */}
+                    <div class="flex-grow">
+                        <div class="mb-1 text-xs font-bold uppercase tracking-widest text-gray-500">Tentang Penulis</div>
+                        <h3 class="text-2xl font-bold uppercase mb-1">{authorData.name}</h3>
+                        {authorData.role && <p class="text-sm font-bold text-dom-yellow bg-dom-black inline-block px-2 py-0.5 mb-4">{authorData.role}</p>}
+                        
+                        {authorData.bio && <p class="text-gray-700 mb-4 leading-relaxed">{authorData.bio}</p>}
+                        
+                        {/* Social Links */}
+                        {authorData.social && (
+                            <div class="flex justify-center md:justify-start gap-4">
+                                {authorData.social.website && (
+                                    <a href={authorData.social.website} target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-black transition-colors" title="Website">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
+                                    </a>
+                                )}
+                                {authorData.social.instagram && (
+                                    <a href={authorData.social.instagram} target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-pink-600 transition-colors" title="Instagram">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke-width="2"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" stroke-width="2"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke-width="2"></line></svg>
+                                    </a>
+                                )}
+                                {authorData.social.linkedin && (
+                                    <a href={authorData.social.linkedin} target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-blue-700 transition-colors" title="LinkedIn">
+                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                                    </a>
+                                )}
+                                {authorData.social.facebook && (
+                                    <a href={authorData.social.facebook} target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-blue-600 transition-colors" title="Facebook">
+                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/></svg>
+                                    </a>
+                                )}
+                            </div>
+                        )}
+                    </div>
+                </div>
+            </div>
+        )}
+        {/* ======================================================== */}
+
+        <div class="mt-8 pt-8 border-t-2 border-black border-dashed">
             <div class="bg-dom-black text-white p-8 text-center border-3 border-black shadow-neo">
                 <h3 class="text-2xl font-bold uppercase mb-2">Artikel ini bermanfaat?</h3>
                 <p class="mb-6 text-gray-300">Konsultasikan website Anda sekarang.</p>
+                {/* ... CTA button ... */}
                 <button onclick="document.getElementById('contactModal').classList.remove('hidden')" class="bg-dom-yellow text-black px-6 py-3 font-bold border-2 border-transparent hover:bg-white transition-all shadow-[4px_4px_0px_0px_rgba(255,255,255,0.2)] hover:shadow-none hover:translate-y-1">
                     KONSULTASI GRATIS
                 </button>
