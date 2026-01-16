@@ -2,140 +2,89 @@
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 
-export async function getStaticPaths() {
-  const posts = await getCollection('posts');
-  return posts.map(post => ({
-    params: { slug: post.slug },
-    props: { post },
-  }));
-}
+// 1. Ambil semua data posts
+const posts = await getCollection('posts');
 
-const { post } = Astro.props;
-const { Content } = await post.render();
+// 2. Urutkan dari yang terbaru
+const sortedPosts = posts.sort((a, b) => 
+  new Date(b.data.publishedDate).valueOf() - new Date(a.data.publishedDate).valueOf()
+);
 
-// --- LOGIKA SEO OTOMATIS (FALLBACK SYSTEM) ---
-
-// 1. Title & Desc (Prioritas: SEO Setting > Data Artikel)
-const pageTitle = post.data.seo?.metaTitle || post.data.title;
-const pageDesc = post.data.seo?.metaDescription || post.data.excerpt;
-const shareImage = post.data.seo?.ogImage || post.data.coverImage || '/og-default.jpg';
-const isNoIndex = post.data.seo?.noIndex || false;
-
-// 2. Canonical URL (Prioritas: Custom > Current URL)
-// Astro.url.href mengambil URL halaman saat ini secara otomatis
-const canonicalURL = post.data.seo?.canonicalUrl || Astro.url.href;
-
-// 3. Breadcrumb Name (Prioritas: Custom > Judul Asli)
-const breadcrumbName = post.data.seo?.breadcrumbTitle || post.data.title;
-
-// 4. Schema.org Data (JSON-LD)
-const schemaOrgJSON = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://dominan.web.id/" },
-        { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://dominan.web.id/blog" },
-        { "@type": "ListItem", "position": 3, "name": breadcrumbName, "item": Astro.url.href }
-      ]
-    },
-    {
-      "@type": "BlogPosting",
-      "headline": pageTitle,
-      "image": [new URL(shareImage, Astro.site).href],
-      "datePublished": post.data.publishedDate.toISOString(),
-      "author": {
-        "@type": "Organization",
-        "name": "Dominan Web"
-      },
-      "publisher": {
-        "@type": "Organization",
-        "name": "Dominan Web",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://dominan.web.id/logo.png" // Ganti URL logo asli nanti
-        }
-      },
-      "description": pageDesc
-    }
-  ]
-};
+const pageTitle = "Blog & Insight | Dominan Web";
+const pageDesc = "Artikel terbaru seputar strategi SEO, Website High Performance, dan Digital Marketing.";
 ---
 
 <Layout title={pageTitle}>
   
   <Fragment slot="head">
     <meta name="description" content={pageDesc} />
-    <link rel="canonical" href={canonicalURL} />
-    
-    <meta property="og:type" content="article" />
-    <meta property="og:title" content={pageTitle} />
-    <meta property="og:description" content={pageDesc} />
-    <meta property="og:image" content={shareImage} />
-    <meta property="article:published_time" content={post.data.publishedDate.toISOString()} />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={pageTitle} />
-    <meta name="twitter:description" content={pageDesc} />
-    <meta name="twitter:image" content={shareImage} />
-
-    {isNoIndex && <meta name="robots" content="noindex, nofollow" />}
-
-    <script type="application/ld+json" set:html={JSON.stringify(schemaOrgJSON)} />
   </Fragment>
 
-  <article class="bg-white">
-    
-    <header class="py-16 md:py-24 border-b-3 border-dom-black bg-zinc-50 relative overflow-hidden">
-        <div class="container mx-auto px-6 relative z-10 max-w-4xl text-center">
-            
-            <nav class="flex justify-center items-center gap-2 text-xs font-bold uppercase tracking-widest text-gray-500 mb-8">
-                <a href="/" class="hover:text-black hover:underline">Home</a>
-                <span>/</span>
-                <a href="/blog" class="hover:text-black hover:underline">Blog</a>
-                <span>/</span>
-                <span class="text-dom-black bg-dom-yellow px-1 border border-black truncate max-w-[200px] md:max-w-none">
-                    {breadcrumbName}
-                </span>
-            </nav>
-            
-            <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight uppercase text-dom-black">
-                {post.data.title}
-            </h1>
-            
-            <div class="flex items-center justify-center gap-4 text-sm font-bold">
-                <span class="bg-white px-3 py-1 border-2 border-black shadow-neo-sm">
-                    {post.data.publishedDate.toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })}
-                </span>
-            </div>
-        </div>
-    </header>
-
-    {post.data.coverImage && (
-        <div class="container mx-auto px-6 max-w-5xl -mt-12 relative z-20">
-            <div class="aspect-video border-3 border-dom-black shadow-neo bg-gray-200">
-                <img src={post.data.coverImage} alt={post.data.title} class="w-full h-full object-cover" />
-            </div>
-        </div>
-    )}
-
-    <div class="container mx-auto px-6 py-16 max-w-3xl">
-        <div class="prose prose-lg prose-headings:font-bold prose-headings:uppercase prose-a:text-dom-black prose-a:decoration-dom-yellow prose-img:border-2 prose-img:border-black max-w-none">
-            <Content />
-        </div>
-
-        <div class="mt-16 pt-8 border-t-2 border-black border-dashed">
-            <div class="bg-dom-black text-white p-8 text-center border-3 border-black shadow-neo">
-                <h3 class="text-2xl font-bold uppercase mb-2">Artikel ini bermanfaat?</h3>
-                <p class="mb-6 text-gray-300">Jika Anda butuh bantuan untuk menerapkan strategi di atas pada bisnis Anda.</p>
-                <button onclick="document.getElementById('contactModal').classList.remove('hidden')" class="bg-dom-yellow text-black px-6 py-3 font-bold border-2 border-transparent hover:bg-white transition-all shadow-[4px_4px_0px_0px_rgba(255,255,255,0.2)] hover:shadow-none hover:translate-y-1">
-                    KONSULTASI GRATIS
-                </button>
-            </div>
-        </div>
+  <header class="py-16 md:py-24 border-b-3 border-dom-black bg-zinc-50 relative overflow-hidden">
+    <div class="container mx-auto px-6 relative z-10 text-center">
+        <h1 class="text-5xl md:text-7xl font-bold mb-6 uppercase leading-tight text-dom-black">
+            INSIGHT & <br/>
+            <span class="text-white bg-dom-black px-4">STRATEGI</span>
+        </h1>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+            Pelajari cara mendominasi pasar digital dengan strategi yang terbukti, bukan sekadar teori.
+        </p>
     </div>
+  </header>
 
-  </article>
+  <section class="py-16 bg-white min-h-screen">
+    <div class="container mx-auto px-6 max-w-6xl">
+        
+        {sortedPosts.length === 0 ? (
+            <div class="text-center py-20 border-3 border-dashed border-gray-300">
+                <p class="text-2xl font-bold text-gray-400">Belum ada artikel yang dipublish.</p>
+            </div>
+        ) : (
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {sortedPosts.map((post) => (
+                    <article class="flex flex-col h-full border-3 border-dom-black bg-white shadow-neo hover:shadow-neo-hover hover:-translate-y-1 transition-all duration-200 group">
+                        
+                        {/* Cover Image */}
+                        <a href={`/blog/${post.id}`} class="block overflow-hidden border-b-3 border-dom-black aspect-video bg-gray-200 relative">
+                            {post.data.coverImage ? (
+                                <img 
+                                    src={post.data.coverImage} 
+                                    alt={post.data.title} 
+                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                />
+                            ) : (
+                                <div class="w-full h-full flex items-center justify-center text-gray-400 font-bold bg-gray-100">
+                                    NO IMAGE
+                                </div>
+                            )}
+                        </a>
+
+                        {/* Content */}
+                        <div class="p-6 flex flex-col flex-grow">
+                            <div class="mb-4 flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-gray-500">
+                                <span>{new Date(post.data.publishedDate).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                            </div>
+
+                            <h2 class="text-2xl font-bold mb-3 leading-tight uppercase">
+                                <a href={`/blog/${post.id}`} class="hover:text-dom-yellow transition-colors block">
+                                    {post.data.title}
+                                </a>
+                            </h2>
+
+                            <p class="text-gray-600 text-sm mb-6 line-clamp-3 flex-grow">
+                                {post.data.excerpt || "Baca selengkapnya untuk strategi mendalam..."}
+                            </p>
+
+                            <a href={`/blog/${post.id}`} class="inline-flex items-center gap-2 font-bold uppercase text-sm border-b-2 border-black pb-1 w-max hover:gap-4 transition-all">
+                                BACA ARTIKEL <span class="text-lg">→</span>
+                            </a>
+                        </div>
+                    </article>
+                ))}
+            </div>
+        )}
+
+    </div>
+  </section>
 
 </Layout>

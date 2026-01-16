@@ -1,7 +1,7 @@
 import { defineCollection, z } from 'astro:content';
 
 const posts = defineCollection({
-  // WAJIB 'data' KARENA KITA PAKAI JSON
+  // WAJIB 'data' KARENA KITA PAKAI JSON (KEYSTATIC)
   type: 'data', 
   
   schema: z.object({
@@ -19,7 +19,9 @@ const posts = defineCollection({
       noIndex: z.boolean().default(false),
     }).optional(),
 
-    // Content tidak perlu didefinisikan di Zod untuk JSON Keystatic
+    // WAJIB DITAMBAHKAN: Field content untuk menampung JSON Rich Text
+    // Kita pakai z.any() karena struktur JSON dari Keystatic sangat kompleks & bersarang
+    content: z.any().optional(), 
   }),
 });
 
