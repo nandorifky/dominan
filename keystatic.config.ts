@@ -13,13 +13,11 @@ export default config({
       slugField: 'title',
       path: 'src/content/posts/*',
       
-      // KUNCI UTAMA: Format ini mengaktifkan tampilan 2 Kolom
       format: { contentField: 'content' },
-      
       entryLayout: 'content',
 
       schema: {
-        // --- BAGIAN 1: IDENTITAS (Sidebar Kiri/Atas) ---
+        // --- BAGIAN 1: IDENTITAS ---
         title: fields.slug({ name: { label: 'Judul Artikel (H1)' } }),
         publishedDate: fields.date({ label: 'Tanggal Publish', defaultValue: { kind: 'today' } }),
         coverImage: fields.image({
@@ -33,7 +31,7 @@ export default config({
           description: 'Ringkasan untuk preview link & meta description.'
         }),
         
-        // --- BAGIAN 2: SIDEBAR KANAN (SEO & Setting) ---
+        // --- BAGIAN 2: SEO & SCHEMA ---
         seo: fields.object({
           metaTitle: fields.text({ label: 'Meta Title (Google)' }),
           metaDescription: fields.text({ label: 'Meta Description (Google)', multiline: true }),
@@ -45,9 +43,17 @@ export default config({
             publicPath: '/images/posts/og/',
           }),
           noIndex: fields.checkbox({ label: 'Sembunyikan dari Google (NoIndex)' }),
+          
+          // FIELD BARU: Custom Schema JSON-LD
+          customSchema: fields.text({
+            label: 'Custom JSON-LD Schema (Optional)',
+            multiline: true,
+            description: 'Paste kode JSON-LD valid di sini (mulai dengan kurung kurawal { ... }). Jangan pakai tag <script>.',
+          }),
+
         }, { label: '🔍 Advanced SEO' }),
 
-        // --- BAGIAN 3: EDITOR TENGAH (Full Content) ---
+        // --- BAGIAN 3: EDITOR KONTEN ---
         content: fields.document({
           label: 'Isi Artikel',
           formatting: true,
@@ -71,7 +77,6 @@ export default config({
       path: 'src/content/pages/*',
       
       format: { contentField: 'content' },
-      
       entryLayout: 'content',
       
       schema: {
@@ -81,6 +86,7 @@ export default config({
           metaTitle: fields.text({ label: 'Meta Title' }),
           metaDescription: fields.text({ label: 'Meta Description', multiline: true }),
           noIndex: fields.checkbox({ label: 'NoIndex' }),
+          // Opsi: Bisa tambahkan customSchema juga di sini jika mau
         }, { label: '⚙️ Pengaturan Halaman' }),
 
         content: fields.document({

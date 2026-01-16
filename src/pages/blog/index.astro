@@ -2,10 +2,11 @@
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 
-// 1. Ambil semua data posts
+// 1. Ambil semua artikel
 const posts = await getCollection('posts');
 
 // 2. Urutkan dari yang terbaru
+// Perhatikan: Kita akses data.publishedDate
 const sortedPosts = posts.sort((a, b) => 
   new Date(b.data.publishedDate).valueOf() - new Date(a.data.publishedDate).valueOf()
 );
@@ -27,7 +28,7 @@ const pageDesc = "Artikel terbaru seputar strategi SEO, Website High Performance
             <span class="text-white bg-dom-black px-4">STRATEGI</span>
         </h1>
         <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-            Pelajari cara mendominasi pasar digital dengan strategi yang terbukti, bukan sekadar teori.
+            Pelajari cara mendominasi pasar digital dengan strategi yang terbukti.
         </p>
     </div>
   </header>
@@ -45,7 +46,8 @@ const pageDesc = "Artikel terbaru seputar strategi SEO, Website High Performance
                     <article class="flex flex-col h-full border-3 border-dom-black bg-white shadow-neo hover:shadow-neo-hover hover:-translate-y-1 transition-all duration-200 group">
                         
                         {/* Cover Image */}
-                        <a href={`/blog/${post.id}`} class="block overflow-hidden border-b-3 border-dom-black aspect-video bg-gray-200 relative">
+                        {/* PENTING: Gunakan post.slug untuk link */}
+                        <a href={`/blog/${post.slug}`} class="block overflow-hidden border-b-3 border-dom-black aspect-video bg-gray-200 relative">
                             {post.data.coverImage ? (
                                 <img 
                                     src={post.data.coverImage} 
@@ -54,7 +56,7 @@ const pageDesc = "Artikel terbaru seputar strategi SEO, Website High Performance
                                 />
                             ) : (
                                 <div class="w-full h-full flex items-center justify-center text-gray-400 font-bold bg-gray-100">
-                                    NO IMAGE
+                                    DOMINAN
                                 </div>
                             )}
                         </a>
@@ -66,16 +68,16 @@ const pageDesc = "Artikel terbaru seputar strategi SEO, Website High Performance
                             </div>
 
                             <h2 class="text-2xl font-bold mb-3 leading-tight uppercase">
-                                <a href={`/blog/${post.id}`} class="hover:text-dom-yellow transition-colors block">
+                                <a href={`/blog/${post.slug}`} class="hover:text-dom-yellow transition-colors block">
                                     {post.data.title}
                                 </a>
                             </h2>
 
                             <p class="text-gray-600 text-sm mb-6 line-clamp-3 flex-grow">
-                                {post.data.excerpt || "Baca selengkapnya untuk strategi mendalam..."}
+                                {post.data.excerpt || "Baca strategi selengkapnya..."}
                             </p>
 
-                            <a href={`/blog/${post.id}`} class="inline-flex items-center gap-2 font-bold uppercase text-sm border-b-2 border-black pb-1 w-max hover:gap-4 transition-all">
+                            <a href={`/blog/${post.slug}`} class="inline-flex items-center gap-2 font-bold uppercase text-sm border-b-2 border-black pb-1 w-max hover:gap-4 transition-all">
                                 BACA ARTIKEL <span class="text-lg">→</span>
                             </a>
                         </div>

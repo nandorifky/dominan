@@ -1,7 +1,6 @@
 import { defineCollection, z } from 'astro:content';
 
 const posts = defineCollection({
-  // WAJIB 'content' KARENA KITA UBAH FORMAT DI KEYSTATIC
   type: 'content', 
   
   schema: z.object({
@@ -17,16 +16,15 @@ const posts = defineCollection({
       breadcrumbTitle: z.string().optional(),
       ogImage: z.string().optional(),
       noIndex: z.boolean().default(false),
+      
+      // VALIDASI FIELD BARU
+      customSchema: z.string().optional(), 
     }).optional(),
-
-    // CATATAN: Field 'content' DIHAPUS dari sini karena Astro otomatis membacanya sebagai body
   }),
 });
 
 const pages = defineCollection({
-  // WAJIB 'content'
   type: 'content',
-  
   schema: z.object({
     title: z.string(),
     seo: z.object({
