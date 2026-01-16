@@ -26,12 +26,12 @@ if (data.author) {
 }
 // -------------------------------
 
-const pageTitle = seo.metaTitle || data.title;
-const pageDesc = seo.metaDescription || data.excerpt;
-const shareImage = seo.ogImage || data.coverImage || '/og-default.jpg';
-const breadcrumbName = seo.breadcrumbTitle || data.title;
-const canonicalURL = seo.canonicalUrl || Astro.url.href;
-const isNoIndex = seo.noIndex || false;
+const pageTitle = data.seo?.metaTitle || data.title;
+const pageDesc = data.seo?.metaDescription || data.excerpt;
+const shareImage = data.seo?.ogImage || data.coverImage || '/og-default.jpg';
+const breadcrumbName = data.seo?.breadcrumbTitle || data.title;
+const canonicalURL = data.seo?.canonicalUrl || Astro.url.href;
+const isNoIndex = data.seo?.noIndex || false;
 
 // ... (Schema JSON-LD code biarkan sama) ...
 // Note: Anda bisa update Schema JSON-LD bagian "author" agar dinamis juga, tapi kita fokus ke UI dulu.
