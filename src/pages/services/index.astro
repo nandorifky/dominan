@@ -1,0 +1,59 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const services = [
+  {
+    title: 'SEO DOMINATOR',
+    slug: 'seo',
+    desc: 'Audit, Optimasi Ranking, & Backlink.',
+    icon: '<svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>'
+  },
+  {
+    title: 'WORDPRESS HIGH-PERF',
+    slug: 'website',
+    desc: 'Website Cepat, Aman, & Konversi Tinggi.',
+    icon: '<svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>'
+  },
+  {
+    title: 'CONVERSION ADS',
+    slug: 'ads',
+    desc: 'Google & FB Ads dengan Tracking ROI.',
+    icon: '<svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path></svg>'
+  }
+];
+---
+
+<Layout title="Semua Layanan | Dominan Web">
+  
+  <header class="py-24 bg-white border-b-3 border-dom-black min-h-[60vh] flex items-center justify-center text-center relative overflow-hidden">
+    <div class="absolute inset-0 opacity-[0.03]" style="background-image: radial-gradient(#000 1px, transparent 1px); background-size: 30px 30px;"></div>
+
+    <div class="container mx-auto px-6 relative z-10">
+      <h1 class="text-5xl md:text-7xl font-bold uppercase mb-8 text-dom-black">
+        Pilih Senjata<br>
+        <span class="bg-dom-black text-white px-4">Digital Anda</span>
+      </h1>
+      <p class="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
+        Kami menyediakan solusi *end-to-end*. Dari membangun pondasi (Website), mendatangkan trafik organik (SEO), hingga akselerasi profit (Ads).
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        {services.map((item) => (
+          <a href={`/services/${item.slug}`} class="group block bg-white border-3 border-dom-black p-8 shadow-neo hover:shadow-none hover:translate-y-1 transition-all text-left">
+            <div class="mb-6 text-dom-black group-hover:text-dom-yellow transition-colors">
+              <Fragment set:html={item.icon} />
+            </div>
+            <h2 class="text-2xl font-bold uppercase mb-2 group-hover:underline decoration-4 underline-offset-4 decoration-dom-yellow">{item.title}</h2>
+            <p class="text-gray-600 font-medium mb-6">{item.desc}</p>
+            <span class="inline-block font-bold text-sm border-b-2 border-black pb-1">LIHAT DETAIL →</span>
+          </a>
+        ))}
+      </div>
+      
+      <div class="mt-16">
+        <a href="/" class="font-bold text-gray-400 hover:text-black transition-colors">← KEMBALI KE HOME</a>
+      </div>
+    </div>
+  </header>
+
+</Layout>

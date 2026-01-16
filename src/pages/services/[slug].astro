@@ -1,0 +1,456 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+// ==================================================================
+// 1. DATABASE LAYANAN
+// ==================================================================
+export async function getStaticPaths() {
+  const services = [
+    {
+      slug: 'seo',
+      seoTitle: 'Jasa SEO Bergaransi & Audit Website | Page 1 Google',
+      seoDesc: 'Jasa SEO profesional white hat. Audit teknis, riset keyword, dan backlink berkualitas.',
+      h1: 'SEO Dominator', 
+      subtitle: 'Ranking 1 Google. Atau Tidak Sama Sekali.',
+      // Image diganti orientasi square/portrait agar pas di layout baru
+      heroImage: 'https://placehold.co/800x1000/111/FFF?text=SEO+Analytics+Shot', 
+      introText: 'Algoritma Google kejam. Website tanpa pondasi SEO yang kuat akan tenggelam. Kami menggunakan strategi Data-Driven untuk memaksa Google menaruh bisnis Anda di ranking teratas.',
+      
+      logos: [
+        'https://placehold.co/150x50/white/black?text=PERTAMINA',
+        'https://placehold.co/150x50/white/black?text=TOKOPEDIA',
+        'https://placehold.co/150x50/white/black?text=TRAVELOKA',
+        'https://placehold.co/150x50/white/black?text=GOJEK',
+        'https://placehold.co/150x50/white/black?text=BUKALAPAK',
+        'https://placehold.co/150x50/white/black?text=BANK+BCA'
+      ],
+
+      clientList: [
+        { name: 'PT. Sumber Rejeki', industry: 'Manufaktur', status: 'Page 1 (3 Keywords)' },
+        { name: 'Dr. Gigi Santoso', industry: 'Klinik Kesehatan', status: 'Gmaps #1' },
+        { name: 'Toko Herbal Alami', industry: 'E-Commerce', status: 'Traffic +400%' },
+        { name: 'Lawyer Jakarta', industry: 'Jasa Hukum', status: 'Leads Naik 5x' },
+        { name: 'CV. Beton Karya', industry: 'Konstruksi', status: 'Page 1 (Local)' }
+      ],
+
+      projects: [
+        { title: 'Toko Herbal', category: 'E-Commerce', result: 'Traffic +300%', img: 'https://placehold.co/800x600/EEE/31343C?text=SEO+Case+1' },
+        { title: 'Lawyer Jakarta', category: 'Local SEO', result: 'Ranking 1', img: 'https://placehold.co/800x600/EEE/31343C?text=SEO+Case+2' },
+        { title: 'Klinik Estetika', category: 'Lead Gen', result: 'Leads +500%', img: 'https://placehold.co/800x600/EEE/31343C?text=SEO+Case+3' }
+      ],
+
+      pricing: [
+        { 
+          name: 'SEO AUDIT', price: 'Rp 2.500.000', period: 'Sekali Bayar', 
+          desc: 'Cek kesehatan website sebelum optimasi.',
+          features: ['Audit Teknis 200+ Poin', 'Analisa Kompetitor', 'Laporan PDF Rekomendasi'] 
+        },
+        { 
+          name: 'LOCAL SEO', price: 'Rp 4.500.000', period: 'Per Bulan', isBest: true,
+          desc: 'Dominasi pencarian lokal.',
+          features: ['Optimasi Gmaps', '2 Artikel Pilar/Bulan', 'On-Page Fix', 'Monthly Report'] 
+        },
+        { 
+          name: 'NATIONAL SEO', price: 'Rp 8.000.000', period: 'Per Bulan', 
+          desc: 'Penguasaan pasar nasional.',
+          features: ['Keyword High-Volume', '4 Artikel Pilar/Bulan', 'Premium Backlinks', 'Prioritas Support'] 
+        }
+      ],
+      
+      testimonials: [
+        { name: 'Budi S.', company: 'Owner Bengkel', rating: 5, text: 'Bengkel penuh terus dari Google Maps. Tim Dominan kerjanya cepat dan transparan.', img: 'https://placehold.co/100x100/31343C/FFF?text=B' },
+        { name: 'Siti A.', company: 'Distributor', rating: 5, text: 'Traffic organik naik gila-gilaan dalam 4 bulan. Investasi terbaik tahun ini.', img: 'https://placehold.co/100x100/31343C/FFF?text=S' }
+      ],
+
+      features: [
+        { title: 'Audit Technical', desc: 'Memperbaiki error crawling & speed.' },
+        { title: 'Keyword Research', desc: 'Fokus keyword yang menghasilkan uang.' },
+        { title: 'Content Marketing', desc: 'Artikel manusiawi disukai Google.' },
+        { title: 'Safe Backlink', desc: 'Link building aman jangka panjang.' }
+      ],
+      faq: [
+        { q: 'Berapa lama SEO terlihat hasilnya?', a: 'Butuh 3-6 bulan untuk hasil signifikan. SEO adalah maraton, bukan lari sprint.' },
+        { q: 'Apakah garansi ranking 1?', a: 'Kami garansi peningkatan trafik & perbaikan struktur. Tidak ada yang bisa jamin ranking 1 pasti karena algoritma Google berubah-ubah.' }
+      ]
+    },
+
+    {
+      slug: 'website',
+      seoTitle: 'Jasa Pembuatan Website WordPress High-Performance',
+      seoDesc: 'Jasa bikin website WordPress custom cepat & aman.',
+      h1: 'WordPress High-Perf',
+      subtitle: 'Website Cepat. Aman. Mesin Uang.',
+      heroImage: 'https://placehold.co/800x1000/111/FFF?text=Clean+Code+Visual',
+      introText: 'Jangan buang uang untuk template pasaran yang loadingnya 5 detik. Kami fokus pada Core Web Vitals (Kecepatan), Struktur SEO yang benar, dan kemudahan edit (CMS Friendly).',
+
+      logos: [
+        'https://placehold.co/150x50/white/black?text=CLIENT+A',
+        'https://placehold.co/150x50/white/black?text=CLIENT+B',
+        'https://placehold.co/150x50/white/black?text=CLIENT+C',
+        'https://placehold.co/150x50/white/black?text=CLIENT+D',
+        'https://placehold.co/150x50/white/black?text=CLIENT+E',
+        'https://placehold.co/150x50/white/black?text=CLIENT+F'
+      ],
+
+      clientList: [
+        { name: 'PT. Konstruksi Jaya', industry: 'Kontraktor', status: 'Web Launch' },
+        { name: 'Skincare Glow', industry: 'Beauty', status: 'Landing Page' },
+        { name: 'Berita Kediri', industry: 'Media', status: 'AdSense Ready' },
+        { name: 'Kopi Senja', industry: 'F&B', status: 'Compro' },
+        { name: 'Rental Mobil', industry: 'Jasa', status: 'Booking System' }
+      ],
+
+      projects: [
+        { title: 'Web Konstruksi', category: 'Compro', result: 'Speed 0.8s', img: 'https://placehold.co/800x600/EEE/31343C?text=Web+Case+1' },
+        { title: 'LP Skincare', category: 'Sales', result: 'Conv. 8%', img: 'https://placehold.co/800x600/EEE/31343C?text=Web+Case+2' },
+        { title: 'Portal Berita', category: 'Media', result: 'High Traffic', img: 'https://placehold.co/800x600/EEE/31343C?text=Web+Case+3' }
+      ],
+
+      pricing: [
+        { 
+          name: 'LANDING PAGE', price: 'Rp 1.500.000', period: 'Sekali Bayar', 
+          desc: 'Fokus jualan satu produk/jasa.',
+          features: ['1 Halaman Long-Scroll', 'Copywriting Penjualan', 'Mobile Responsive', 'Hosting Gratis 1 Thn'] 
+        },
+        { 
+          name: 'COMPANY PROFILE', price: 'Rp 3.500.000', period: 'Sekali Bayar', isBest: true,
+          desc: 'Branding bisnis profesional.',
+          features: ['5-7 Halaman', 'Blog Setup', 'Schema SEO', 'Tutorial Edit'] 
+        },
+        { 
+          name: 'CUSTOM / TOKO', price: 'Mulai Rp 7jt', period: 'Sekali Bayar', 
+          desc: 'Toko Online / Web App.',
+          features: ['WooCommerce', 'Payment Gateway', 'Member Area', 'Prioritas Maintenance'] 
+        }
+      ],
+
+      testimonials: [
+        { name: 'Andi P.', company: 'CEO Properti', rating: 5, text: 'Websitenya kencang banget. Klien jadi lebih percaya.', img: 'https://placehold.co/100x100/31343C/FFF?text=A' },
+        { name: 'Rina M.', company: 'Klinik Gigi', rating: 5, text: 'Desain elegan, admin gampang diedit. Puas!', img: 'https://placehold.co/100x100/31343C/FFF?text=R' }
+      ],
+
+      features: [
+        { title: 'Speed Optimization', desc: 'Loading instan < 2 detik.' },
+        { title: 'SEO Structure', desc: 'Heading & schema sudah rapi.' },
+        { title: 'Mobile First', desc: 'Tampil sempurna di HP.' },
+        { title: 'Security', desc: 'Anti malware & hack dasar.' }
+      ],
+      faq: [
+        { q: 'Pakai hosting apa?', a: 'Cloud VPS atau Litespeed Enterprise.' },
+        { q: 'Dapat domain?', a: 'Harga belum termasuk domain, tapi kami bantu setup gratis.' }
+      ]
+    },
+
+    {
+      slug: 'ads',
+      seoTitle: 'Jasa Iklan Google Ads & Facebook Ads Terukur',
+      seoDesc: 'Jasa manage iklan Google & Meta Ads. ROI Positif.',
+      h1: 'Conversion Ads',
+      subtitle: 'Beli Profit. Bukan Sekadar Klik.',
+      heroImage: 'https://placehold.co/800x1000/111/FFF?text=Ads+Mobile+View',
+      introText: 'Iklan tanpa tracking itu judi. Kami setup Pixel/Conversion API agar setiap rupiah budget Anda terukur hasilnya. Datangkan leads berkualitas, bukan bot.',
+
+      logos: [
+        'https://placehold.co/150x50/white/black?text=ADS+CLIENT+1',
+        'https://placehold.co/150x50/white/black?text=ADS+CLIENT+2',
+        'https://placehold.co/150x50/white/black?text=ADS+CLIENT+3',
+        'https://placehold.co/150x50/white/black?text=ADS+CLIENT+4',
+        'https://placehold.co/150x50/white/black?text=ADS+CLIENT+5',
+        'https://placehold.co/150x50/white/black?text=ADS+CLIENT+6'
+      ],
+
+      clientList: [
+        { name: 'Property Sultan', industry: 'Real Estate', status: 'Leads Rp 15rb' },
+        { name: 'E-Course Crypto', industry: 'Education', status: 'ROAS 8x' },
+        { name: 'Fashion Brand', industry: 'Retail', status: 'Sales Stabil' },
+        { name: 'Klinik Kecantikan', industry: 'Service', status: 'Full Booking' },
+        { name: 'Franchise Makanan', industry: 'F&B', status: 'High Leads' }
+      ],
+
+      projects: [
+        { title: 'Property Campaign', category: 'Lead Gen', result: 'Leads Murah', img: 'https://placehold.co/800x600/EEE/31343C?text=Ads+Case+1' },
+        { title: 'E-Course Launch', category: 'Sales', result: 'ROAS 8x', img: 'https://placehold.co/800x600/EEE/31343C?text=Ads+Case+2' },
+        { title: 'Brand Fashion', category: 'Retargeting', result: 'Conv. Tinggi', img: 'https://placehold.co/800x600/EEE/31343C?text=Ads+Case+3' }
+      ],
+
+      pricing: [
+        { 
+          name: 'SETUP ONLY', price: 'Rp 1.500.000', period: 'Sekali Bayar', 
+          desc: 'Setting akun siap iklan.',
+          features: ['Setup Akun', 'Install Pixel/GTM', 'Riset Audiens', '1 Set Creative'] 
+        },
+        { 
+          name: 'MONTHLY MANAGE', price: 'Rp 2.500.000', period: 'Per Bulan', isBest: true,
+          desc: 'Kami kelola, Anda terima laporan.',
+          features: ['Daily Monitoring', 'A/B Testing', 'Optimasi Bid', 'Max Ads Budget 10Jt'] 
+        },
+        { 
+          name: 'SCALE UP', price: 'Custom %', period: 'Fee / Bagi Hasil', 
+          desc: 'Untuk budget besar > 20Jt.',
+          features: ['Strategi Funneling', 'Creative Production', 'Deep Data Analysis', 'Scale Up'] 
+        }
+      ],
+
+      testimonials: [
+        { name: 'Dr. Kevin', company: 'Estetika', rating: 5, text: 'Pasien baru datang tiap hari dari Google Search.', img: 'https://placehold.co/100x100/31343C/FFF?text=K' },
+        { name: 'Sarah', company: 'Catering', rating: 4, text: 'Biaya iklan turun, orderan naik. Timnya responsif.', img: 'https://placehold.co/100x100/31343C/FFF?text=S' }
+      ],
+
+      features: [
+        { title: 'Server-Side Tracking', desc: 'Data akurat anti iOS 14.' },
+        { title: 'High CTR Copy', desc: 'Teks memancing klik.' },
+        { title: 'Audience Research', desc: 'Targeting minat & perilaku.' },
+        { title: 'A/B Testing', desc: 'Tes variasi cari yang terbaik.' }
+      ],
+      faq: [
+        { q: 'Budget minimal?', a: 'Saran Rp 3jt/bulan bayar ke Google/FB.' },
+        { q: 'Termasuk saldo iklan?', a: 'Belum. Fee jasa di luar saldo iklan.' }
+      ]
+    }
+  ];
+
+  return services.map(service => ({
+    params: { slug: service.slug },
+    props: { service },
+  }));
+}
+
+const { service } = Astro.props;
+---
+
+<Layout title={service.seoTitle}>
+  <meta slot="head" name="description" content={service.seoDesc} />
+
+  {/* === BUNGKUSAN PENYELAMAT (FIX LAYOUT COLLAPSE) === */}
+  <div class="w-full flex flex-col bg-white">
+
+    {/* ======================= HERO SECTION ======================= */}
+    <header class="w-full relative bg-zinc-50 border-b-3 border-dom-black overflow-hidden">
+      
+      <div class="container mx-auto px-6 py-24 md:py-32 relative z-10">
+        <div class="grid md:grid-cols-12 gap-12 items-center">
+          
+          {/* Kolom Teks */}
+          <div class="md:col-span-7 w-full">
+            <a href="/#services" class="inline-block font-bold text-xs md:text-sm mb-8 uppercase tracking-widest text-gray-500 hover:text-black transition-colors">
+              ← Kembali ke Layanan
+            </a>
+
+            <h1 class="text-6xl md:text-7xl lg:text-8xl font-bold uppercase leading-[0.9] tracking-tighter text-dom-black mb-6">
+              {service.h1}
+            </h1>
+            
+            <div class="w-24 h-2 bg-dom-yellow mb-8"></div>
+
+            <p class="text-2xl md:text-3xl font-bold text-gray-800 leading-tight mb-6">
+              {service.subtitle}
+            </p>
+
+            <p class="text-gray-600 text-lg leading-relaxed mb-10 max-w-xl">
+              {service.introText}
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4">
+              <button onclick="document.getElementById('contactModal').classList.remove('hidden')" class="bg-dom-black text-white px-8 py-4 text-lg font-bold border-2 border-dom-black shadow-neo hover:translate-y-1 hover:shadow-none hover:bg-dom-yellow hover:text-black transition-all">
+                KONSULTASI SEKARANG
+              </button>
+            </div>
+          </div>
+
+          {/* Kolom Gambar */}
+          <div class="hidden md:block md:col-span-5 relative w-full">
+             <div class="absolute -top-6 -right-6 w-24 h-24 bg-dom-yellow rounded-full blur-2xl opacity-50 pointer-events-none"></div>
+             
+             <div class="relative bg-white p-2 border-3 border-dom-black shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] rotate-2 hover:rotate-0 transition-transform duration-500 w-full">
+                <div class="aspect-[4/5] bg-gray-200 overflow-hidden border border-black relative">
+                   <img src={service.heroImage} alt={service.h1} class="w-full h-full object-cover" />
+                </div>
+                <div class="absolute -bottom-6 -left-6 bg-dom-black text-white px-6 py-3 border-2 border-white shadow-lg z-10">
+                  <span class="font-bold uppercase tracking-widest text-sm whitespace-nowrap">Top Rated</span>
+                </div>
+             </div>
+          </div>
+
+        </div>
+      </div>
+    </header>
+
+    {/* ======================= LOGO MARQUEE ======================= */}
+    <section class="w-full border-b-3 border-dom-black bg-white py-8 overflow-hidden">
+      <div class="container mx-auto px-6 mb-4">
+        <p class="text-xs font-bold uppercase tracking-widest text-gray-400 text-center">Dipercaya Oleh</p>
+      </div>
+      <div class="flex gap-16 animate-scroll whitespace-nowrap">
+        {[...service.logos, ...service.logos].map((logo) => (
+          <div class="flex items-center justify-center opacity-40 hover:opacity-100 transition-opacity px-4 grayscale">
+             <img src={logo} alt="Client" class="h-8 md:h-10 w-auto object-contain" />
+          </div>
+        ))}
+      </div>
+    </section>
+
+    {/* ======================= TABLE CLIENT ======================= */}
+    <section class="w-full py-24 bg-white border-b-3 border-dom-black">
+      <div class="container mx-auto px-6 max-w-5xl">
+        <div class="mb-12 flex items-center gap-4">
+          <h2 class="text-3xl font-bold uppercase">Klien Terdaftar</h2>
+          <div class="h-1 flex-grow bg-black"></div>
+        </div>
+
+        <div class="overflow-x-auto border-3 border-dom-black shadow-neo">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="bg-dom-black text-white uppercase text-sm tracking-wider">
+                <th class="p-4 md:p-6 border-r-2 border-white w-1/3">Nama Brand</th>
+                <th class="p-4 md:p-6 border-r-2 border-white w-1/3">Industri</th>
+                <th class="p-4 md:p-6 w-1/3 text-dom-yellow">Hasil / Status</th>
+              </tr>
+            </thead>
+            <tbody class="font-bold text-sm md:text-base">
+              {service.clientList.map((client, index) => (
+                <tr class={`border-b-2 border-black hover:bg-zinc-50 transition-colors ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
+                  <td class="p-4 md:p-6 border-r-2 border-black">{client.name}</td>
+                  <td class="p-4 md:p-6 border-r-2 border-black text-gray-600">{client.industry}</td>
+                  <td class="p-4 md:p-6 flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                    {client.status}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    {/* ======================= CASE STUDY ======================= */}
+    <section class="w-full py-24 bg-zinc-100 border-b-3 border-dom-black">
+      <div class="container mx-auto px-6">
+        <h2 class="text-4xl font-bold uppercase mb-12 text-center">Case Study</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {service.projects.map((item) => (
+            <div class="bg-white border-3 border-dom-black shadow-neo hover:translate-y-1 hover:shadow-none transition-all duration-300 flex flex-col">
+              <div class="aspect-video border-b-3 border-dom-black overflow-hidden relative">
+                 <img src={item.img} alt={item.title} class="w-full h-full object-cover" loading="lazy" />
+                 <div class="absolute top-0 right-0 bg-dom-black text-white px-3 py-1 text-xs font-bold uppercase">
+                   {item.category}
+                 </div>
+              </div>
+              <div class="p-6 flex-grow flex flex-col">
+                <h3 class="font-bold text-xl mb-2">{item.title}</h3>
+                <div class="mt-auto pt-4 border-t-2 border-dashed border-gray-300">
+                  <p class="text-sm font-bold text-gray-500 uppercase">Impact:</p>
+                  <p class="text-lg font-bold bg-dom-yellow inline-block px-1">{item.result}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* ======================= FEATURES / STRATEGY ======================= */}
+    <section class="w-full py-24 bg-white border-b-3 border-dom-black">
+      <div class="container mx-auto px-6 max-w-6xl">
+        <div class="grid md:grid-cols-2 gap-16">
+          <div>
+            <h2 class="text-4xl font-bold uppercase mb-8 leading-none">Strategi<br>Tanpa Basa-Basi.</h2>
+            <div class="space-y-6">
+               {service.features.map((feature, index) => (
+                <div class="flex items-start gap-4 p-4 border-2 border-transparent hover:border-dom-black hover:bg-gray-50 transition-all">
+                  <div class="text-4xl font-bold text-gray-200 leading-none">0{index + 1}</div>
+                  <div>
+                    <h3 class="font-bold text-lg">{feature.title}</h3>
+                    <p class="text-gray-600 text-sm">{feature.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div class="hidden md:flex items-center justify-center bg-dom-black border-3 border-black shadow-neo">
+             <div class="text-center p-8">
+               <div class="text-white text-6xl font-bold mb-4">100%</div>
+               <div class="text-dom-yellow text-xl font-bold uppercase tracking-widest">Data Driven</div>
+             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ======================= PRICING ======================= */}
+    <section class="w-full py-24 bg-zinc-50 border-b-3 border-dom-black">
+      <div class="container mx-auto px-6">
+        <h2 class="text-4xl font-bold uppercase mb-16 text-center">Pilihan Paket</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          {service.pricing.map((tier) => (
+            <div class={`relative flex flex-col p-8 border-3 border-dom-black transition-all ${tier.isBest ? 'bg-dom-yellow shadow-neo -mt-4' : 'bg-white shadow-neo-sm'}`}>
+              <h3 class="text-xl font-bold mb-2 uppercase">{tier.name}</h3>
+              <div class="text-3xl font-bold mb-1">{tier.price}</div>
+              <p class="text-xs font-bold uppercase tracking-widest opacity-60 mb-6">{tier.period}</p>
+              <p class="text-sm mb-6 pb-6 border-b-2 border-black border-dashed">{tier.desc}</p>
+              <ul class="space-y-3 mb-8 flex-grow">
+                {tier.features.map((item) => (
+                  <li class="flex items-start gap-3 text-sm font-bold">
+                    <svg class="w-4 h-4 mt-1 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <button onclick="document.getElementById('contactModal').classList.remove('hidden')" class={`w-full py-4 font-bold border-2 border-dom-black transition-colors ${tier.isBest ? 'bg-white hover:bg-black hover:text-white' : 'hover:bg-dom-yellow'}`}>
+                PILIH PAKET
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* ======================= CTA (GIANT BLOCK) ======================= */}
+    <section class="w-full py-12 bg-white text-center">
+      <div class="container mx-auto px-6">
+        <button onclick="document.getElementById('contactModal').classList.remove('hidden')" class="w-full group relative block text-left border-3 border-dom-black bg-dom-black hover:bg-dom-yellow transition-all duration-300 shadow-neo hover:shadow-none hover:-translate-y-1 overflow-hidden">
+          <div class="p-8 md:p-16 lg:p-24 relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
+             <div>
+               <h2 class="text-4xl md:text-6xl lg:text-7xl font-bold uppercase leading-none tracking-tighter text-white group-hover:text-black mb-4 transition-colors">
+                 Siap Dominasi?
+               </h2>
+               <p class="text-lg md:text-2xl text-gray-400 group-hover:text-black font-medium transition-colors max-w-xl">
+                 Kompetitor Anda tidak menunggu. Ambil keputusan sekarang.
+               </p>
+             </div>
+             <div class="bg-white text-black w-16 h-16 md:w-24 md:h-24 flex items-center justify-center rounded-full border-2 border-black group-hover:scale-110 transition-transform duration-300">
+               <svg class="w-8 h-8 md:w-12 md:h-12 -rotate-45 group-hover:rotate-0 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+             </div>
+          </div>
+          <div class="absolute inset-0 opacity-0 group-hover:opacity-10 pointer-events-none transition-opacity duration-300" style="background-image: radial-gradient(#000 1px, transparent 1px); background-size: 20px 20px;"></div>
+        </button>
+      </div>
+    </section>
+
+  </div> {/* */}
+
+  <script define:vars={{ slug: service.slug }}>
+    document.addEventListener('DOMContentLoaded', () => {
+      const select = document.getElementById('inputService');
+      const serviceMap = {
+        'seo': 'Jasa SEO',
+        'website': 'Pembuatan Website',
+        'ads': 'Google/FB Ads'
+      };
+      if (select && serviceMap[slug]) {
+        select.value = serviceMap[slug];
+      }
+    });
+  </script>
+
+</Layout>
+
+<style>
+  @keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .animate-scroll {
+    animation: scroll 20s linear infinite;
+  }
+</style>

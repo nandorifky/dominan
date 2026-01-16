@@ -1,16 +1,323 @@
 ---
+import Layout from '../layouts/Layout.astro';
 
+// Data Client
+const clients = ["Percetakanku", "Osee", "RKBeton", "KAJ Indonesia", "Runway", "Inahaff", "Qoobah", "Narasinema"];
+// Dynamic Date
+const currentMonth = new Date().toLocaleString('id-ID', { month: 'long' });
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title="Dominan Web | Jasa Website & SEO Premium">
+
+	<header class="relative border-b-3 border-dom-black bg-white overflow-hidden min-h-[90vh] flex items-center">
+		
+		<div class="absolute inset-0 opacity-[0.03] pointer-events-none" style="background-image: linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px); background-size: 40px 40px;"></div>
+		
+		<div class="container mx-auto px-6 py-12 relative z-10 grid md:grid-cols-2 gap-16 items-center">
+			<div class="space-y-8 text-center md:text-left">
+				<div class="inline-block bg-dom-yellow border-2 border-dom-black px-4 py-2 font-bold text-xs md:text-sm shadow-neo-sm">
+					🔥 SLOT {currentMonth.toUpperCase()}: TERSISA 2 PROYEK
+				</div>
+				
+				<h1 class="text-5xl md:text-8xl font-bold leading-[0.9] tracking-tighter uppercase text-dom-black">
+					Web Lemot = <br>
+					<span class="text-transparent bg-clip-text bg-gradient-to-r from-gray-500 to-black">Omzet Seret.</span>
+				</h1>
+				
+				<p class="text-lg md:text-xl font-medium leading-relaxed border-l-4 border-dom-black pl-6 text-gray-700">
+					Kami mengubah website "kartu nama" Anda menjadi <span class="bg-dom-yellow px-1 border border-black font-bold text-black">Mesin Uang</span>. Fokus pada performa tinggi, ranking Google, dan siap untuk scale-up iklan.
+				</p>
+				
+				<div class="flex flex-col md:flex-row gap-4 pt-4 justify-center md:justify-start">
+					<button onclick="document.getElementById('contactModal').classList.remove('hidden')" class="bg-dom-black text-white border-2 border-dom-black px-8 py-4 text-lg font-bold shadow-neo hover:shadow-neo-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all hover:bg-dom-yellow hover:text-black">
+						KONSULTASI GRATIS
+					</button>
+					<a href="#services" class="flex items-center justify-center gap-2 px-8 py-4 font-bold border-2 border-dom-black bg-white hover:bg-gray-50 shadow-neo hover:shadow-neo-hover transition-all">
+						Lihat Solusi
+					</a>
+				</div>
+			</div>
+
+			<div class="hidden md:block relative">
+				<div class="bg-white border-3 border-dom-black p-8 shadow-neo rotate-[2deg] hover:rotate-0 transition-transform duration-500 relative z-10">
+					<div class="flex gap-2 mb-6 border-b-2 border-black pb-4">
+						<div class="w-4 h-4 rounded-full bg-black"></div>
+						<div class="w-4 h-4 rounded-full border-2 border-black"></div>
+					</div>
+					<div class="space-y-4 font-mono text-sm">
+						<div class="flex justify-between border-b border-dashed border-gray-300 pb-2">
+							<span>Status:</span>
+							<span class="font-bold text-black">ONLINE & OPTIMIZED</span>
+						</div>
+						<div class="flex justify-between border-b border-dashed border-gray-300 pb-2">
+							<span>PageSpeed:</span>
+							<span class="bg-black text-white px-2 font-bold">100/100</span>
+						</div>
+						<div class="flex justify-between border-b border-dashed border-gray-300 pb-2">
+							<span>SEO Health:</span>
+							<span class="bg-black text-white px-2 font-bold">Excellent</span>
+						</div>
+						<div class="mt-4 p-4 bg-gray-50 border border-black">
+							<p class="font-bold mb-2">> Traffic Analysis...</p>
+							<div class="flex items-end gap-1 h-24">
+								<div class="w-1/5 bg-gray-200 h-[20%]"></div>
+								<div class="w-1/5 bg-gray-300 h-[40%]"></div>
+								<div class="w-1/5 bg-gray-400 h-[35%]"></div>
+								<div class="w-1/5 bg-gray-600 h-[80%]"></div>
+								<div class="w-1/5 bg-dom-black h-[100%]"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="absolute top-4 left-4 w-full h-full bg-gray-200 border-3 border-black -z-10"></div>
+			</div>
+		</div>
+	</header>
+
+	<section class="border-b-3 border-dom-black bg-dom-yellow py-6 overflow-hidden whitespace-nowrap">
+		<div class="inline-flex animate-marquee">
+			{clients.map((client) => (
+				<span class="mx-12 text-2xl font-bold uppercase tracking-widest text-dom-black flex items-center gap-3">
+					<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+					{client}
+				</span>
+			))}
+			{clients.map((client) => (
+				<span class="mx-12 text-2xl font-bold uppercase tracking-widest text-dom-black flex items-center gap-3">
+					<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+					{client}
+				</span>
+			))}
+		</div>
+	</section>
+
+	<section class="py-24 bg-white border-b-3 border-dom-black">
+		<div class="container mx-auto px-6 max-w-5xl text-center">
+			<h2 class="text-4xl md:text-5xl font-bold mb-12 leading-tight uppercase">
+				Kenapa 90% Website Bisnis<br>
+				<span class="bg-dom-black text-white px-2">Gagal Menghasilkan?</span>
+			</h2>
+			
+			<div class="grid md:grid-cols-3 gap-8 text-left">
+				<div class="p-8 border-2 border-dom-black bg-gray-50 hover:bg-gray-100 transition-colors shadow-neo-sm group">
+					<div class="w-12 h-12 mb-6 text-dom-black">
+						<svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+					</div>
+					<h3 class="text-xl font-bold mb-3">Terlalu Lambat</h3>
+					<p class="text-gray-600 leading-relaxed">Loading > 3 detik = pengunjung kabur. Infrastruktur website yang buruk mematikan konversi sebelum dimulai.</p>
+				</div>
+				<div class="p-8 border-2 border-dom-black bg-gray-50 hover:bg-gray-100 transition-colors shadow-neo-sm group">
+					<div class="w-12 h-12 mb-6 text-dom-black">
+						<svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+					</div>
+					<h3 class="text-xl font-bold mb-3">Tidak Ada di Google</h3>
+					<p class="text-gray-600 leading-relaxed">Tanpa struktur SEO yang benar, website Anda tidak terlihat. Kami memastikan Google memahami bisnis Anda.</p>
+				</div>
+				<div class="p-8 border-2 border-dom-black bg-gray-50 hover:bg-gray-100 transition-colors shadow-neo-sm group">
+					<div class="w-12 h-12 mb-6 text-dom-black">
+						<svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+					</div>
+					<h3 class="text-xl font-bold mb-3">Tidak Menjual</h3>
+					<p class="text-gray-600 leading-relaxed">Website "cantik" percuma kalau tidak menjual. Kami menyusun copywriting yang memicu psikologi pembeli.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section id="services" class="py-24 bg-zinc-50 border-b-3 border-dom-black">
+		<div class="container mx-auto px-6">
+			<div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+				<h2 class="text-5xl font-bold uppercase max-w-xl">Solusi Digital.</h2>
+				<p class="text-xl font-bold border-b-4 border-dom-yellow">Pilih Senjata Anda</p>
+			</div>
+			
+			<div class="grid grid-cols-1 md:grid-cols-3 gap-0 border-3 border-dom-black bg-dom-black shadow-neo">
+				
+				<div class="bg-white p-10 border-b-3 md:border-b-0 md:border-r-3 border-dom-black hover:bg-gray-50 transition-colors flex flex-col h-full">
+					<div class="mb-6 text-black">
+						<svg class="w-14 h-14" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+					</div>
+					<h3 class="text-3xl font-bold mb-4">SEO Dominator</h3>
+					<p class="text-gray-600 mb-6 flex-grow">
+						Audit menyeluruh. Kami perbaiki struktur web, buat konten pilar, dan optimasi teknikal agar Google menaruh Anda di Halaman 1.
+					</p>
+					<a href="/services/seo" class="inline-flex items-center gap-2 font-bold hover:gap-4 transition-all uppercase text-sm border-b-2 border-black pb-1 w-max">
+						Pelajari Strategi SEO <span class="text-xl">→</span>
+					</a>
+				</div>
+
+				<div class="bg-white p-10 border-b-3 md:border-b-0 md:border-r-3 border-dom-black hover:bg-gray-50 transition-colors flex flex-col h-full">
+					<div class="mb-6 text-black">
+						<svg class="w-14 h-14" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+					</div>
+					<h3 class="text-3xl font-bold mb-4">High-Perf Website</h3>
+					<p class="text-gray-600 mb-6 flex-grow">
+						Website yang cepat, aman, dan mudah dikelola (CMS Friendly). Didukung struktur kode yang bersih untuk skor Core Web Vitals maksimal.
+					</p>
+					<a href="/services/website" class="inline-flex items-center gap-2 font-bold hover:gap-4 transition-all uppercase text-sm border-b-2 border-black pb-1 w-max">
+						Pelajari Pembuatan Web <span class="text-xl">→</span>
+					</a>
+				</div>
+
+				<div class="bg-white p-10 hover:bg-gray-50 transition-colors flex flex-col h-full">
+					<div class="mb-6 text-black">
+						<svg class="w-14 h-14" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path></svg>
+					</div>
+					<h3 class="text-3xl font-bold mb-4">Conversion Ads</h3>
+					<p class="text-gray-600 mb-6 flex-grow">
+						Strategi iklan berbayar (FB/Google) yang fokus pada ROI. Kami setup tracking pixel akurat untuk mengejar pembeli potensial, bukan bot.
+					</p>
+					<a href="/services/ads" class="inline-flex items-center gap-2 font-bold hover:gap-4 transition-all uppercase text-sm border-b-2 border-black pb-1 w-max">
+						Pelajari Layanan Iklan <span class="text-xl">→</span>
+					</a>
+				</div>
+
+			</div>
+		</div>
+	</section>
+
+	<section id="pricing" class="py-24 bg-white border-b-3 border-dom-black">
+		<div class="container mx-auto px-6">
+			<div class="text-center mb-10">
+				<h2 class="text-5xl font-bold mb-4">INVESTASI</h2>
+				<p class="text-xl mb-8">Pilih model kerjasama yang cocok.</p>
+				
+				<div class="inline-flex items-center justify-center gap-4 bg-gray-100 p-2 rounded-full border-2 border-dom-black">
+					<span class="font-bold text-sm md:text-base px-4 transition-colors text-dom-black" id="label-build">JASA PEMBUATAN (One-Off)</span>
+					<button id="pricingToggle" class="w-16 h-8 bg-dom-black rounded-full p-1 relative transition-colors duration-300 focus:outline-none">
+						<div id="toggleCircle" class="w-6 h-6 bg-white rounded-full shadow-md transform transition-transform duration-300 translate-x-0"></div>
+					</button>
+					<span class="font-bold text-sm md:text-base px-4 transition-colors text-gray-400" id="label-maintain">MAINTENANCE (Bulanan)</span>
+				</div>
+			</div>
+
+			<div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start relative mt-12">
+				
+				<div class="bg-gray-50 border-3 border-dom-black p-8 shadow-neo h-full flex flex-col">
+					<h3 class="text-2xl font-bold mb-2">STARTER</h3>
+					<div class="price-build block min-h-[100px]">
+						<div class="text-4xl font-bold mb-2">Rp 1.5 Jt</div>
+						<p class="text-sm text-gray-600 border-b-2 border-dashed border-gray-300 pb-4 mb-4">Sekali Bayar</p>
+					</div>
+					<div class="price-maintain hidden min-h-[100px]">
+						<div class="text-4xl font-bold mb-2">Rp 300rb</div>
+						<p class="text-sm text-gray-600 border-b-2 border-dashed border-gray-300 pb-4 mb-4">Per Bulan</p>
+					</div>
+					<ul class="space-y-4 mb-8 text-sm font-medium flex-grow">
+						<li class="flex items-center gap-3"><svg class="w-5 h-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Landing Page (1 Halaman)</li>
+						<li class="flex items-center gap-3"><svg class="w-5 h-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Mobile Friendly</li>
+						<li class="flex items-center gap-3 text-gray-400" id="feat-basic"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg> Tanpa Artikel Bulanan</li>
+					</ul>
+					<button onclick="document.getElementById('contactModal').classList.remove('hidden')" class="w-full py-3 font-bold border-2 border-dom-black hover:bg-white transition-colors">PILIH BASIC</button>
+				</div>
+
+				<div class="bg-dom-yellow border-3 border-dom-black p-8 shadow-neo md:-mt-8 relative z-10 h-full flex flex-col">
+					<div class="absolute top-0 right-0 bg-dom-black text-white px-3 py-1 text-xs font-bold uppercase tracking-wide">Paling Laris</div>
+					<h3 class="text-2xl font-bold mb-2">AUTHORITY</h3>
+					<div class="price-build block min-h-[100px]">
+						<div class="text-4xl font-bold mb-2">Rp 3.5 Jt</div>
+						<p class="text-sm text-black border-b-2 border-dashed border-black pb-4 mb-4">Sekali Bayar</p>
+					</div>
+					<div class="price-maintain hidden min-h-[100px]">
+						<div class="text-4xl font-bold mb-2">Rp 750rb</div>
+						<p class="text-sm text-black border-b-2 border-dashed border-black pb-4 mb-4">Per Bulan</p>
+					</div>
+					<ul class="space-y-4 mb-8 text-sm font-bold flex-grow">
+						<li class="flex items-center gap-3"><svg class="w-5 h-5 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> 5 Halaman Lengkap</li>
+						<li class="flex items-center gap-3"><svg class="w-5 h-5 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Setup Google Search Console</li>
+						<li class="flex items-center gap-3" id="feat-pro"><svg class="w-5 h-5 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Bonus 2 Artikel SEO Pilar</li>
+					</ul>
+					<button onclick="document.getElementById('contactModal').classList.remove('hidden')" class="w-full py-4 font-bold border-2 border-dom-black bg-white shadow-neo hover:shadow-neo-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all">PILIH AUTHORITY</button>
+				</div>
+
+				<div class="bg-gray-50 border-3 border-dom-black p-8 shadow-neo h-full flex flex-col">
+					<h3 class="text-2xl font-bold mb-2">DOMINATION</h3>
+					<div class="price-build block min-h-[100px]">
+						<div class="text-4xl font-bold mb-2">Custom</div>
+						<p class="text-sm text-gray-600 border-b-2 border-dashed border-gray-300 pb-4 mb-4">Full Stack Project</p>
+					</div>
+					<div class="price-maintain hidden min-h-[100px]">
+						<div class="text-4xl font-bold mb-2">Custom</div>
+						<p class="text-sm text-gray-600 border-b-2 border-dashed border-gray-300 pb-4 mb-4">Retainer</p>
+					</div>
+					<ul class="space-y-4 mb-8 text-sm font-medium flex-grow">
+						<li class="flex items-center gap-3"><svg class="w-5 h-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Custom UI/UX Design</li>
+						<li class="flex items-center gap-3"><svg class="w-5 h-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Server Side Tracking Ads</li>
+						<li class="flex items-center gap-3"><svg class="w-5 h-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Prioritas Support 24/7</li>
+					</ul>
+					<button onclick="document.getElementById('contactModal').classList.remove('hidden')" class="w-full py-3 font-bold border-2 border-dom-black hover:bg-white transition-colors">HUBUNGI KAMI</button>
+				</div>
+
+			</div>
+		</div>
+	</section>
+
+	<section class="py-24 bg-white border-t-3 border-dom-black text-center">
+		<div class="container mx-auto px-6 max-w-2xl">
+			<h2 class="text-4xl md:text-5xl font-bold mb-8">SIAP MENDOMINASI?</h2>
+			<p class="text-lg md:text-xl font-medium mb-10">Website kompetitor Anda mungkin sudah mencuri pelanggan Anda hari ini. Hentikan mereka.</p>
+			<button onclick="document.getElementById('contactModal').classList.remove('hidden')" class="bg-dom-black text-white border-2 border-dom-black px-10 py-5 text-xl font-bold shadow-neo hover:shadow-neo-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all hover:bg-dom-yellow hover:text-black">
+				KONSULTASI GRATIS SEKARANG
+			</button>
+		</div>
+	</section>
+
+</Layout>
+
+<script>
+	const toggleBtn = document.getElementById('pricingToggle');
+	const toggleCircle = document.getElementById('toggleCircle');
+	const buildPrices = document.querySelectorAll('.price-build');
+	const maintainPrices = document.querySelectorAll('.price-maintain');
+	const labelBuild = document.getElementById('label-build');
+	const labelMaintain = document.getElementById('label-maintain');
+	const featBasic = document.getElementById('feat-basic');
+	const featPro = document.getElementById('feat-pro');
+
+	let isMaintain = false;
+
+	toggleBtn?.addEventListener('click', () => {
+		isMaintain = !isMaintain;
+		
+		if (isMaintain) {
+			toggleCircle?.classList.remove('translate-x-0');
+			toggleCircle?.classList.add('translate-x-8');
+			toggleBtn?.classList.replace('bg-dom-black', 'bg-gray-600');
+			
+			labelBuild?.classList.replace('text-dom-black', 'text-gray-400');
+			labelMaintain?.classList.replace('text-gray-400', 'text-dom-black');
+
+			if(featBasic) featBasic.innerHTML = '<svg class="w-5 h-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Update Security & Plugin';
+			if(featPro) featPro.innerHTML = '<svg class="w-5 h-5 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Posting 2 Artikel Baru';
+
+		} else {
+			toggleCircle?.classList.remove('translate-x-8');
+			toggleCircle?.classList.add('translate-x-0');
+			toggleBtn?.classList.replace('bg-gray-600', 'bg-dom-black');
+
+			labelBuild?.classList.replace('text-gray-400', 'text-dom-black');
+			labelMaintain?.classList.replace('text-dom-black', 'text-gray-400');
+
+			if(featBasic) featBasic.innerHTML = '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg> Tanpa Artikel Bulanan';
+			if(featPro) featPro.innerHTML = '<svg class="w-5 h-5 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Bonus 2 Artikel SEO Pilar';
+		}
+
+		if(isMaintain) {
+			buildPrices.forEach(el => el.classList.add('hidden'));
+			maintainPrices.forEach(el => el.classList.remove('hidden'));
+		} else {
+			maintainPrices.forEach(el => el.classList.add('hidden'));
+			buildPrices.forEach(el => el.classList.remove('hidden'));
+		}
+	});
+</script>
+
+<style>
+	@keyframes marquee {
+		0% { transform: translateX(0); }
+		100% { transform: translateX(-100%); }
+	}
+	.animate-marquee {
+		animation: marquee 25s linear infinite;
+	}
+</style>

@@ -1,0 +1,197 @@
+---
+import '@fontsource/space-grotesk';
+
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+
+// CONFIGURATION: Ganti Nomor WA Disini
+const waNumber = "62895395094329";
+---
+
+<!doctype html>
+<html lang="id" class="scroll-smooth">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Dominan Web - Jasa Digital Marketing & Website High Performance." />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+	</head>
+	<body class="bg-zinc-50 font-space text-dom-black antialiased selection:bg-dom-yellow selection:text-black flex flex-col min-h-screen">
+		
+		<nav class="sticky top-0 z-50 bg-white border-b-3 border-dom-black">
+			<div class="container mx-auto px-6 py-4 flex justify-between items-center">
+				<a href="/" class="text-3xl font-bold tracking-tighter hover:text-gray-600 transition-colors z-50 relative">
+					DOMINAN.
+				</a>
+
+				<div class="hidden md:flex gap-8 font-bold text-sm uppercase tracking-wide items-center">
+					<a href="/#services" class="hover:bg-dom-yellow px-2 py-1 transition-colors">Services</a>
+					<a href="/#process" class="hover:bg-dom-yellow px-2 py-1 transition-colors">Cara Kerja</a>
+					<a href="/#pricing" class="hover:bg-dom-yellow px-2 py-1 transition-colors">Pricing</a>
+					<a href="/#faq" class="hover:bg-dom-yellow px-2 py-1 transition-colors">FAQ</a>
+					<button id="openModalBtnDesktop" class="bg-dom-black text-white px-6 py-3 font-bold text-sm hover:bg-dom-yellow hover:text-dom-black border-2 border-transparent hover:border-dom-black transition-all shadow-none hover:shadow-neo-sm">
+						START PROJECT
+					</button>
+				</div>
+
+				<button id="mobileMenuBtn" class="md:hidden z-50 relative focus:outline-none">
+					<div class="w-8 h-1 bg-black mb-1.5 transition-all duration-300 origin-center"></div>
+					<div class="w-8 h-1 bg-black mb-1.5 transition-all duration-300 origin-center"></div>
+					<div class="w-8 h-1 bg-black transition-all duration-300 origin-center"></div>
+				</button>
+			</div>
+
+			<div id="mobileMenu" class="fixed inset-0 bg-white z-40 flex flex-col items-center justify-center gap-8 translate-x-full transition-transform duration-300 md:hidden">
+				<a href="/#services" class="mobile-link text-4xl font-bold hover:text-dom-yellow">SERVICES</a>
+				<a href="/#process" class="mobile-link text-4xl font-bold hover:text-dom-yellow">CARA KERJA</a>
+				<a href="/#pricing" class="mobile-link text-4xl font-bold hover:text-dom-yellow">PRICING</a>
+				<a href="/#faq" class="mobile-link text-4xl font-bold hover:text-dom-yellow">FAQ</a>
+				<button id="openModalBtnMobile" class="mt-8 bg-dom-black text-white px-8 py-4 text-xl font-bold hover:bg-dom-yellow hover:text-black border-2 border-transparent hover:border-dom-black">
+					MULAI KONSULTASI
+				</button>
+			</div>
+		</nav>
+
+		<div class="flex-grow">
+			<slot />
+		</div>
+
+		<footer class="bg-dom-black text-white border-t-3 border-dom-black mt-auto">
+			<div class="container mx-auto px-6 py-16">
+				<div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+					<div class="col-span-1 md:col-span-2">
+						<h2 class="text-4xl font-bold mb-6 text-dom-yellow">DOMINAN.</h2>
+						<p class="text-gray-400 max-w-sm mb-6">
+							Digital Agency yang fokus pada performa. Kami membangun aset digital yang menghasilkan revenue nyata.
+						</p>
+					</div>
+					<div>
+						<h3 class="text-xl font-bold mb-6 border-b-2 border-dom-yellow inline-block pb-1">MENU</h3>
+						<ul class="space-y-4 text-gray-400 font-medium">
+							<li><a href="/#services" class="hover:text-dom-yellow transition-colors">Services</a></li>
+							<li><a href="/#pricing" class="hover:text-dom-yellow transition-colors">Pricing</a></li>
+							<li><a href="/#process" class="hover:text-dom-yellow transition-colors">Cara Kerja</a></li>
+						</ul>
+					</div>
+					<div>
+						<h3 class="text-xl font-bold mb-6 border-b-2 border-dom-yellow inline-block pb-1">KONTAK</h3>
+						<ul class="space-y-4 text-gray-400 font-medium">
+							<li>Kediri, Jawa Timur</li>
+							<li class="pt-4 text-white font-bold text-lg">+62 895-3950-94329</li>
+							<li class="text-sm">hello@dominan.web.id</li>
+						</ul>
+					</div>
+				</div>
+				<div class="border-t border-gray-800 mt-16 pt-8 text-center md:text-left text-sm text-gray-500">
+					<p>© 2026 Dominan Web Agency. All rights reserved.</p>
+				</div>
+			</div>
+		</footer>
+
+		<div id="contactModal" class="fixed inset-0 z-[100] hidden">
+			<div class="absolute inset-0 bg-black/80 backdrop-blur-sm" id="closeModalOverlay"></div>
+			<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-lg p-4 md:p-6">
+				<div class="bg-white border-3 border-dom-black shadow-neo p-6 md:p-8 relative">
+					<button id="closeModalBtn" class="absolute top-4 right-4 font-bold text-2xl hover:text-gray-500">&times;</button>
+					
+					<h3 class="text-2xl md:text-3xl font-bold mb-2">MULAI DOMINASI</h3>
+					<p class="text-gray-600 mb-6 text-sm md:text-base">Konsultasi gratis. Langsung terhubung ke WhatsApp kami.</p>
+					
+					<form id="waForm" class="space-y-4">
+						<div>
+							<label class="block font-bold text-sm mb-1">NAMA ANDA</label>
+							<input id="inputName" type="text" required class="w-full border-2 border-dom-black p-3 focus:outline-none focus:ring-2 focus:ring-dom-yellow bg-gray-50" placeholder="Contoh: Budi (Kopi Senja)">
+						</div>
+						<div>
+							<label class="block font-bold text-sm mb-1">TOPIK KONSULTASI</label>
+							<select id="inputService" class="w-full border-2 border-dom-black p-3 bg-white focus:outline-none focus:ring-2 focus:ring-dom-yellow">
+								<option value="Pembuatan Website">Ingin Website Baru</option>
+								<option value="Jasa SEO">Ingin Ranking Google (SEO)</option>
+								<option value="Google/FB Ads">Ingin Iklan Berbayar</option>
+								<option value="Konsultasi Umum">Konsultasi Strategi Umum</option>
+							</select>
+						</div>
+						
+						<input type="hidden" id="waNumber" value={waNumber} />
+
+						<button type="submit" class="w-full bg-dom-black text-white font-bold py-4 hover:bg-dom-yellow hover:text-black border-2 border-transparent hover:border-dom-black transition-all shadow-neo hover:shadow-none translate-x-0 hover:translate-x-[2px] hover:translate-y-[2px]">
+							LANJUT KE WHATSAPP 🚀
+						</button>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<script>
+			// 1. MOBILE MENU LOGIC
+			const btn = document.getElementById('mobileMenuBtn');
+			const menu = document.getElementById('mobileMenu');
+			const links = document.querySelectorAll('.mobile-link');
+			const bars = btn?.children;
+			let isMenuOpen = false;
+
+			btn?.addEventListener('click', () => {
+				isMenuOpen = !isMenuOpen;
+				if (isMenuOpen) {
+					menu?.classList.remove('translate-x-full');
+					bars![0].classList.add('rotate-45', 'translate-y-2.5');
+					bars![1].classList.add('opacity-0');
+					bars![2].classList.add('-rotate-45', '-translate-y-2.5');
+				} else {
+					menu?.classList.add('translate-x-full');
+					bars![0].classList.remove('rotate-45', 'translate-y-2.5');
+					bars![1].classList.remove('opacity-0');
+					bars![2].classList.remove('-rotate-45', '-translate-y-2.5');
+				}
+			});
+
+			links.forEach(link => {
+				link.addEventListener('click', () => {
+					isMenuOpen = false;
+					menu?.classList.add('translate-x-full');
+					bars![0].classList.remove('rotate-45', 'translate-y-2.5');
+					bars![1].classList.remove('opacity-0');
+					bars![2].classList.remove('-rotate-45', '-translate-y-2.5');
+				});
+			});
+
+			// 2. MODAL & WHATSAPP LOGIC
+			const modal = document.getElementById('contactModal');
+			const openBtns = [document.getElementById('openModalBtnDesktop'), document.getElementById('openModalBtnMobile')];
+			const closeBtn = document.getElementById('closeModalBtn');
+			const overlay = document.getElementById('closeModalOverlay');
+			const waForm = document.getElementById('waForm');
+
+			// Buka Modal
+			openBtns.forEach(btn => {
+				btn?.addEventListener('click', () => modal?.classList.remove('hidden'));
+			});
+			
+			// Tutup Modal
+			const closeModal = () => modal?.classList.add('hidden');
+			closeBtn?.addEventListener('click', closeModal);
+			overlay?.addEventListener('click', closeModal);
+
+			// Handle Submit WA
+			waForm?.addEventListener('submit', (e) => {
+				e.preventDefault();
+				
+				const name = (document.getElementById('inputName') as HTMLInputElement).value;
+				const service = (document.getElementById('inputService') as HTMLSelectElement).value;
+				const number = (document.getElementById('waNumber') as HTMLInputElement).value;
+				
+				// Format Pesan
+				const text = `Halo Dominan, saya ${name}. Saya tertarik diskusi tentang layanan *${service}*. Mohon infonya.`;
+				
+				// Redirect
+				const url = `https://wa.me/${number}?text=${encodeURIComponent(text)}`;
+				window.open(url, '_blank');
+			});
+		</script>
+	</body>
+</html>
