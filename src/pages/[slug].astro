@@ -1,0 +1,45 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const pages = await getCollection('pages');
+  return pages.map(page => ({
+    params: { slug: page.slug },
+    props: { page },
+  }));
+}
+
+const { page } = Astro.props;
+const { Content } = await page.render();
+
+const data = page.data;
+const seo = data.seo || {};
+
+// SEO Logic
+const pageTitle = seo.metaTitle || data.title;
+const pageDesc = seo.metaDescription || `Halaman ${data.title} di Dominan Web`;
+const isNoIndex = seo.noIndex || false;
+---
+
+<Layout title={pageTitle}>
+    
+    <Fragment slot="head">
+        <meta name="description" content={pageDesc} />
+        {isNoIndex && <meta name="robots" content="noindex, nofollow" />}
+    </Fragment>
+
+    <article class="bg-white min-h-screen pt-24 pb-16">
+        <div class="container mx-auto px-6 max-w-4xl">
+            
+            <h1 class="text-4xl md:text-5xl font-bold mb-8 uppercase text-dom-black border-b-4 border-dom-yellow inline-block pb-2">
+                {data.title}
+            </h1>
+
+            <div class="prose prose-lg prose-headings:font-bold prose-headings:uppercase prose-a:text-dom-black prose-a:decoration-dom-yellow prose-img:border-2 prose-img:border-black max-w-none">
+                <Content />
+            </div>
+        </div>
+    </article>
+
+</Layout>

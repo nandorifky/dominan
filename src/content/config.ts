@@ -1,8 +1,8 @@
 import { defineCollection, z } from 'astro:content';
 
 const posts = defineCollection({
-  // WAJIB 'data' KARENA KITA PAKAI JSON (KEYSTATIC)
-  type: 'data', 
+  // WAJIB 'content' KARENA KITA UBAH FORMAT DI KEYSTATIC
+  type: 'content', 
   
   schema: z.object({
     title: z.string(),
@@ -19,10 +19,22 @@ const posts = defineCollection({
       noIndex: z.boolean().default(false),
     }).optional(),
 
-    // WAJIB DITAMBAHKAN: Field content untuk menampung JSON Rich Text
-    // Kita pakai z.any() karena struktur JSON dari Keystatic sangat kompleks & bersarang
-    content: z.any().optional(), 
+    // CATATAN: Field 'content' DIHAPUS dari sini karena Astro otomatis membacanya sebagai body
   }),
 });
 
-export const collections = { posts };
+const pages = defineCollection({
+  // WAJIB 'content'
+  type: 'content',
+  
+  schema: z.object({
+    title: z.string(),
+    seo: z.object({
+      metaTitle: z.string().optional(),
+      metaDescription: z.string().optional(),
+      noIndex: z.boolean().default(false),
+    }).optional(),
+  }),
+});
+
+export const collections = { posts, pages };

@@ -1,23 +1,18 @@
 ---
-import { getCollection, getEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
-// IMPORT YANG BENAR (JANGAN UBAH INI)
-import { DocumentRenderer } from '@keystatic/core/renderer';
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts');
   return posts.map(post => ({
-    // Karena type: 'data', slug tersimpan di properti 'id'
-    params: { slug: post.id }, 
+    params: { slug: post.slug },
+    props: { post },
   }));
 }
 
-const { slug } = Astro.params;
-const post = await getEntry('posts', slug);
-
-if (!post) {
-  return Astro.redirect('/404');
-}
+const { post } = Astro.props;
+// RENDER KONTEN (Cara Baru untuk type: 'content')
+const { Content } = await post.render();
 
 // Data shortcut
 const data = post.data;
@@ -27,9 +22,9 @@ const seo = data.seo || {};
 const pageTitle = seo.metaTitle || data.title;
 const pageDesc = seo.metaDescription || data.excerpt;
 const shareImage = seo.ogImage || data.coverImage || '/og-default.jpg';
-const isNoIndex = seo.noIndex || false;
-const canonicalURL = seo.canonicalUrl || Astro.url.href;
 const breadcrumbName = seo.breadcrumbTitle || data.title;
+const canonicalURL = seo.canonicalUrl || Astro.url.href;
+const isNoIndex = seo.noIndex || false;
 
 // Schema JSON-LD
 const schemaOrgJSON = {
@@ -78,7 +73,6 @@ const schemaOrgJSON = {
                 <span>/</span>
                 <a href="/blog" class="hover:text-black hover:underline">Blog</a>
                 <span>/</span>
-   
                  <span class="text-dom-black bg-dom-yellow px-1 border border-black truncate max-w-[200px] md:max-w-none">
                     {breadcrumbName}
                 </span>
@@ -92,7 +86,6 @@ const schemaOrgJSON = {
                </span>
             </div>
         </div>
-    
     </header>
 
     {data.coverImage && (
@@ -104,27 +97,17 @@ const schemaOrgJSON = {
     )}
 
     <div class="container mx-auto px-6 py-16 max-w-3xl">
-       
         <div class="prose prose-lg prose-headings:font-bold prose-headings:uppercase prose-a:text-dom-black prose-a:decoration-dom-yellow prose-img:border-2 prose-img:border-black max-w-none">
             
-            {/* SAFETY CHECK: Cek apakah konten ada isinya sebelum render */}
-            {data.content ? (
-                <DocumentRenderer document={data.content} />
-            ) : (
-                <div class="p-8 bg-gray-50 border-2 border-dashed border-gray-300 text-center rounded-lg">
-                    <p class="text-gray-500 font-bold mb-1">Konten Sedang Ditulis</p>
-                    <p class="text-sm text-gray-400">Silakan kembali lagi nanti untuk membaca artikel lengkapnya.</p>
-                </div>
-            )}
+            {/* INI BAGIAN KONTEN YANG OTOMATIS DI-RENDER */}
+            <Content />
 
         </div>
 
         <div class="mt-16 pt-8 border-t-2 border-black border-dashed">
             <div class="bg-dom-black text-white p-8 text-center border-3 border-black shadow-neo">
                 <h3 class="text-2xl font-bold uppercase mb-2">Artikel ini bermanfaat?</h3>
-  
-               <p class="mb-6 text-gray-300">Jangan biarkan kompetitor menang.
- Konsultasikan website Anda sekarang.</p>
+                <p class="mb-6 text-gray-300">Konsultasikan website Anda sekarang.</p>
                 <button onclick="document.getElementById('contactModal').classList.remove('hidden')" class="bg-dom-yellow text-black px-6 py-3 font-bold border-2 border-transparent hover:bg-white transition-all shadow-[4px_4px_0px_0px_rgba(255,255,255,0.2)] hover:shadow-none hover:translate-y-1">
                     KONSULTASI GRATIS
                 </button>
