@@ -10,6 +10,10 @@ interface Props {
 
 const { title, description, image } = Astro.props;
 
+// --- KONFIGURASI PUSAT (1 PINTU) ---
+// Ganti nomor di sini saja. Format: 628xxx (tanpa + atau 0 di depan)
+const GLOBAL_WA_NUMBER = "62895395094329"; 
+
 // Konfigurasi Default
 const defaultDesc = "Dominan Web - Jasa Pembuatan Website & SEO High Performance. Fokus pada kecepatan (Speed), keamanan, dan konversi penjualan.";
 const defaultImage = "/og-default.jpg";
@@ -39,9 +43,6 @@ const menuItems = [
             { label: 'Jasa SEO Garansi', href: '/services/seo' },
             { label: 'Optimasi Google Maps', href: '/services/google-maps' },
             { label: 'Jasa Backlink', href: '/services/backlink' },
-            { label: '-Backlink PBN', href: '/services/backlink/pbn' },
-            { label: '-Backlink Media Nasional', href: '/services/backlink/media-nasional' },
-            { label: '-Backlink Profile', href: '/services/backlink/profile' },
             { label: 'Google Ads & FB Ads', href: '/services/ads' },
             { label: 'Pembuatan Website', href: '/services/website' },
         ]
@@ -72,54 +73,10 @@ const menuItems = [
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={finalDesc} />
         <meta name="twitter:image" content={finalImage} />
-
-        {/* =========================================
-            TRACKING SLOT: HEAD
-            Silakan isi ID GTM / Pixel di bawah ini
-           ========================================= */}
         
-        {/* 1. Google Tag Manager (GTM) */}
-        <script is:inline>
-            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer','GTM-XXXXXX'); // <-- GANTI ID GTM DI SINI
-        </script>
-
-        {/* 2. Meta Pixel Code */}
-        <script is:inline>
-            !function(f,b,e,v,n,t,s)
-            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-            n.queue=[];t=b.createElement(e);t.async=!0;
-            t.src=v;s=b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t,s)}(window, document,'script',
-            'https://connect.facebook.net/en_US/fbevents.js');
-            fbq('init', '1234567890'); // <-- GANTI ID PIXEL DI SINI
-            fbq('track', 'PageView');
-        </script>
-        <noscript><img height="1" width="1" style="display:none"
-            src="https://www.facebook.com/tr?id=1234567890&ev=PageView&noscript=1"
-        /></noscript>
-        
-        {/* 3. Google Analytics 4 (Opsional jika tidak pakai GTM) */}
-        {/* <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-        <script is:inline>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-XXXXXXXXXX');
-        </script> */}
-
         <slot name="head" />
     </head>
     <body class="bg-zinc-50 font-space text-dom-black antialiased selection:bg-dom-yellow selection:text-black pt-20">
-        
-        {/* GTM NoScript (Body) */}
-        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXX"
-        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         
         <nav class="fixed w-full z-50 top-0 left-0 border-b-3 border-dom-black bg-white">
             <div class="container mx-auto px-6 h-20 flex justify-between items-center relative z-20 bg-white">
@@ -157,7 +114,7 @@ const menuItems = [
                         )
                     ))}
 
-                    <button onclick="document.getElementById('contactModal').classList.remove('hidden')" class="ml-4 bg-dom-black text-white px-6 py-2.5 border-2 border-transparent hover:bg-dom-yellow hover:text-black hover:border-dom-black transition-all shadow-neo hover:shadow-none hover:translate-y-1">
+                    <button onclick="openModal()" class="ml-4 bg-dom-black text-white px-6 py-2.5 border-2 border-transparent hover:bg-dom-yellow hover:text-black hover:border-dom-black transition-all shadow-neo hover:shadow-none hover:translate-y-1">
                         Konsultasi
                     </button>
                 </div>
@@ -192,7 +149,7 @@ const menuItems = [
                         )
                     ))}
                     
-                    <button onclick="document.getElementById('contactModal').classList.remove('hidden')" class="w-full bg-dom-black text-white px-6 py-4 mt-8 text-center border-2 border-transparent hover:bg-dom-yellow hover:text-black text-xl shadow-neo">
+                    <button onclick="openModal()" class="w-full bg-dom-black text-white px-6 py-4 mt-8 text-center border-2 border-transparent hover:bg-dom-yellow hover:text-black text-xl shadow-neo">
                         Mulai Konsultasi
                     </button>
                 </div>
@@ -201,7 +158,7 @@ const menuItems = [
 
         <slot />
 
-        <footer class="bg-dom-black text-white border-t-3 border-dom-black pt-20 pb-10">
+<footer class="bg-dom-black text-white border-t-3 border-dom-black pt-20 pb-10">
             <div class="container mx-auto px-6">
                 <div class="grid md:grid-cols-12 gap-12 mb-16">
                     
@@ -216,6 +173,8 @@ const menuItems = [
                         <p class="text-gray-400 text-lg leading-relaxed mb-8 max-w-md">
                             Partner strategis Anda untuk mendominasi pasar digital. Kami menggabungkan performa teknis (Speed) dengan psikologi marketing (Conversion).
                         </p>
+                        
+                        {/* Sosmed Icons (Placeholder Link) */}
                         <div class="flex gap-4">
                             <a href="#" class="w-10 h-10 bg-white text-black flex items-center justify-center hover:bg-dom-yellow hover:-translate-y-1 transition-all border-2 border-transparent">
                                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
@@ -257,7 +216,7 @@ const menuItems = [
                         </ul>
                     </div>
 
-                    {/* KOLOM 4: KONTAK (Manual OK karena jarang berubah) */}
+                    {/* KOLOM 4: KONTAK */}
                     <div class="md:col-span-3">
                         <h4 class="font-bold text-lg mb-6 uppercase text-dom-yellow border-b-2 border-gray-800 pb-2 inline-block">Hubungi Kami</h4>
                         <ul class="space-y-4 text-gray-400 font-medium">
@@ -268,6 +227,10 @@ const menuItems = [
                             <li class="flex items-center gap-3">
                                 <svg class="w-6 h-6 text-white flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                                 <a href="mailto:halo@dominan.web.id" class="hover:text-white transition-colors">halo@dominan.web.id</a>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <svg class="w-6 h-6 text-white flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                                <a href="https://wa.me/" target="_blank" class="hover:text-white transition-colors">Chat WhatsApp</a>
                             </li>
                         </ul>
                     </div>
@@ -284,41 +247,87 @@ const menuItems = [
             </div>
         </footer>
 
+        {/* ========================================================= */}
+        {/* NEW CONTACT MODAL FORM (1 PINTU) */}
+        {/* ========================================================= */}
         <div id="contactModal" class="fixed inset-0 z-[60] hidden">
-            <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="document.getElementById('contactModal').classList.add('hidden')"></div>
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md bg-white border-3 border-dom-black shadow-neo p-8 animate-in fade-in zoom-in duration-300">
-                <div class="flex justify-between items-center mb-6">
-                    <h3 class="text-2xl font-bold uppercase">Konsultasi Gratis</h3>
-                    <button onclick="document.getElementById('contactModal').classList.add('hidden')" class="hover:rotate-90 transition-transform">
+            <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeModal()"></div>
+            
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md bg-white border-3 border-dom-black shadow-neo animate-in fade-in zoom-in duration-300 max-h-[90vh] overflow-y-auto">
+                
+                {/* Modal Header */}
+                <div class="flex justify-between items-center p-6 border-b-2 border-gray-100 bg-gray-50">
+                    <h3 class="text-xl font-bold uppercase">Formulir Konsultasi</h3>
+                    <button onclick="closeModal()" class="hover:rotate-90 transition-transform">
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                     </button>
                 </div>
-                <p class="text-gray-600 mb-8 font-medium">Pilih jalur komunikasi prioritas kami:</p>
-                <div class="space-y-4">
-                    <a href="https://wa.me/6281234567890" target="_blank" class="flex items-center gap-4 border-2 border-black p-4 hover:bg-green-50 transition-colors group">
-                        <div class="w-12 h-12 bg-green-500 text-white flex items-center justify-center border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] group-hover:translate-x-1 group-hover:translate-y-1 group-hover:shadow-none transition-all">
-                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+
+                {/* Modal Form Content */}
+                <div class="p-6 md:p-8">
+                    <p class="text-gray-600 mb-6 text-sm">Silakan isi data singkat di bawah. Kami akan langsung mengarahkan Anda ke WhatsApp Customer Service.</p>
+                    
+                    <form id="consultationForm" class="space-y-4">
+                        
+                        <div>
+                            <label class="block text-xs font-bold uppercase mb-1">Nama Lengkap</label>
+                            <input type="text" name="nama" required class="w-full border-2 border-gray-300 focus:border-dom-black p-3 font-medium outline-none transition-colors bg-gray-50 focus:bg-white" placeholder="Cth: Budi Santoso">
                         </div>
-                        <div class="text-left">
-                            <span class="block text-xs font-bold uppercase text-gray-500">Chat WhatsApp</span>
-                            <span class="block font-bold text-lg">+62 812-3456-7890</span>
+
+                        <div>
+                            <label class="block text-xs font-bold uppercase mb-1">Website (Opsional)</label>
+                            <input type="text" name="website" class="w-full border-2 border-gray-300 focus:border-dom-black p-3 font-medium outline-none transition-colors bg-gray-50 focus:bg-white" placeholder="Cth: dominan.web.id">
                         </div>
-                    </a>
-                    <a href="mailto:halo@dominan.web.id" class="flex items-center gap-4 border-2 border-black p-4 hover:bg-gray-50 transition-colors group">
-                        <div class="w-12 h-12 bg-gray-200 text-black flex items-center justify-center border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] group-hover:translate-x-1 group-hover:translate-y-1 group-hover:shadow-none transition-all">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+
+                        <div>
+                            <label class="block text-xs font-bold uppercase mb-1">Bidang Usaha</label>
+                            <input type="text" name="usaha" required class="w-full border-2 border-gray-300 focus:border-dom-black p-3 font-medium outline-none transition-colors bg-gray-50 focus:bg-white" placeholder="Cth: Kontraktor / Toko Online">
                         </div>
-                        <div class="text-left">
-                            <span class="block text-xs font-bold uppercase text-gray-500">Email Kami</span>
-                            <span class="block font-bold text-lg">halo@dominan.web.id</span>
+
+                        <div>
+                            <label class="block text-xs font-bold uppercase mb-1">Layanan yang Dibutuhkan</label>
+                            <div class="relative">
+                                {/* ID inputService ini PENTING untuk script [slug].astro */}
+                                <select name="layanan" id="inputService" class="w-full border-2 border-gray-300 focus:border-dom-black p-3 font-bold outline-none appearance-none bg-gray-50 focus:bg-white cursor-pointer">
+                                    <option value="Konsultasi Umum">-- Pilih Layanan --</option>
+                                    <option value="Jasa SEO">Jasa SEO & Audit</option>
+                                    <option value="Pembuatan Website">Pembuatan Website</option>
+                                    <option value="Google/FB Ads">Google Ads / FB Ads</option>
+                                    <option value="Jasa Backlink">Backlink & Content</option>
+                                    <option value="Maintenance">Maintenance Web</option>
+                                </select>
+                                <div class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                </div>
+                            </div>
                         </div>
-                    </a>
+
+                        <button type="submit" class="w-full bg-green-600 text-white font-bold text-lg uppercase py-4 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-1 hover:translate-y-1 hover:shadow-none hover:bg-green-700 transition-all flex items-center justify-center gap-2 mt-4">
+                            <span>Lanjut ke WhatsApp</span>
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                        </button>
+                    </form>
+                    
+                    <div class="mt-6 text-center">
+                        <p class="text-xs text-gray-400">Atau email kami di <a href="mailto:halo@dominan.web.id" class="text-black font-bold underline">halo@dominan.web.id</a></p>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <script>
-            // Mobile Menu Logic
+        <script define:vars={{ GLOBAL_WA_NUMBER }}>
+            // 1. Logic Modal Toggle
+            window.openModal = function() {
+                const modal = document.getElementById('contactModal');
+                if(modal) modal.classList.remove('hidden');
+            }
+            
+            window.closeModal = function() {
+                const modal = document.getElementById('contactModal');
+                if(modal) modal.classList.add('hidden');
+            }
+
+            // 2. Logic Mobile Menu
             const menuBtn = document.getElementById('mobileMenuBtn');
             const mobileMenu = document.getElementById('mobileMenu');
             const menuIconOpen = document.getElementById('menuIconOpen');
@@ -331,17 +340,35 @@ const menuItems = [
                 menuIconClose?.classList.toggle('hidden');
             });
 
-            // Logic untuk Accordion Mobile Dropdown
             mobileDropdowns.forEach(trigger => {
                 trigger.addEventListener('click', (e) => {
                     const content = trigger.nextElementSibling;
                     const icon = trigger.querySelector('svg');
-                    
                     content?.classList.toggle('hidden');
                     content?.classList.toggle('flex');
                     icon?.classList.toggle('rotate-180');
                 });
             });
+
+            // 3. LOGIC FORM WHATSAPP (DYNAMIC & 1 PINTU)
+            const form = document.getElementById('consultationForm');
+            form?.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                // Ambil Data Form
+                const nama = form.nama.value;
+                const website = form.website.value || '-';
+                const usaha = form.usaha.value;
+                const layanan = form.layanan.value;
+
+                // Format Pesan
+                const text = `Halo Dominan, saya *${nama}*.\n\nSaya ingin konsultasi layanan: *${layanan}*.\nUntuk bisnis/usaha: *${usaha}*.\nWebsite saya: ${website}\n\nMohon info detailnya. Terima kasih.`;
+                
+                // Redirect Dynamic
+                const url = `https://wa.me/${GLOBAL_WA_NUMBER}?text=${encodeURIComponent(text)}`;
+                window.open(url, '_blank');
+            });
+
         </script>
     </body>
 </html>

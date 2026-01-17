@@ -1,6 +1,12 @@
 // src/content/config.ts
 import { defineCollection, reference, z } from 'astro:content'; // Import reference
-
+export const SITE_CONFIG = {
+  // Format nomor: Kode negara tanpa +, contoh: 6281234567890
+  whatsappNumber: "6281234567890", 
+  
+  // Pesan default jika link WA langsung (bukan dari form)
+  defaultMessage: "Halo Dominan Web, saya mau konsultasi jasa digital marketing."
+};
 const authors = defineCollection({
   type: 'data', // Karena kita set format: 'json' di Keystatic
   schema: z.object({

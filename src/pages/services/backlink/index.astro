@@ -1,0 +1,450 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+
+// Metadata Halaman
+const title = "Jasa Backlink PBN & Media Nasional High Authority | Dominan SEO";
+const description = "Jasa Backlink Premium dengan trafik organik asli. Spesialis Contextual Link Building untuk menaklukkan algoritma Google 2026. Aman, Permanen, Bergaransi.";
+
+// Data Sub-Services (Section "Pilih Senjata Anda")
+const subServices = [
+  {
+    title: "Media Nasional",
+    slug: "media-nasional",
+    desc: "Liputan eksklusif di portal berita raksasa (Detik, Kompas, dll). Trust Signal tertinggi di mata Google.",
+    icon: "M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z",
+    badge: "HIGH AUTHORITY",
+    bg: "bg-white"
+  },
+  {
+    title: "Private Blog Network",
+    slug: "pbn",
+    desc: "Jaringan PBN milik sendiri (Private) dengan Metrics tinggi. Full control anchor text untuk ranking instan.",
+    icon: "M13 10V3L4 14h7v7l9-11h-7z", 
+    badge: "RANKING BOOSTER",
+    bg: "bg-dom-yellow"
+  },
+  {
+    title: "Contextual Guest Post",
+    slug: "profile",
+    desc: "Artikel placement di website niche relevan dengan trafik aktif. Membangun relevansi topik yang kuat.",
+    icon: "M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z",
+    badge: "RELEVANCY",
+    bg: "bg-white"
+  }
+];
+
+// Data Pricing
+const pricing = [
+    {
+        name: "STARTER PBN",
+        price: "Rp 250rb",
+        unit: "/post",
+        desc: "Untuk boosting keyword persaingan rendah-menengah.",
+        features: ["1 Artikel Unik (500 kata)", "DA 20-30+", "Index Guaranteed", "Dofollow Permanent", "Report Dashboard"],
+        highlight: false
+    },
+    {
+        name: "AUTHORITY MEDIA",
+        price: "Rp 1.5jt",
+        unit: "/start",
+        desc: "Backlink dari portal berita nasional terverifikasi dewan pers.",
+        features: ["Tayang di Media Nasional", "High Traffic & Trust", "Brand Awareness", "Dofollow / Nofollow", "Garansi Terbit"],
+        highlight: true
+    },
+    {
+        name: "CONTEXTUAL PRO",
+        price: "Rp 750rb",
+        unit: "/post",
+        desc: "Guest post di blog niche relevan dengan trafik organik.",
+        features: ["High Organic Traffic", "Niche Relevan (Topical)", "Artikel Mendalam (800 kata)", "Dofollow Permanent", "Natural Link Profile"],
+        highlight: false
+    }
+];
+---
+
+<Layout title={title} description={description}>
+
+    {/* ================= 1. HERO SECTION ================= */}
+    <header class="relative bg-white border-b-3 border-dom-black overflow-hidden pt-12 pb-24">
+        {/* Background Grid Pattern */}
+        <div class="absolute inset-0 opacity-[0.05] pointer-events-none" style="background-image: linear-gradient(rgba(0,0,0,0.1) 1px, transparent 1px), 
+            linear-gradient(90deg, rgba(0,0,0,0.1) 1px, transparent 1px); 
+            background-size: 20px 20px;"></div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-7 text-left">
+                    <div class="inline-flex items-center gap-2 border-2 border-black bg-zinc-100 px-3 py-1 mb-6 rounded-full shadow-sm">
+                        <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                        <span class="text-xs font-bold uppercase tracking-wider">SEO Off-Page Strategy 2026</span>
+                    </div>
+                    
+                    <h1 class="text-5xl lg:text-7xl font-bold uppercase leading-[0.9] tracking-tighter mb-6 text-dom-black">
+                        Jasa Backlink <span class="bg-dom-yellow px-2 border-2 border-black transform -rotate-1 inline-block shadow-neo-sm">Authority</span> & <br/>
+                        Guest Post Premium
+                    </h1>
+                    
+                    <p class="text-xl text-gray-600 mb-10 max-w-2xl leading-relaxed border-l-4 border-dom-black pl-6">
+                        Stop bakar uang untuk backlink sampah. Kami menyediakan <strong>Contextual Link Building</strong> dari website yang memiliki trafik organik asli, bukan sekadar metrik (DA/DR) kosong.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button onclick="openModal()" class="bg-dom-black text-white px-8 py-4 text-lg font-bold border-2 border-dom-black shadow-neo hover:bg-dom-yellow hover:text-black hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
+                            LIHAT KATALOG LINK
+                        </button>
+                        <a href="#pricing" class="px-8 py-4 text-lg font-bold border-2 border-dom-black bg-white hover:bg-gray-50 shadow-neo hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all flex items-center justify-center gap-2">
+                            <span>Cek Harga</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                {/* Visual Abstract Hero */}
+                <div class="lg:col-span-5 relative hidden lg:block">
+                    <div class="relative bg-dom-yellow border-3 border-dom-black p-8 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] rotate-2 hover:rotate-0 transition-transform duration-500">
+                        <div class="bg-white border-2 border-black p-4 mb-4">
+                            <div class="flex items-center gap-3 mb-2">
+                                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                            </div>
+                            <div class="space-y-2">
+                                <div class="h-4 bg-gray-200 w-3/4 animate-pulse"></div>
+                                <div class="h-4 bg-gray-200 w-1/2 animate-pulse"></div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-end">
+                            <div>
+                                <p class="font-bold text-4xl">500%</p>
+                                <p class="text-sm font-bold uppercase tracking-widest">Traffic Growth</p>
+                            </div>
+                            <svg class="w-16 h-16 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    {/* ================= 2. TRUST SIGNAL (MARQUEE) ================= */}
+    <section class="border-b-3 border-dom-black bg-zinc-100 py-8 overflow-hidden">
+        <div class="container mx-auto px-6 mb-4 text-center">
+            <p class="text-xs font-bold uppercase tracking-widest text-gray-500">Akses Langsung Ke Jaringan Media</p>
+        </div>
+        <div class="relative flex overflow-x-hidden">
+            <div class="animate-marquee whitespace-nowrap flex gap-12 items-center">
+                {/* Logo Text Placeholders */}
+                {['DETIK.COM', 'KOMPAS.COM', 'LIPUTAN6', 'TRIBUNNEWS', 'VIVA.CO.ID', 'JAWAPOS', 'TEMPO', 'CNBC INDONESIA', 'KONTAN'].map(media => (
+                    <span class="text-2xl md:text-3xl font-black text-gray-300 uppercase select-none font-mono hover:text-dom-black transition-colors px-4">
+                        {media}
+                    </span>
+                ))}
+                {/* Duplicate for infinite loop */}
+                {['DETIK.COM', 'KOMPAS.COM', 'LIPUTAN6', 'TRIBUNNEWS', 'VIVA.CO.ID', 'JAWAPOS', 'TEMPO', 'CNBC INDONESIA', 'KONTAN'].map(media => (
+                    <span class="text-2xl md:text-3xl font-black text-gray-300 uppercase select-none font-mono hover:text-dom-black transition-colors px-4">
+                        {media}
+                    </span>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    {/* ================= 3. SECTION "PILIH SENJATA ANDA" ================= */}
+    <section id="services" class="py-24 bg-white border-b-3 border-dom-black">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+                <div>
+                    <h2 class="text-4xl font-bold uppercase mb-2">Pilih Senjata Anda</h2>
+                    <p class="text-gray-600 text-lg max-w-xl">Sesuaikan jenis backlink dengan kebutuhan stage website Anda saat ini.</p>
+                </div>
+                <div class="hidden md:block w-32 h-2 bg-dom-black"></div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                {subServices.map((item) => (
+                    <div class={`group relative border-3 border-dom-black p-8 ${item.bg} hover:-translate-y-2 transition-transform duration-300 shadow-neo`}>
+                        {/* Badge */}
+                        <div class="absolute -top-4 right-8 bg-black text-white px-3 py-1 font-bold text-xs uppercase tracking-widest">
+                            {item.badge}
+                        </div>
+
+                        <div class="w-14 h-14 bg-black text-white flex items-center justify-center border-2 border-transparent mb-6 group-hover:bg-dom-yellow group-hover:text-black transition-colors">
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={item.icon}></path></svg>
+                        </div>
+
+                        <h3 class="text-2xl font-bold uppercase mb-4 leading-tight">{item.title}</h3>
+                        <p class="text-gray-600 font-medium mb-8 leading-relaxed">
+                            {item.desc}
+                        </p>
+
+                        <a href={`/services/backlink/${item.slug}`} class="inline-flex items-center font-bold uppercase text-sm border-b-2 border-black pb-1 hover:pl-2 transition-all gap-2">
+                            Lihat Detail <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </a>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    {/* ================= 4. EDUKASI (WHY DIFFERENT) ================= */}
+    <section class="py-24 bg-dom-black text-white border-b-3 border-dom-black">
+        <div class="container mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-16">
+                <div>
+                    <div class="inline-block bg-dom-yellow text-black px-4 py-1 font-bold text-xs uppercase mb-6">Fokus 2026</div>
+                    <h2 class="text-4xl md:text-5xl font-bold uppercase mb-8 leading-tight">
+                        Algoritma Google <br/>Semakin Pintar.
+                    </h2>
+                    <p class="text-gray-400 text-lg mb-8 leading-relaxed">
+                        Zaman backlink spam komentar dan profil forum sudah mati. Google kini memprioritaskan <strong>Topical Authority</strong>. Link dari website kesehatan tidak akan berguna untuk website otomotif.
+                    </p>
+                    <div class="space-y-6">
+                        {/* Item 1 */}
+                        <div class="flex gap-4 items-start">
+                            <div class="w-12 h-12 flex-shrink-0 bg-white/10 flex items-center justify-center border border-white/20 text-dom-yellow">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-xl mb-1 text-white">Relevansi Kontekstual</h4>
+                                <p class="text-gray-400 text-sm">Kami menempatkan link Anda di dalam artikel yang membahas topik sejenis (Niche Relevant).</p>
+                            </div>
+                        </div>
+                        {/* Item 2 */}
+                        <div class="flex gap-4 items-start">
+                            <div class="w-12 h-12 flex-shrink-0 bg-white/10 flex items-center justify-center border border-white/20 text-dom-yellow">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-xl mb-1 text-white">Real Human Traffic</h4>
+                                <p class="text-gray-400 text-sm">Backlink dipasang di website yang memiliki pengunjung asli dari Google, bukan "Ghost Town" site.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                {/* Comparison Table */}
+                <div class="border-2 border-white/20 bg-white/5 p-8 relative">
+                    <div class="absolute -top-4 -right-4 bg-dom-yellow text-black px-4 py-2 font-bold uppercase transform rotate-2">
+                        The Dominan Way
+                    </div>
+                    <h3 class="font-bold text-2xl uppercase mb-8 border-b border-white/20 pb-4">Perbandingan Kualitas</h3>
+                    <div class="space-y-4 font-mono text-sm">
+                        <div class="grid grid-cols-2 gap-4 border-b border-dashed border-white/10 pb-4">
+                            <div class="text-red-400 opacity-70">Jasa Murah (50rb-an)</div>
+                            <div class="text-green-400 font-bold">Dominan SEO</div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4 items-center">
+                            <div class="text-gray-400 flex items-center gap-2">
+                                <svg class="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                                Artikel Spin/Copy
+                            </div>
+                            <div class="text-white flex items-center gap-2">
+                                <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                100% Tulisan Manusia
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4 items-center">
+                            <div class="text-gray-400 flex items-center gap-2">
+                                <svg class="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                                Web Spam/Judi
+                            </div>
+                            <div class="text-white flex items-center gap-2">
+                                <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                Web Bersih & Terawat
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4 items-center">
+                            <div class="text-gray-400 flex items-center gap-2">
+                                <svg class="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                                Sidebar/Footer Link
+                            </div>
+                            <div class="text-white flex items-center gap-2">
+                                <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                In-Content Link
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4 items-center">
+                            <div class="text-gray-400 flex items-center gap-2">
+                                <svg class="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                                Index Lama/Gagal
+                            </div>
+                            <div class="text-white flex items-center gap-2">
+                                <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                Index Guaranteed
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {/* ================= 5. CASE STUDY (THE EVIDENCE) ================= */}
+    <section class="py-24 bg-zinc-50 border-b-3 border-dom-black">
+        <div class="container mx-auto px-6 max-w-5xl">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold uppercase mb-4">Bukti, Bukan Janji</h2>
+                <p class="text-gray-600">Studi kasus gimik klien Niche 'Konstruksi' setelah 3 bulan kampanye backlink.</p>
+            </div>
+
+            <div class="bg-white border-3 border-dom-black p-4 md:p-8 shadow-neo relative">
+                {/* Simulated Graph Header */}
+                <div class="flex justify-between items-center border-b-2 border-gray-100 pb-4 mb-6">
+                    <div>
+                        <div class="text-gray-500 text-xs font-bold uppercase">Organic Traffic</div>
+                        <div class="text-3xl md:text-5xl font-bold text-dom-black">12,450 <span class="text-green-500 text-lg">+420%</span></div>
+                    </div>
+                    <div class="flex gap-2">
+                        <span class="px-3 py-1 bg-gray-100 rounded text-xs font-bold">1M</span>
+                        <span class="px-3 py-1 bg-black text-white rounded text-xs font-bold">2M</span>
+                        <span class="px-3 py-1 bg-gray-100 rounded text-xs font-bold">3M</span>
+                    </div>
+                </div>
+
+<div class="relative w-full h-64 flex items-end justify-between gap-1 md:gap-3 px-2">
+    {/* Background Grid Lines (Kode ini tidak perlu diubah) */}
+    <div class="absolute inset-0 flex flex-col justify-between pointer-events-none opacity-20 z-0">
+        <div class="border-t border-dashed border-gray-400 w-full"></div>
+        <div class="border-t border-dashed border-gray-400 w-full"></div>
+        <div class="border-t border-dashed border-gray-400 w-full"></div>
+        <div class="border-t border-dashed border-gray-400 w-full"></div>
+    </div>
+
+    {/* Bars */}
+    {[15, 20, 18, 25, 30, 45, 40, 60, 75, 70, 85, 95].map((h, i) => (
+        <div class="w-full h-full flex flex-col justify-end z-10 group relative">
+             {/* Tooltip Gimik (Kode ini tidak perlu diubah) */}
+            <div class="opacity-0 group-hover:opacity-100 absolute -top-10 left-1/2 -translate-x-1/2 bg-black text-white text-xs py-1 px-2 font-bold rounded pointer-events-none transition-opacity whitespace-nowrap z-20">
+                {h * 124} Visits
+            </div>
+            
+            {/* The Bar */}
+            <div 
+                style={`height: ${h}%`} 
+                class={`w-full rounded-t-sm transition-all duration-500 hover:opacity-90 ${i > 8 ? 'bg-dom-black' : 'bg-gray-300'} group-hover:bg-dom-yellow`}
+            ></div>
+        </div>
+    ))}
+</div>
+                
+<div class="mt-4 text-center border-t border-gray-200 pt-4">
+    <p class="text-xs md:text-sm font-bold text-gray-400 uppercase tracking-widest">Growth Timeline (Month 1 - Month 3)</p>
+</div>
+
+                {/* Insight Box / Gimik Overlay */}
+                <div class="absolute top-40 left-4 md:left-20 bg-white border-2 border-black p-4 shadow-lg hidden md:block rotate-3 z-20">
+                    <div class="flex items-center gap-2 mb-2 border-b border-black pb-1">
+                        <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        <p class="font-bold text-sm">Strategy Applied:</p>
+                    </div>
+                    <ul class="text-xs font-mono space-y-1">
+                        <li>[x] 5x Media Nasional</li>
+                        <li>[x] 20x Contextual Post</li>
+                        <li>[x] Homepage PBN Link</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {/* ================= 6. PRICING TABLE ================= */}
+    <section id="pricing" class="py-24 bg-white border-b-3 border-dom-black">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold uppercase text-center mb-16">Investasi Paket</h2>
+            
+            <div class="grid lg:grid-cols-3 gap-8 items-start">
+                {pricing.map((paket) => (
+                    <div class={`relative border-3 border-dom-black p-8 flex flex-col h-full transition-all ${paket.highlight ? 'bg-dom-yellow shadow-neo scale-105 z-10' : 'bg-white shadow-neo-sm hover:shadow-neo'}`}>
+                        {paket.highlight && (
+                            <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-black text-white px-4 py-1 font-bold uppercase text-sm tracking-widest">
+                                Most Popular
+                            </div>
+                        )}
+                        
+                        <h3 class="text-2xl font-black uppercase mb-2">{paket.name}</h3>
+                        <p class="text-sm font-bold opacity-70 mb-6 h-10">{paket.desc}</p>
+                        
+                        <div class="mb-8 pb-8 border-b-2 border-black border-dashed">
+                            <span class="text-4xl font-black">{paket.price}</span>
+                            <span class="text-sm font-bold">{paket.unit}</span>
+                        </div>
+
+                        <ul class="space-y-4 mb-8 flex-grow">
+                            {paket.features.map(feature => (
+                                <li class="flex items-center gap-3 font-bold text-sm">
+                                    <svg class="w-5 h-5 flex-shrink-0 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                    {feature}
+                                </li>
+                            ))}
+                        </ul>
+
+                        <button onclick="openModal()" class={`w-full py-4 font-bold border-2 border-black uppercase tracking-wider transition-all ${paket.highlight ? 'bg-black text-white hover:bg-white hover:text-black' : 'bg-gray-100 hover:bg-dom-black hover:text-white'}`}>
+                            Pilih Paket
+                        </button>
+                    </div>
+                ))}
+            </div>
+            
+            <div class="mt-12 text-center">
+                 <p class="text-gray-500 font-medium">Butuh paket custom untuk Agency / Reseller? <button onclick="openModal()" class="text-black font-bold underline hover:text-dom-yellow">Hubungi kami.</button></p>
+            </div>
+        </div>
+    </section>
+
+    {/* ================= 7. PROSES KERJA ================= */}
+    <section class="py-24 bg-zinc-100 border-b-3 border-dom-black">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold uppercase mb-16 text-center">Cara Kerja Kami</h2>
+            <div class="grid md:grid-cols-4 gap-4">
+                {[
+                    { step: "01", title: "Audit Website", desc: "Kami menganalisa profil backlink Anda saat ini dan kompetitor." },
+                    { step: "02", title: "Riset Keyword", desc: "Menentukan anchor text yang aman dan potensial untuk ditembak." },
+                    { step: "03", title: "Placement", desc: "Penulisan artikel dan penerbitan di website partner." },
+                    { step: "04", title: "Reporting", desc: "Laporan live link transparan yang bisa Anda cek langsung." }
+                ].map((item) => (
+                    <div class="bg-white p-8 border-2 border-black hover:-translate-y-2 transition-transform">
+                        <div class="text-5xl font-black text-gray-200 mb-4">{item.step}</div>
+                        <h4 class="font-bold text-xl uppercase mb-2">{item.title}</h4>
+                        <p class="text-gray-600 text-sm">{item.desc}</p>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    {/* ================= 8. FAQ ================= */}
+    <section class="py-24 bg-white">
+        <div class="container mx-auto px-6 max-w-3xl">
+            <h2 class="text-4xl font-bold uppercase mb-12 text-center">Pertanyaan Umum</h2>
+            <div class="space-y-4">
+                {[
+                    { q: "Apakah backlink ini permanen?", a: "Ya, selama website penerbit masih aktif, link Anda akan tetap ada (Lifetime). Kami memberi garansi replacement jika link hilang dalam 1 tahun." },
+                    { q: "Berapa lama efek ranking terlihat?", a: "SEO bukan sihir. Efek backlink biasanya mulai terindeks dan memberi impact dalam 2-4 minggu, tergantung kompetisi keyword." },
+                    { q: "Apakah artikel disediakan?", a: "Tentu. Harga sudah termasuk artikel SEO Friendly yang ditulis manual oleh tim konten kami (Bukan AI mentah)." },
+                    { q: "Apakah aman dari penalti Google?", a: "Sangat aman karena kami menggunakan pola 'Natural Link Profile' dengan variasi anchor text dan ditempatkan di konten relevan." }
+                ].map((faq) => (
+                    <details class="group bg-zinc-50 border-2 border-black open:bg-dom-yellow open:shadow-neo transition-all duration-300">
+                        <summary class="flex justify-between items-center p-6 cursor-pointer font-bold select-none">
+                            {faq.q}
+                            <span class="transform group-open:rotate-180 transition-transform">▼</span>
+                        </summary>
+                        <div class="px-6 pb-6 pt-0 text-gray-800 leading-relaxed border-t-2 border-black border-dashed mt-2 pt-4">
+                            {faq.a}
+                        </div>
+                    </details>
+                ))}
+            </div>
+        </div>
+    </section>
+
+</Layout>
+
+<style>
+    .animate-marquee {
+        animation: marquee 20s linear infinite;
+    }
+    @keyframes marquee {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+    }
+</style>
