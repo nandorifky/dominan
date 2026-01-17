@@ -1,0 +1,68 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const pageData = {
+  title: "Terms of Service | Dominan Web",
+  seoDesc: "Syarat dan Ketentuan layanan di Dominan Web. Harap baca sebelum memesan layanan kami.",
+  lastUpdated: "17 Januari 2026"
+};
+---
+
+<Layout title={pageData.title} description={pageData.seoDesc}>
+  
+  <header class="bg-zinc-50 border-b-3 border-dom-black pt-32 pb-16">
+    <div class="container mx-auto px-6 text-center">
+        <h1 class="text-4xl md:text-6xl font-bold uppercase mb-4">Terms of Service</h1>
+        <p class="text-gray-500 font-mono text-sm">Last Updated: {pageData.lastUpdated}</p>
+    </div>
+  </header>
+
+  <section class="py-20 bg-white">
+      <div class="container mx-auto px-6 max-w-4xl prose prose-lg prose-headings:font-bold prose-headings:uppercase">
+          
+          <p>
+              Selamat datang di <strong>Dominan Web</strong>. Dengan mengakses website ini dan menggunakan layanan kami, Anda dianggap telah membaca, memahami, dan menyetujui Syarat & Ketentuan berikut.
+          </p>
+
+          <h3>1. Layanan</h3>
+          <p>
+              Dominan Web menyediakan jasa digital marketing meliputi: SEO, Pembuatan Website, Iklan Berbayar (Ads), dan Pengelolaan Aset Digital lainnya. Kami berhak menolak layanan jika materi klien mengandung unsur pornografi, judi, SARA, atau aktivitas ilegal lainnya menurut hukum Indonesia.
+          </p>
+
+          <h3>2. Pembayaran & Refund</h3>
+          <ul>
+              <li><strong>Down Payment (DP):</strong> Pengerjaan dimulai setelah DP 50% diterima.</li>
+              <li><strong>Pelunasan:</strong> Wajib dilakukan setelah project selesai (serah terima) atau sesuai termin yang disepakati.</li>
+              <li><strong>Refund:</strong> DP tidak dapat dikembalikan (Non-Refundable) jika pembatalan dilakukan sepihak oleh klien setelah project berjalan.</li>
+              <li><strong>Garansi SEO:</strong> Syarat refund untuk Jasa SEO Garansi diatur dalam kontrak terpisah (SPK).</li>
+          </ul>
+
+          <h3>3. Hak Kekayaan Intelektual</h3>
+          <p>
+              Setelah pembayaran lunas, seluruh aset website (Source Code, Desain, Akses Admin) menjadi milik Klien sepenuhnya. Dominan Web berhak mencantumkan hasil karya tersebut dalam portofolio kami, kecuali ada perjanjian NDA (Non-Disclosure Agreement).
+          </p>
+
+          <h3>4. Batasan Tanggung Jawab</h3>
+          <p>
+              Dominan Web tidak bertanggung jawab atas:
+          </p>
+          <ul>
+              <li>Kerugian bisnis (kehilangan profit) akibat website down di sisi server pihak ketiga (hosting/domain).</li>
+              <li>Perubahan algoritma Google/Meta yang berdampak pada ranking atau kinerja iklan di masa depan.</li>
+              <li>Penyalahgunaan website oleh pihak yang tidak bertanggung jawab (hacker) jika klien lalai menjaga keamanan akses (password).</li>
+          </ul>
+
+          <h3>5. Perubahan Ketentuan</h3>
+          <p>
+              Kami berhak mengubah syarat dan ketentuan ini sewaktu-waktu tanpa pemberitahuan sebelumnya. Pengguna disarankan untuk memeriksa halaman ini secara berkala.
+          </p>
+
+          <h3>6. Kontak</h3>
+          <p>
+              Jika ada pertanyaan mengenai Syarat & Ketentuan ini, silakan hubungi kami melalui email: <strong>halo@dominan.web.id</strong>
+          </p>
+
+      </div>
+  </section>
+
+</Layout>

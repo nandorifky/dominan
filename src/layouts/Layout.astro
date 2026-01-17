@@ -3,21 +3,21 @@ import '../styles/global.css';
 import '@fontsource/space-grotesk';
 
 interface Props {
-	title: string;
-	description?: string; // [BARU] Menambahkan properti description opsional
-    image?: string;       // [BONUS] Menambahkan properti image untuk OG Image dinamis
+    title: string;
+    description?: string;
+    image?: string;
 }
 
 const { title, description, image } = Astro.props;
 
-// Konfigurasi Default (Fallback jika halaman tidak mengirim data)
+// Konfigurasi Default
 const defaultDesc = "Dominan Web - Jasa Pembuatan Website & SEO High Performance. Fokus pada kecepatan (Speed), keamanan, dan konversi penjualan.";
-const defaultImage = "/og-default.jpg"; // Pastikan Anda punya file ini di folder /public
+const defaultImage = "/og-default.jpg";
 
 // Logic Penentuan Nilai Akhir
 const finalDesc = description || defaultDesc;
 const finalImage = image || defaultImage;
-const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://dominan.web.id'); // Otomatis generate canonical
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://dominan.web.id');
 
 // Struktur Menu
 const menuItems = [
@@ -36,18 +36,12 @@ const menuItems = [
         label: 'Layanan', 
         href: '/#services',
         children: [
-            // --- UPDATED LIST ---
             { label: 'Jasa SEO Garansi', href: '/services/seo' },
             { label: 'Optimasi Google Maps', href: '/services/google-maps' },
-            
-            // Tambahkan "Jasa Backlink" sebagai Induk atau Langsung Link ke salah satu?
-            // Opsi Terbaik: Buat Link Induk yang mengarah ke PBN (produk unggulan)
-            // Atau Anda bisa pecah jadi 3 link kalau mau agresif:
-			{ label: 'Jasa Backlink', href: '/services/backlink' },
+            { label: 'Jasa Backlink', href: '/services/backlink' },
             { label: '-Backlink PBN', href: '/services/backlink/pbn' },
             { label: '-Backlink Media Nasional', href: '/services/backlink/media-nasional' },
-			{ label: '-Backlink Profile', href: '/services/backlink/profile' },
-            
+            { label: '-Backlink Profile', href: '/services/backlink/profile' },
             { label: 'Google Ads & FB Ads', href: '/services/ads' },
             { label: 'Pembuatan Website', href: '/services/website' },
         ]
@@ -58,41 +52,85 @@ const menuItems = [
 
 <!doctype html>
 <html lang="id" class="scroll-smooth">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="generator" content={Astro.generator} />
         <link rel="canonical" href={canonicalURL} />
-		
+        
         <title>{title}</title>
-		<meta name="description" content={finalDesc} />
+        <meta name="description" content={finalDesc} />
 
-		<meta property="og:type" content="website" />
-		<meta property="og:url" content={Astro.url} />
-		<meta property="og:title" content={title} />
-		<meta property="og:description" content={finalDesc} />
-		<meta property="og:image" content={finalImage} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={Astro.url} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={finalDesc} />
+        <meta property="og:image" content={finalImage} />
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={finalDesc} />
         <meta name="twitter:image" content={finalImage} />
 
-		<slot name="head" />
-	</head>
-	<body class="bg-zinc-50 font-space text-dom-black antialiased selection:bg-dom-yellow selection:text-black pt-20">
-		
-		<nav class="fixed w-full z-50 top-0 left-0 border-b-3 border-dom-black bg-white">
-			<div class="container mx-auto px-6 h-20 flex justify-between items-center relative z-20 bg-white">
-				
+        {/* =========================================
+            TRACKING SLOT: HEAD
+            Silakan isi ID GTM / Pixel di bawah ini
+           ========================================= */}
+        
+        {/* 1. Google Tag Manager (GTM) */}
+        <script is:inline>
+            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-XXXXXX'); // <-- GANTI ID GTM DI SINI
+        </script>
+
+        {/* 2. Meta Pixel Code */}
+        <script is:inline>
+            !function(f,b,e,v,n,t,s)
+            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '1234567890'); // <-- GANTI ID PIXEL DI SINI
+            fbq('track', 'PageView');
+        </script>
+        <noscript><img height="1" width="1" style="display:none"
+            src="https://www.facebook.com/tr?id=1234567890&ev=PageView&noscript=1"
+        /></noscript>
+        
+        {/* 3. Google Analytics 4 (Opsional jika tidak pakai GTM) */}
+        {/* <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+        <script is:inline>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-XXXXXXXXXX');
+        </script> */}
+
+        <slot name="head" />
+    </head>
+    <body class="bg-zinc-50 font-space text-dom-black antialiased selection:bg-dom-yellow selection:text-black pt-20">
+        
+        {/* GTM NoScript (Body) */}
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXX"
+        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        
+        <nav class="fixed w-full z-50 top-0 left-0 border-b-3 border-dom-black bg-white">
+            <div class="container mx-auto px-6 h-20 flex justify-between items-center relative z-20 bg-white">
+                
                 <a href="/" class="text-2xl font-bold uppercase tracking-tighter flex items-center gap-2 group">
-					<div class="w-10 h-10 bg-dom-black text-dom-yellow flex items-center justify-center border-2 border-transparent group-hover:rotate-12 transition-transform">
-						<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-					</div>
-					<span>Dominan</span>
-				</a>
-				
+                    <div class="w-10 h-10 bg-dom-black text-dom-yellow flex items-center justify-center border-2 border-transparent group-hover:rotate-12 transition-transform">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                    <span>Dominan</span>
+                </a>
+                
                 <div class="hidden md:flex items-center gap-1 font-bold uppercase text-sm tracking-wide h-full">
                     {menuItems.map((item) => (
                         item.children ? (
@@ -119,19 +157,19 @@ const menuItems = [
                         )
                     ))}
 
-					<button onclick="document.getElementById('contactModal').classList.remove('hidden')" class="ml-4 bg-dom-black text-white px-6 py-2.5 border-2 border-transparent hover:bg-dom-yellow hover:text-black hover:border-dom-black transition-all shadow-neo hover:shadow-none hover:translate-y-1">
-						Konsultasi
-					</button>
-				</div>
+                    <button onclick="document.getElementById('contactModal').classList.remove('hidden')" class="ml-4 bg-dom-black text-white px-6 py-2.5 border-2 border-transparent hover:bg-dom-yellow hover:text-black hover:border-dom-black transition-all shadow-neo hover:shadow-none hover:translate-y-1">
+                        Konsultasi
+                    </button>
+                </div>
 
                 <button id="mobileMenuBtn" class="md:hidden text-dom-black p-2 hover:bg-gray-100 transition-colors">
-					<svg id="menuIconOpen" class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                    <svg id="menuIconOpen" class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                     <svg id="menuIconClose" class="w-8 h-8 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-				</button>
-			</div>
+                </button>
+            </div>
 
-			<div id="mobileMenu" class="hidden md:hidden border-t-3 border-dom-black bg-white absolute w-full left-0 h-[calc(100vh-80px)] overflow-y-auto">
-				<div class="flex flex-col p-6 font-bold uppercase text-lg">
+            <div id="mobileMenu" class="hidden md:hidden border-t-3 border-dom-black bg-white absolute w-full left-0 h-[calc(100vh-80px)] overflow-y-auto">
+                <div class="flex flex-col p-6 font-bold uppercase text-lg">
                     {menuItems.map((item) => (
                         item.children ? (
                             <div class="border-b-2 border-dashed border-gray-200">
@@ -154,16 +192,16 @@ const menuItems = [
                         )
                     ))}
                     
-					<button onclick="document.getElementById('contactModal').classList.remove('hidden')" class="w-full bg-dom-black text-white px-6 py-4 mt-8 text-center border-2 border-transparent hover:bg-dom-yellow hover:text-black text-xl shadow-neo">
-						Mulai Konsultasi
-					</button>
-				</div>
-			</div>
-		</nav>
+                    <button onclick="document.getElementById('contactModal').classList.remove('hidden')" class="w-full bg-dom-black text-white px-6 py-4 mt-8 text-center border-2 border-transparent hover:bg-dom-yellow hover:text-black text-xl shadow-neo">
+                        Mulai Konsultasi
+                    </button>
+                </div>
+            </div>
+        </nav>
 
-		<slot />
+        <slot />
 
-<footer class="bg-dom-black text-white border-t-3 border-dom-black pt-20 pb-10">
+        <footer class="bg-dom-black text-white border-t-3 border-dom-black pt-20 pb-10">
             <div class="container mx-auto px-6">
                 <div class="grid md:grid-cols-12 gap-12 mb-16">
                     
@@ -238,60 +276,60 @@ const menuItems = [
                 <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500 gap-4">
                     <p>&copy; {new Date().getFullYear()} Dominan Web. All rights reserved.</p>
                     <div class="flex gap-6 font-bold uppercase tracking-wider">
-                        <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
-                        <a href="#" class="hover:text-white transition-colors">Terms</a>
-                        <a href="#" class="hover:text-white transition-colors">Sitemap</a>
+                        <a href="/privacy" class="hover:text-white transition-colors">Privacy Policy</a>
+                        <a href="/terms" class="hover:text-white transition-colors">Terms</a>
+                        <a href="/sitemap-index.xml" target="_blank" class="hover:text-white transition-colors">Sitemap</a>
                     </div>
                 </div>
             </div>
         </footer>
 
-		<div id="contactModal" class="fixed inset-0 z-[60] hidden">
-			<div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="document.getElementById('contactModal').classList.add('hidden')"></div>
-			<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md bg-white border-3 border-dom-black shadow-neo p-8 animate-in fade-in zoom-in duration-300">
-				<div class="flex justify-between items-center mb-6">
-					<h3 class="text-2xl font-bold uppercase">Konsultasi Gratis</h3>
-					<button onclick="document.getElementById('contactModal').classList.add('hidden')" class="hover:rotate-90 transition-transform">
-						<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-					</button>
-				</div>
-				<p class="text-gray-600 mb-8 font-medium">Pilih jalur komunikasi prioritas kami:</p>
-				<div class="space-y-4">
-					<a href="https://wa.me/6281234567890" target="_blank" class="flex items-center gap-4 border-2 border-black p-4 hover:bg-green-50 transition-colors group">
-						<div class="w-12 h-12 bg-green-500 text-white flex items-center justify-center border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] group-hover:translate-x-1 group-hover:translate-y-1 group-hover:shadow-none transition-all">
-							<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-						</div>
-						<div class="text-left">
-							<span class="block text-xs font-bold uppercase text-gray-500">Chat WhatsApp</span>
-							<span class="block font-bold text-lg">+62 812-3456-7890</span>
-						</div>
-					</a>
-					<a href="mailto:halo@dominan.web.id" class="flex items-center gap-4 border-2 border-black p-4 hover:bg-gray-50 transition-colors group">
-						<div class="w-12 h-12 bg-gray-200 text-black flex items-center justify-center border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] group-hover:translate-x-1 group-hover:translate-y-1 group-hover:shadow-none transition-all">
-							<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-						</div>
-						<div class="text-left">
-							<span class="block text-xs font-bold uppercase text-gray-500">Email Kami</span>
-							<span class="block font-bold text-lg">halo@dominan.web.id</span>
-						</div>
-					</a>
-				</div>
-			</div>
-		</div>
+        <div id="contactModal" class="fixed inset-0 z-[60] hidden">
+            <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="document.getElementById('contactModal').classList.add('hidden')"></div>
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md bg-white border-3 border-dom-black shadow-neo p-8 animate-in fade-in zoom-in duration-300">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-bold uppercase">Konsultasi Gratis</h3>
+                    <button onclick="document.getElementById('contactModal').classList.add('hidden')" class="hover:rotate-90 transition-transform">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+                <p class="text-gray-600 mb-8 font-medium">Pilih jalur komunikasi prioritas kami:</p>
+                <div class="space-y-4">
+                    <a href="https://wa.me/6281234567890" target="_blank" class="flex items-center gap-4 border-2 border-black p-4 hover:bg-green-50 transition-colors group">
+                        <div class="w-12 h-12 bg-green-500 text-white flex items-center justify-center border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] group-hover:translate-x-1 group-hover:translate-y-1 group-hover:shadow-none transition-all">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                        </div>
+                        <div class="text-left">
+                            <span class="block text-xs font-bold uppercase text-gray-500">Chat WhatsApp</span>
+                            <span class="block font-bold text-lg">+62 812-3456-7890</span>
+                        </div>
+                    </a>
+                    <a href="mailto:halo@dominan.web.id" class="flex items-center gap-4 border-2 border-black p-4 hover:bg-gray-50 transition-colors group">
+                        <div class="w-12 h-12 bg-gray-200 text-black flex items-center justify-center border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] group-hover:translate-x-1 group-hover:translate-y-1 group-hover:shadow-none transition-all">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        </div>
+                        <div class="text-left">
+                            <span class="block text-xs font-bold uppercase text-gray-500">Email Kami</span>
+                            <span class="block font-bold text-lg">halo@dominan.web.id</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
 
-		<script>
-			// Mobile Menu Logic
-			const menuBtn = document.getElementById('mobileMenuBtn');
-			const mobileMenu = document.getElementById('mobileMenu');
-			const menuIconOpen = document.getElementById('menuIconOpen');
-			const menuIconClose = document.getElementById('menuIconClose');
+        <script>
+            // Mobile Menu Logic
+            const menuBtn = document.getElementById('mobileMenuBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const menuIconOpen = document.getElementById('menuIconOpen');
+            const menuIconClose = document.getElementById('menuIconClose');
             const mobileDropdowns = document.querySelectorAll('.mobile-dropdown-trigger');
 
-			menuBtn?.addEventListener('click', () => {
-				mobileMenu?.classList.toggle('hidden');
+            menuBtn?.addEventListener('click', () => {
+                mobileMenu?.classList.toggle('hidden');
                 menuIconOpen?.classList.toggle('hidden');
                 menuIconClose?.classList.toggle('hidden');
-			});
+            });
 
             // Logic untuk Accordion Mobile Dropdown
             mobileDropdowns.forEach(trigger => {
@@ -304,6 +342,6 @@ const menuItems = [
                     icon?.classList.toggle('rotate-180');
                 });
             });
-		</script>
-	</body>
+        </script>
+    </body>
 </html>

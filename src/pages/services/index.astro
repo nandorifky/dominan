@@ -1,59 +1,165 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 
-const services = [
-  {
-    title: 'SEO DOMINATOR',
-    slug: 'seo',
-    desc: 'Audit, Optimasi Ranking, & Backlink.',
-    icon: '<svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>'
-  },
-  {
-    title: 'WORDPRESS HIGH-PERF',
-    slug: 'website',
-    desc: 'Website Cepat, Aman, & Konversi Tinggi.',
-    icon: '<svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>'
-  },
-  {
-    title: 'CONVERSION ADS',
-    slug: 'ads',
-    desc: 'Google & FB Ads dengan Tracking ROI.',
-    icon: '<svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path></svg>'
-  }
-];
+const pageData = {
+  title: "Semua Layanan Dominan Web",
+  seoDesc: "Katalog lengkap jasa digital marketing Dominan Web. Mulai dari SEO Garansi, Google Maps, Backlink PBN, hingga Pembuatan Website High Performance.",
+  
+  // KATEGORI LAYANAN
+  categories: [
+    {
+      name: "Organic Traffic (SEO)",
+      desc: "Mendominasi pencarian gratisan jangka panjang.",
+      color: "bg-dom-yellow",
+      services: [
+        {
+          title: "Jasa SEO Garansi",
+          desc: "Halaman 1 Google atau uang kembali. Teknik White Hat aman untuk aset jangka panjang.",
+          link: "/services/seo",
+          icon: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z", // Search
+          badge: "BEST SELLER"
+        },
+        {
+          title: "Optimasi Google Maps",
+          desc: "Dominasi pencarian lokal 'Terdekat dari saya'. Wajib untuk bisnis fisik/jasa panggilan.",
+          link: "/services/google-maps",
+          icon: "M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z", // Pin
+          badge: "LOCAL HERO"
+        }
+      ]
+    },
+    {
+      name: "Authority & Backlink",
+      desc: "Bensin untuk ranking website Anda.",
+      color: "bg-zinc-200",
+      services: [
+        {
+          title: "Backlink PBN Premium",
+          desc: "Private Blog Network milik sendiri. IP Unik, Tulisan Manual, Power Gila.",
+          link: "/services/backlink/pbn",
+          icon: "M13 10V3L4 14h7v7l9-11h-7z", // Lightning
+          badge: "HIGH POWER"
+        },
+        {
+          title: "Press Release Media",
+          desc: "Liputan di Detik, Kompas, Tribun. Dapatkan Trust instan dan Centang Biru.",
+          link: "/services/backlink/media-nasional",
+          icon: "M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z", // Newspaper
+        }
+      ]
+    },
+    {
+      name: "Instant Traffic & Conversion",
+      desc: "Hasil cepat dan website yang menjual.",
+      color: "bg-green-100",
+      services: [
+        {
+          title: "Google & FB Ads",
+          desc: "Datangkan pembeli dalam 24 jam. Kami set up campaign yang fokus pada ROAS.",
+          link: "/services/ads",
+          icon: "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z", // Dollar
+        },
+        {
+          title: "Pembuatan Website",
+          desc: "Website Astro.js super cepat. Anti-hack, skor Google hijau, konversi tinggi.",
+          link: "/services/website",
+          icon: "M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4", // Code
+          badge: "ENGINEERING"
+        }
+      ]
+    }
+  ]
+};
 ---
 
-<Layout title="Semua Layanan | Dominan Web">
-  
-  <header class="py-24 bg-white border-b-3 border-dom-black min-h-[60vh] flex items-center justify-center text-center relative overflow-hidden">
-    <div class="absolute inset-0 opacity-[0.03]" style="background-image: radial-gradient(#000 1px, transparent 1px); background-size: 30px 30px;"></div>
+<Layout title={pageData.title} description={pageData.seoDesc}>
 
-    <div class="container mx-auto px-6 relative z-10">
-      <h1 class="text-5xl md:text-7xl font-bold uppercase mb-8 text-dom-black">
-        Pilih Senjata<br>
-        <span class="bg-dom-black text-white px-4">Digital Anda</span>
-      </h1>
-      <p class="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
-        Kami menyediakan solusi *end-to-end*. Dari membangun pondasi (Website), mendatangkan trafik organik (SEO), hingga akselerasi profit (Ads).
-      </p>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-        {services.map((item) => (
-          <a href={`/services/${item.slug}`} class="group block bg-white border-3 border-dom-black p-8 shadow-neo hover:shadow-none hover:translate-y-1 transition-all text-left">
-            <div class="mb-6 text-dom-black group-hover:text-dom-yellow transition-colors">
-              <Fragment set:html={item.icon} />
-            </div>
-            <h2 class="text-2xl font-bold uppercase mb-2 group-hover:underline decoration-4 underline-offset-4 decoration-dom-yellow">{item.title}</h2>
-            <p class="text-gray-600 font-medium mb-6">{item.desc}</p>
-            <span class="inline-block font-bold text-sm border-b-2 border-black pb-1">LIHAT DETAIL →</span>
-          </a>
-        ))}
-      </div>
-      
-      <div class="mt-16">
-        <a href="/" class="font-bold text-gray-400 hover:text-black transition-colors">← KEMBALI KE HOME</a>
-      </div>
+  {/* =========================================
+      1. HERO: THE ARSENAL
+     ========================================= */}
+  <header class="relative bg-zinc-50 border-b-3 border-dom-black pt-32 pb-20">
+    <div class="container mx-auto px-6 text-center">
+        <h1 class="text-5xl md:text-7xl font-bold uppercase leading-none text-dom-black mb-6 tracking-tighter">
+            Senjata Digital<br>
+            <span class="bg-dom-black text-white px-4">Lengkap.</span>
+        </h1>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+            Apapun fase bisnis Anda sekarang, kami punya alatnya. Dari membangun fondasi, mencari trafik, hingga mendominasi pasar.
+        </p>
     </div>
   </header>
+
+  {/* =========================================
+      2. SERVICE CATALOG
+     ========================================= */}
+  <section class="py-20 bg-white min-h-screen">
+      <div class="container mx-auto px-6 max-w-5xl">
+          
+          <div class="space-y-20">
+            {pageData.categories.map((cat, idx) => (
+                <div class="relative">
+                    {/* Category Header */}
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class={`w-12 h-12 flex items-center justify-center border-3 border-black shadow-neo ${cat.color} font-bold text-xl`}>
+                            0{idx + 1}
+                        </div>
+                        <div>
+                            <h2 class="text-3xl font-bold uppercase leading-none">{cat.name}</h2>
+                            <p class="text-gray-500 font-medium">{cat.desc}</p>
+                        </div>
+                    </div>
+
+                    {/* Services Grid */}
+                    <div class="grid md:grid-cols-2 gap-6 pl-0 md:pl-16">
+                        {cat.services.map((service) => (
+                            <a href={service.link} class="group block bg-white border-3 border-dom-black p-6 shadow-neo hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all relative overflow-hidden">
+                                
+                                {/* Badge if exists */}
+                                {service.badge && (
+                                    <div class="absolute top-0 right-0 bg-dom-black text-white text-[10px] font-bold px-3 py-1 uppercase tracking-widest border-l-2 border-b-2 border-white z-10">
+                                        {service.badge}
+                                    </div>
+                                )}
+
+                                <div class="flex items-start gap-4">
+                                    <div class="flex-shrink-0 w-12 h-12 bg-gray-50 border-2 border-black flex items-center justify-center group-hover:bg-dom-yellow transition-colors">
+                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={service.icon}></path></svg>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-xl font-bold uppercase mb-2 group-hover:text-dom-blue transition-colors flex items-center gap-2">
+                                            {service.title}
+                                            <svg class="w-4 h-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                                        </h3>
+                                        <p class="text-gray-600 text-sm leading-relaxed">
+                                            {service.desc}
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                        ))}
+                    </div>
+                </div>
+            ))}
+          </div>
+
+      </div>
+  </section>
+
+  {/* =========================================
+      3. CTA: CUSTOM SOLUTION
+     ========================================= */}
+  <section class="py-24 bg-dom-black text-center border-t-3 border-dom-yellow">
+      <div class="container mx-auto px-6">
+          <h2 class="text-3xl font-bold uppercase mb-6 text-white">
+              Bingung Mulai Dari Mana?
+          </h2>
+          <p class="text-gray-400 mb-10 max-w-xl mx-auto">
+              Jangan asal pilih layanan. Konsultasikan kondisi bisnis Anda, biar kami yang racikkan strateginya.
+          </p>
+          <button onclick="document.getElementById('contactModal').classList.remove('hidden')" class="bg-dom-yellow text-black px-10 py-5 font-bold text-lg border-2 border-white shadow-[4px_4px_0px_0px_#FFF] hover:shadow-none hover:translate-y-1 transition-all uppercase tracking-widest">
+              Konsultasi Gratis
+          </button>
+      </div>
+  </section>
 
 </Layout>
