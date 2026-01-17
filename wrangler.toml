@@ -1,0 +1,6 @@
+name = "dominan-web"
+compatibility_date = "2024-01-01"
+
+[[kv_namespaces]]
+binding = "RATINGS"
+id = "cce66fcf7c444e428e5f0f7f11bce3cb"
