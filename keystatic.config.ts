@@ -2,17 +2,17 @@
 import { config, fields, collection } from '@keystatic/core';
 
 export default config({
-  storage: { kind: 'local' }, // Ingat peringatan saya sebelumnya soal Cloudflare, ganti ke 'github' nanti
+  storage: { kind: 'local' },
   collections: {
     
     // ==========================================
-    // 1. BUAT KOLEKSI BARU: AUTHORS
+    // 1. KOLEKSI AUTHORS (TETAP SAMA)
     // ==========================================
     authors: collection({
       label: 'Authors',
       slugField: 'name',
       path: 'src/content/authors/*',
-      format: { data: 'json' }, // Kita simpan sebagai JSON saja karena datanya simple
+      format: { data: 'json' },
       schema: {
         name: fields.slug({ name: { label: 'Nama Lengkap' } }),
         role: fields.text({ label: 'Profesi / Role' }),
@@ -32,7 +32,7 @@ export default config({
     }),
 
     // ==========================================
-    // 2. UPDATE KOLEKSI: POSTS
+    // 2. UPDATE KOLEKSI: POSTS (ADA TAMBAHAN KATEGORI)
     // ==========================================
     posts: collection({
       label: 'Blog Posts',
@@ -42,16 +42,35 @@ export default config({
       entryLayout: 'content',
       schema: {
         title: fields.slug({ name: { label: 'Judul Artikel (H1)' } }),
+        parent: fields.relationship({
+            label: 'Postingan Induk (Opsional)',
+            description: 'Pilih postingan lain untuk menjadikan artikel ini sebagai sub-halaman (URL: /blog/induk/anak)',
+            collection: 'posts',
+        }),
         
-        // --- TAMBAHKAN FIELD INI ---
+        // --- [BARU] FIELD KATEGORI (DROPDOWN) ---
+        // PENTING: Gunakan Select agar konsisten dan tidak typo saat input
+        category: fields.select({
+            label: 'Kategori',
+            description: 'Pilih topik untuk struktur Silo SEO',
+            options: [
+                { label: 'Insight & Strategi', value: 'Insight' },
+                { label: 'SEO News', value: 'SEO News' },
+                { label: 'Teknis Website', value: 'Teknis' },
+                { label: 'Tutorial', value: 'Tutorial' },
+                { label: 'Case Study', value: 'Case Study' },
+            ],
+            defaultValue: 'Insight',
+        }),
+        // ----------------------------------------
+
         author: fields.relationship({
           label: 'Penulis',
-          collection: 'authors', // Mengambil data dari koleksi authors di atas
+          collection: 'authors',
         }),
-        // ---------------------------
 
         publishedDate: fields.date({ label: 'Tanggal Publish', defaultValue: { kind: 'today' } }),
-        // ... sisa config lama Anda (coverImage, seo, content, dll)
+        
         coverImage: fields.image({
             label: 'Cover Image',
             directory: 'public/images/posts',
@@ -78,8 +97,10 @@ export default config({
       },
     }),
 
+    // ==========================================
+    // 3. PAGES (TETAP SAMA)
+    // ==========================================
     pages: collection({
-        // ... config pages lama Anda biarkan saja
         label: 'Halaman (Pages)',
         slugField: 'title',
         path: 'src/content/pages/*',

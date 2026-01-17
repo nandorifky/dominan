@@ -30,7 +30,11 @@ const posts = defineCollection({
     
     // --- TAMBAHKAN VALIDASI RELASI ---
     author: reference('authors').optional(), // Merujuk ke koleksi 'authors'
+    parent: reference('posts').optional(),
     // ---------------------------------
+    // Wajib diisi agar tidak error saat build
+    category: z.string().default('Uncategorized'), 
+    // =====================
 
     publishedDate: z.string().or(z.date()).transform((val) => new Date(val)),
     coverImage: z.string().optional(),

@@ -1,6 +1,6 @@
 ---
 export const prerender = false; // WAJIB: Mode Server Side Rendering (SSR)
-
+import slugify from 'slugify';
 import { getEntry } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 
@@ -55,6 +55,7 @@ if (Astro.locals.runtime?.env?.RATINGS) {
 const pageTitle = data.seo?.metaTitle || data.title;
 const shareImage = data.seo?.ogImage || data.coverImage || '/og-default.jpg';
 const breadcrumbName = data.seo?.breadcrumbTitle || data.title;
+const categorySlug = slugify(data.category, { lower: true }); // Slug kategori untuk link
 
 // --- SCHEMA JSON-LD UPDATE (RICH RESULT) ---
 const schemaOrgJSON = {
@@ -65,12 +66,14 @@ const schemaOrgJSON = {
       "itemListElement": [
         { "@type": "ListItem", "position": 1, "name": "Home", "item": Astro.site },
         { "@type": "ListItem", "position": 2, "name": "Blog", "item": new URL("/blog", Astro.site) },
-        { "@type": "ListItem", "position": 3, "name": breadcrumbName, "item": Astro.url.href }
+        { "@type": "ListItem", "position": 3, "name": data.category, "item": new URL(`/blog/${categorySlug}`, Astro.site) },
+        { "@type": "ListItem", "position": 4, "name": breadcrumbName, "item": Astro.url.href }
       ]
     },
     {
-      "@type": "BlogPosting",
+        "@type": "BlogPosting",
       "headline": pageTitle,
+      "articleSection": data.category, // Tambahkan kategori ke schema
       "image": new URL(shareImage, Astro.site),
       "datePublished": data.publishedDate,
       "dateModified": data.updatedDate || data.publishedDate,
@@ -79,7 +82,6 @@ const schemaOrgJSON = {
           "name": authorData.name,
           "url": authorData.social?.website || Astro.site
       } : { "@type": "Organization", "name": "Dominan Web" },
-      // DATA INI SEKARANG REAL-TIME DARI KV
       "aggregateRating": {
         "@type": "AggregateRating",
         "ratingValue": currentRating,
@@ -110,6 +112,13 @@ const schemaOrgJSON = {
                     {breadcrumbName}
                 </span>
             </nav>
+
+            {/* BUTTON KATEGORI (BARU) */}
+            <div class="mb-6">
+                <a href={`/blog/${categorySlug}`} class="inline-block bg-dom-yellow border-2 border-black px-4 py-1 font-bold text-sm uppercase shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
+                    {data.category}
+                </a>
+            </div>
 
             <h1 class="text-3xl md:text-6xl font-bold mb-6 uppercase leading-tight text-dom-black">{data.title}</h1>
            

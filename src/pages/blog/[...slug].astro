@@ -1,0 +1,326 @@
+---
+export const prerender = false; 
+
+import slugify from 'slugify';
+import { getCollection, getEntry } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+// 1. Ambil URL
+const { slug } = Astro.params;
+if (!slug) return Astro.redirect('/404');
+
+// 2. Mapping Post
+const allPosts = await getCollection('posts');
+const postsMap = new Map(allPosts.map(p => [p.slug, p]));
+
+// 3. Cari Target Post
+const urlParts = slug.split('/');
+const possibleSlug = urlParts[urlParts.length - 1]; 
+
+let targetPost = postsMap.get(possibleSlug);
+if (!targetPost) return Astro.redirect('/404');
+
+// 4. Susun Canonical Path & Cari Induknya
+let tempPath = targetPost.slug;
+let current = targetPost;
+let loopGuard = 0;
+let immediateParent = null; // Variable untuk menyimpan data induk langsung
+
+while (current.data.parent && loopGuard < 10) {
+    const parentId = current.data.parent.id || current.data.parent;
+    const parentPost = postsMap.get(parentId);
+    if (parentPost) {
+        // Simpan induk pertama yang ketemu (Immediate Parent)
+        if (!immediateParent) immediateParent = parentPost;
+        
+        tempPath = `${parentPost.slug}/${tempPath}`;
+        current = parentPost;
+    } else {
+        break; 
+    }
+    loopGuard++;
+}
+
+// Redirect jika URL browser beda dengan struktur asli
+if (slug !== tempPath) {
+    return Astro.redirect(`/blog/${tempPath}`, 301);
+}
+
+// -----------------------------------------------------------
+// Render Halaman
+// -----------------------------------------------------------
+const post = targetPost;
+const { Content } = await post.render();
+const data = post.data;
+
+// --- AUTHOR DATA ---
+let authorData = null;
+if (data.author) {
+  const authorEntry = await getEntry(data.author);
+  if (authorEntry) authorData = authorEntry.data;
+}
+
+// --- RATING DATA (KV) ---
+let currentRating = 4.8; 
+let reviewCount = 12;
+const dbKey = post.slug; 
+
+if (Astro.locals.runtime?.env?.RATINGS) {
+    try {
+        const kvData = await Astro.locals.runtime.env.RATINGS.get(dbKey, { type: 'json' });
+        if (kvData && kvData.count > 0) {
+            const avg = (kvData.total / kvData.count).toFixed(1);
+            currentRating = parseFloat(avg);
+            reviewCount = kvData.count;
+        }
+    } catch (e) { console.error("KV Error:", e); }
+}
+
+// --- VARIABLES ---
+const pageTitle = data.seo?.metaTitle || data.title;
+const pageDesc = data.seo?.metaDescription || data.excerpt || "Pelajari strategi digital marketing terbaru di Dominan Web.";
+const shareImage = data.seo?.ogImage || data.coverImage || '/og-default.jpg';
+const breadcrumbName = data.seo?.breadcrumbTitle || data.title;
+const categorySlug = slugify(data.category, { lower: true });
+const isNoIndex = data.seo?.noIndex || false;
+
+// --- PREPARE PARENT INFO (Untuk Tampilan) ---
+// Gunakan Custom Breadcrumb jika ada, kalau tidak pakai Judul asli
+const parentName = immediateParent 
+    ? (immediateParent.data.seo?.breadcrumbTitle || immediateParent.data.title) 
+    : "Series";
+
+// --- SCHEMA JSON-LD ---
+// Logic: Jika punya parent, breadcrumb Schema = Home > Blog > Parent > Anak
+// Jika tidak punya parent, breadcrumb Schema = Home > Blog > Kategori > Anak
+const breadcrumbList = [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": Astro.site },
+    { "@type": "ListItem", "position": 2, "name": "Blog", "item": new URL("/blog", Astro.site) }
+];
+
+if (immediateParent) {
+    // URL Parent (ambil path lengkap parentnya juga, untuk jaga-jaga kalau dia cucu)
+    const parentPath = tempPath.split('/').slice(0, -1).join('/');
+    breadcrumbList.push({
+        "@type": "ListItem",
+        "position": 3,
+        "name": parentName,
+        "item": new URL(`/blog/${parentPath}`, Astro.site)
+    });
+} else {
+    // Kalau gak punya parent, pakai Kategori
+    breadcrumbList.push({
+        "@type": "ListItem",
+        "position": 3,
+        "name": data.category,
+        "item": new URL(`/blog/${categorySlug}`, Astro.site)
+    });
+}
+
+// Tambahkan Anak (Halaman ini)
+breadcrumbList.push({
+    "@type": "ListItem",
+    "position": breadcrumbList.length + 1,
+    "name": breadcrumbName,
+    "item": Astro.url.href
+});
+
+const schemaOrgJSON = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": breadcrumbList
+    },
+    {
+      "@type": "BlogPosting",
+      "headline": pageTitle,
+      "description": pageDesc,
+      "articleSection": data.category,
+      "image": new URL(shareImage, Astro.site),
+      "datePublished": data.publishedDate,
+      "dateModified": data.updatedDate || data.publishedDate,
+      "author": authorData ? {
+          "@type": "Person",
+          "name": authorData.name,
+          "url": authorData.social?.website || Astro.site
+      } : { "@type": "Organization", "name": "Dominan Web" },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": currentRating,
+        "reviewCount": reviewCount,
+        "bestRating": "5",
+        "worstRating": "1"
+      }
+    }
+  ]
+};
+---
+
+<Layout title={pageTitle} description={pageDesc} image={shareImage}>
+  
+  <Fragment slot="head">
+     {isNoIndex && <meta name="robots" content="noindex, nofollow" />}
+     <script type="application/ld+json" set:html={JSON.stringify(schemaOrgJSON)} />
+  </Fragment>
+
+  <article class="bg-white min-h-screen">
+    {/* Header */}
+    <header class="py-16 md:py-24 border-b-3 border-dom-black bg-zinc-50 text-center relative overflow-hidden">
+        <div class="container mx-auto px-6 max-w-4xl relative z-10">
+            
+            {/* NAVIGASI BREADCRUMB */}
+            <nav class="flex justify-center items-center gap-2 text-xs font-bold uppercase tracking-widest text-gray-500 mb-6">
+                <a href="/" class="hover:text-black hover:underline">Home</a>
+                <span>/</span>
+                <a href="/blog" class="hover:text-black hover:underline">Blog</a>
+                <span>/</span>
+                
+                {/* JIKA ADA PARENT, TAMPILKAN JUDUL PARENT (BUKAN "SERIES") */}
+                {data.parent && (
+                     <>
+                        <a href={`/blog/${tempPath.split('/').slice(0, -1).join('/')}`} class="hover:text-black hover:underline hidden md:inline truncate max-w-[150px]">
+                            {parentName}
+                        </a>
+                        <span class="hidden md:inline">/</span>
+                     </>
+                )}
+                
+                <span class="text-gray-400 truncate max-w-[100px] md:max-w-none">{breadcrumbName}</span>
+            </nav>
+
+            <div class="mb-6">
+                <a href={`/blog/${categorySlug}`} class="inline-block bg-dom-yellow border-2 border-black px-4 py-1 font-bold text-sm uppercase shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
+                    {data.category}
+                </a>
+            </div>
+
+            <h1 class="text-3xl md:text-5xl font-bold mb-8 uppercase leading-tight text-dom-black">{data.title}</h1>
+           
+            {/* LINK KE INDUK (JIKA ADA) */}
+            {data.parent && (
+                <div class="mb-8 inline-block border-b-2 border-dom-yellow pb-1">
+                     <span class="text-xs font-bold text-gray-500 uppercase mr-2">Bagian dari:</span>
+                     <a href={`/blog/${tempPath.split('/').slice(0, -1).join('/')}`} class="text-dom-black font-bold hover:text-black">
+                        {parentName} →
+                     </a>
+                </div>
+            )}
+
+            <div class="flex flex-wrap items-center justify-center gap-4 text-sm font-bold">
+               {authorData && (
+                   <span class="flex items-center gap-2 bg-white px-3 py-1 border-2 border-black shadow-neo-sm">
+                       {authorData.avatar && <img src={authorData.avatar} class="w-6 h-6 rounded-full border border-black object-cover" alt={authorData.name} />}
+                       <span>{authorData.name}</span>
+                   </span>
+               )}
+               <span class="bg-white px-3 py-1 border-2 border-black shadow-neo-sm">
+                 {new Date(data.publishedDate).toLocaleDateString('id-ID', { dateStyle: 'long' })}
+               </span>
+            </div>
+        </div>
+    </header>
+
+    {/* Cover Image */}
+    {data.coverImage && (
+        <div class="container mx-auto px-6 max-w-5xl -mt-12 relative z-20">
+            <div class="aspect-video border-3 border-dom-black shadow-neo bg-gray-200">
+                <img src={data.coverImage} alt={data.title} class="w-full h-full object-cover" />
+            </div>
+        </div>
+    )}
+
+    <div class="container mx-auto px-6 py-16 max-w-3xl">
+        <div class="prose md:prose-lg prose-headings:font-bold prose-headings:uppercase prose-a:text-dom-black prose-a:decoration-dom-yellow prose-img:border-2 prose-img:border-black max-w-none">
+            <Content />
+        </div>
+
+        {/* Author Section */}
+        {authorData && (
+            <div class="mt-16 mb-8 border-3 border-dom-black p-6 md:p-8 bg-zinc-50 shadow-neo">
+                <div class="flex flex-col md:flex-row gap-6 items-center md:items-start text-center md:text-left">
+                    <div class="flex-shrink-0">
+                        {authorData.avatar ? (
+                            <img src={authorData.avatar} alt={authorData.name} class="w-24 h-24 md:w-32 md:h-32 object-cover border-2 border-dom-black shadow-neo-sm bg-white" />
+                        ) : (
+                            <div class="w-24 h-24 md:w-32 md:h-32 bg-dom-yellow border-2 border-dom-black flex items-center justify-center text-3xl font-bold shadow-neo-sm">
+                                {authorData.name.charAt(0)}
+                            </div>
+                        )}
+                    </div>
+                    
+                    <div class="flex-grow">
+                        <div class="mb-1 text-xs font-bold uppercase tracking-widest text-gray-500">Tentang Penulis</div>
+                        <h3 class="text-2xl font-bold uppercase mb-1">{authorData.name}</h3>
+                        {authorData.role && <p class="text-sm font-bold text-dom-yellow bg-dom-black inline-block px-2 py-0.5 mb-4">{authorData.role}</p>}
+                        {authorData.bio && <p class="text-gray-700 mb-4 leading-relaxed">{authorData.bio}</p>}
+                    </div>
+                </div>
+            </div>
+        )}
+
+        {/* Rating Section */}
+        <div class="mt-8 pt-8 border-t-2 border-black border-dashed">
+            <div class="bg-white p-8 text-center border-3 border-black shadow-neo relative overflow-hidden group">
+                <h3 class="text-xl font-bold uppercase mb-2">Seberapa bermanfaat artikel ini?</h3>
+                <p class="mb-6 text-gray-500 text-sm">Bantu kami meningkatkan kualitas konten dengan memberi rating.</p>
+                
+                <div class="flex justify-center gap-2 mb-4" id="star-container">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                        <button data-star={star} class="star-btn transition-transform hover:scale-125 focus:outline-none text-gray-300 hover:text-dom-yellow" aria-label={`Beri bintang ${star}`}>
+                            <svg class="w-10 h-10 fill-current" viewBox="0 0 24 24">
+                                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                            </svg>
+                        </button>
+                    ))}
+                </div>
+
+                <div id="rating-feedback" class="hidden animate-in fade-in zoom-in duration-300">
+                    <p class="font-bold text-green-600 mb-2">Terima kasih atas penilaian Anda!</p>
+                </div>
+
+                <p class="text-xs font-bold uppercase tracking-widest text-gray-400 mt-6">
+                    Rating: <span class="text-black">{currentRating}/5</span> • {reviewCount} Votes
+                </p>
+            </div>
+        </div>
+
+    </div>
+  </article>
+
+  <script define:vars={{ dbKey }}>
+    const stars = document.querySelectorAll('.star-btn');
+    const container = document.getElementById('star-container');
+    const feedback = document.getElementById('rating-feedback');
+
+    stars.forEach(star => {
+        star.addEventListener('mouseenter', () => highlightStars(parseInt(star.getAttribute('data-star'))));
+        star.addEventListener('click', async () => {
+            const val = parseInt(star.getAttribute('data-star'));
+            stars.forEach(s => { s.disabled = true; s.classList.add('cursor-default'); });
+            highlightStars(val);
+            if(feedback) feedback.classList.remove('hidden');
+
+            try {
+                await fetch('/api/rate', {
+                    method: 'POST',
+                    body: JSON.stringify({ slug: dbKey, rating: val }),
+                    headers: { 'Content-Type': 'application/json' }
+                });
+            } catch (error) { console.error("Vote error:", error); }
+        });
+    });
+
+    container?.addEventListener('mouseleave', () => {
+        if (!stars[0].disabled) removeHighlight();
+    });
+
+    function highlightStars(count) {
+        stars.forEach(s => s.classList.toggle('text-dom-yellow', parseInt(s.getAttribute('data-star')) <= count));
+        stars.forEach(s => s.classList.toggle('text-gray-300', parseInt(s.getAttribute('data-star')) > count));
+    }
+    function removeHighlight() {
+        stars.forEach(s => { s.classList.remove('text-dom-yellow'); s.classList.add('text-gray-300'); });
+    }
+  </script>
+</Layout>

@@ -1,0 +1,96 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+// 1. Generate Static Paths untuk setiap kategori unik
+export async function getStaticPaths() {
+  const allPosts = await getCollection('posts');
+  
+  // Ambil semua kategori unik
+  const uniqueCategories = [...new Set(allPosts.map((post) => post.data.category))];
+
+  // Buat path untuk setiap kategori
+  return uniqueCategories.map((category) => {
+    // Slugify kategori (misal: "SEO Tips" -> "seo-tips")
+    const slug = category.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
+    
+    // Filter postingan sesuai kategori ini
+    const filteredPosts = allPosts.filter((post) => post.data.category === category);
+
+    return {
+      params: { category: slug },
+      props: { categoryName: category, posts: filteredPosts },
+    };
+  });
+}
+
+const { categoryName, posts } = Astro.props;
+
+// Sortir postingan terbaru
+const sortedPosts = posts.sort((a, b) => 
+  new Date(b.data.publishedDate).valueOf() - new Date(a.data.publishedDate).valueOf()
+);
+
+const pageTitle = `Kategori: ${categoryName} | Dominan Blog`;
+const pageDesc = `Kumpulan artikel terbaru seputar ${categoryName}.`;
+---
+
+<Layout title={pageTitle} description={pageDesc}>
+  <header class="py-16 md:py-20 border-b-3 border-dom-black bg-zinc-50 relative overflow-hidden">
+    <div class="container mx-auto px-6 relative z-10 text-center">
+        <div class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-4">
+            <a href="/blog" class="hover:underline">Blog</a> / Kategori
+        </div>
+        <h1 class="text-4xl md:text-6xl font-bold uppercase leading-tight text-dom-black">
+            {categoryName}
+        </h1>
+    </div>
+  </header>
+
+  <section class="py-16 bg-white min-h-screen">
+    <div class="container mx-auto px-6 max-w-6xl">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {sortedPosts.map((post) => (
+                <article class="flex flex-col h-full border-3 border-dom-black bg-white shadow-neo hover:shadow-neo-hover hover:-translate-y-1 transition-all duration-200 group">
+                    <a href={`/blog/${post.slug}`} class="block overflow-hidden border-b-3 border-dom-black aspect-video bg-gray-200 relative">
+                        {post.data.coverImage ? (
+                            <img 
+                                src={post.data.coverImage} 
+                                alt={post.data.title} 
+                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            />
+                        ) : (
+                            <div class="w-full h-full flex items-center justify-center text-gray-400 font-bold bg-gray-100">
+                                DOMINAN
+                            </div>
+                        )}
+                    </a>
+
+                    <div class="p-6 flex flex-col flex-grow">
+                        <div class="mb-4 flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-gray-500">
+                             {/* Badge Kategori Kecil */}
+                             <span class="bg-dom-yellow text-black px-1 border border-black">{categoryName}</span>
+                             <span>•</span>
+                             <span>{new Date(post.data.publishedDate).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                        </div>
+
+                        <h2 class="text-2xl font-bold mb-3 leading-tight uppercase">
+                            <a href={`/blog/${post.slug}`} class="hover:text-dom-yellow transition-colors block">
+                                {post.data.title}
+                            </a>
+                        </h2>
+
+                        <p class="text-gray-600 text-sm mb-6 line-clamp-3 flex-grow">
+                            {post.data.excerpt || "Baca selengkapnya..."}
+                        </p>
+
+                        <a href={`/blog/${post.slug}`} class="inline-flex items-center gap-2 font-bold uppercase text-sm border-b-2 border-black pb-1 w-max hover:gap-4 transition-all">
+                            BACA ARTIKEL <span class="text-lg">→</span>
+                        </a>
+                    </div>
+                </article>
+            ))}
+        </div>
+    </div>
+  </section>
+</Layout>
